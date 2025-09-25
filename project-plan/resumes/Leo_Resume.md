@@ -11,7 +11,7 @@ GPA: 4.00 / 4.00
 ---  
 ## Relevant Technical Skills
 - **Programming Languages:** Java, Bash, Python
-- **Networking:** WireGuard, OpenVPN, Xray‑core, Bird, RIPE ASN Management
+- **Networking:** WireGuard, OpenVPN, Xray‑core, Bird
 - **Cloud / Containerization:** Linux, Docker, Kubernetes
 ---  
 ## Work Experience
