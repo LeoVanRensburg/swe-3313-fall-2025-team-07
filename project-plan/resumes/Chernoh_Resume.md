@@ -1,6 +1,6 @@
 
 # Chernoh Bah
-**GitHub:** [Chernoh bah](https://github.com/chernohb23)
+**GitHub:** [chernohb23](https://github.com/chernohb23)
 
 ---  
 ## Education
