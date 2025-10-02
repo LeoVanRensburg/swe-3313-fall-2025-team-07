@@ -7,7 +7,7 @@ Our team chose to use Java with the Spring framework because everyone in our tea
 We chose to use SQLite because it seems more appropriate for making a web server than using JSON. We also thought it would be a good skill to learn for future projects. 
 
 ### Operating Environment
-Our apps operating environment will be on a Ubuntu 22.04 VM using Java 25, Spring Boot 3.5.6, and SQLite 3.50.3.0. 
+Our apps operating environment will be on a Ubuntu 22.04 VM using Java 25, Spring Boot 3.5.6, and SQLite 3.50.3.0. We chose a Linux-based environemnt because our team has computers on both Windows and Mac, making Linux VM's the easiest for our team to develop on in a common environment. 
 
 ### Necessary Software
 The system will need Maven installed to build and use our software.
