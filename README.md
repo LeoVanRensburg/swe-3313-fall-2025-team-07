@@ -1,6 +1,6 @@
 # swe-3313-fall-2025-team-07
 
-## Project Plan
+## Introduction
 Welcome to the project repository for our team, The Big 5. Here you will find all our teams documenation, and source code for our SWE 3313 class project. 
 
 We are creating a small e-commerce website using Java, Springboot, and SQLite to sell video game objects. 
