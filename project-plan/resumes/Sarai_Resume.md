@@ -1,5 +1,7 @@
 
 # Sarai Trejo
+**Email**: mtrejo10@students.kennesaw.edu
+
 **GitHub:** [Saraitr](https://github.com/Saraitr)
 
 ---  

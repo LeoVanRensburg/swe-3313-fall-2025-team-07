@@ -1,5 +1,7 @@
 
 # Chernoh Bah
+**Email**: cbah2@students.kennesaw.edu
+
 **GitHub:** [chernohb23](https://github.com/chernohb23)
 
 ---  
