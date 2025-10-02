@@ -1,51 +1,38 @@
 # Tony Williams
-**GitHub:** [LeoVanRensburg](https://github.com/LeoVanRensburg)
+**GitHub:** [tony-w0528](https://github.com/LeoVanRensburg)
 
 ---  
 ## Education
 **Kennesaw State University**, Kennesaw, GA  
 *Bachelor of Science in Computer Science* – May 2027  
-GPA: 4.00 / 4.00
+GPA: 3.50
 
 ---  
 ## Relevant Technical Skills
-- **Programming Languages:** Java, Bash, Python
-- **Networking:** WireGuard, OpenVPN, Xray‑core, Bird, RIPE ASN Management
-- **Cloud / Containerization:** Linux, Docker, Kubernetes
+- **Programming Languages:** Java, C#, Python
+- **Networking:** WireGuard, OpenVPN
+- **Cloud / Containerization:** Linux
 ---  
 ## Work Experience
-### Georgia Tech Research Institute, Atlanta, GA
-**Research Assistant** - May 2025 – Present
-- **Developed a Rust‑based automation** that orchestrated laptops to execute continuous test suites; the system detected Teams‑call drops and automatically re‑established the call, improving ensuring accurate testing results even with drops in internet connectivity.
-- **Designed and deployed a full‑stack 5G testbed** on Ubuntu, integrating **Amarisoft‑eNB** and **Open5GS core** components; scripted automated provisioning, topology configuration, and traffic generation to validate end‑to‑end 5G performance for research payloads.
-- **Implemented CI/CD pipelines** (GitLab) to automatically build, test, and deploy multiple projects, streamlining delivery and ensuring consistent quality across the codebase.
+### Delta Tech Ops, Atlanta, GA
+**Research Assistant** - August 2025 – Present
+- **Developed a program** that constantly monitored the status and functionality of certain parts of tarmac vehicles and updated managers and drivers when issues arose.
+- **Debugging in Java** of software used to manage staffing and hours for employees. Integrating **Open5GS core** components to verify 5G performance for research payloads.
 
 ### Kennesaw State University Research Program, Kennesaw, GA
-*Sep 2023 – Present*  
-**First‑Year Scholars Program** – Sep 2023 – May 2024
-- Led design and development of a novel Federated Learning (FL) testbed using CORE for simulated IoT environments with unstable network conditions.
-- Presented research findings at the university’s Spring Symposium of Scholars.
-- Dedicated ~10 hours/week.
+*Aug 2024 – Present*  
 
-**Summer Undergraduate Research Program** – May 2024 – Jul 2024
-- Expanded the FL testbed to support additional network topologies (e.g., Hierarchical FL) and integrated Grafana for real‑time performance visualization.
-- Improved documentation, cutting onboarding time for new researchers by ~50%.
-- Presented results at the Fall Symposium of Scholars to an audience of 20+ attendees.
-- Dedicated ~40 hours/week.
-
-**Sophomore Scholars Program** – Aug  2024 – May 2025
-- Added 3+ attack vectors to evaluate vulnerabilities in FL algorithms and updated the consensus algorithm, reducing data loss during simulated attacks by 40%.
-- Mentored four freshman students in testbed development.
-- Preparing a technical paper summarizing the testbed’s results (expected completion by spring semester).
-- Dedicated ~10 hours/week.
+- Designed and developed Federated Learning testbed using CORE for simulated programs with unstable networks.
+- Presented findings monthly to project leader.
+- Dedicated ~5 hours/week.
 
 ---  
 ## Projects
-### Low‑Latency WireGuard Mesh Network
-- Developed a WireGuard‑based mesh network that intelligently routes IP traffic for minimal latency across a fleet of VPSs in multiple cities.
-- Designed and implemented an algorithm that selects optimal routing paths based on real‑time latency measurements, improving overall user latency by ~15%.
+### Employee data management site
+- Developed a SQL program to manage the information, schedule, and tasks of airline employees. 
+- Designed and implemented an algorithm that allows employees to choose available shifts and tasks to do while sending automated reports to the airline manager.
 
 ---  
 ## Skills & Interests
-- **Languages:** Afrikaans (proficient), Spanish (limited working proficiency)
-- **Interests:** Mountain biking, hiking, animal welfare, technology (focus on servers)
+- **Languages:** English (proficient), Spanish (proficient)
+- **Interests:** Sports, travel, website development
