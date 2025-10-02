@@ -1,6 +1,8 @@
 
 # Leo Janse van Rensburg
-**GitHub:** [LeoVanRensburg](https://github.com/LeoVanRensburg)
+**Email**: ljanseva@students.kennesaw.edu
+
+**GitHub:** [LeoVanRensburg](https://github.com/LeoVanRensburg)     
 
 ---  
 ## Education
