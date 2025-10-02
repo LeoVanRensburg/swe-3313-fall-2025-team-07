@@ -5,8 +5,8 @@ There will be 3 different roles in our team which goes as follows:
 3. Developer - Responsible for doing work assigned by technical lead in a timely manner.
 
 The roles have been assigned as follows:
-- Leo - Technical & Administrative Lead
-- Juan - Developer
-- Chernoh - Developer
-- Tony - Developer
-- Sarai - Developer
+- [Leo](../resumes/Leo_Resume.md) - Technical & Administrative Lead
+- [Juan](../resumes/Juan_Resume.md) - Developer
+- [Chernoh](../resumes/Chernoh_Resume.md) - Developer
+- [Tony](../resumes/Tony_Resume.md) - Developer
+- [Sarai](../resumes/Sarai_Resume.md) - Developer
