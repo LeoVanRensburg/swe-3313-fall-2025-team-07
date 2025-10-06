@@ -20,5 +20,5 @@ We are creating a small e-commerce website using Java, Springboot, and SQLite to
 - We chose to use Java using the Spring framework and a SQLite database.
 - Click [here](project-plan/technology-selection/README.md) to learn more about our team's technological selections for this project.
   
-## Gantt Chart
+## Project Plan
 - [Here](project-plan/README.md) is our Gantt project plan
