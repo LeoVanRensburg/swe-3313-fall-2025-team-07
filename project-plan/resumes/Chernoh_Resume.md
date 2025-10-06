@@ -1,16 +1,22 @@
 
 # Chernoh Bah  
-**Email** :cbah2@students.kennesaw.edu
+**Email**: cbah2@students.kennesaw.edu   
 **GitHub**: [chernohb23](https://github.com/chernohb23)
+
 ---  
+
 ## Education
 **Kennesaw State University**, Kennesaw, GA  
 _Bachelor of Science in Computer Science_ – May 2027  
 GPA: 3.93 / 4.00
+
 ---  
+
 ## Relevant Technical Skills
 - **Programming Languages:** Java, Python
+
 ---
+
 ## Projects
 ### Console-Based Bitboard Checkers Game (Java)
 - Developed a playable two-player checkers game in Java using bitboards for efficient state representation and move validation.
@@ -24,7 +30,9 @@ GPA: 3.93 / 4.00
 - Designed a guessing game with adjustable difficulty levels (1–10, 1–100, -500–500), each with limited attempts and progressive challenges.
 - Developed real-time hint generation to guide players (“higher” or “lower”) after incorrect guesses.
 - Implemented game state logic to handle wins, losses, and dynamic resets, improving user engagement and replayability.
+
 ---  
+
 ## Skills & Interests
 - **Languages:** Fulani (proficient), Korean (limited)
 - **Interests:** Comics, movies, drawings
