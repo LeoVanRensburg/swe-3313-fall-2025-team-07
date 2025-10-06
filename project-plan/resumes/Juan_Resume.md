@@ -6,7 +6,7 @@
 ---
 ## Education
 **Kennesaw State University**, Kennesaw, GA.   
-_Bachelor of Science in Computer Science_ – May 2027
+_Bachelor of Science in Computer Science_ – May 2027  
 GPA: 3.85 / 4.00
   
 ---
