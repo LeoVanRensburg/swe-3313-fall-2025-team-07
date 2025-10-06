@@ -1,4 +1,4 @@
-**# Team Assignments**
+# Team Assignments
 There will be 3 different roles in our team, which go as follows:
 
 1. Technical Lead - Responsible for making all technical decisions on the project.
