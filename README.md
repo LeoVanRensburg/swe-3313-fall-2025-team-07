@@ -21,4 +21,4 @@ We are creating a small e-commerce website using Java, Springboot, and SQLite to
 - Click [here](project-plan/technology-selection/README.md) to learn more about our team's technological selections for this project.
 
 ## Gantt Chart
-- Here is our Gantt chart
+- [Here](project-plan/README.md) is our Gantt project plan
