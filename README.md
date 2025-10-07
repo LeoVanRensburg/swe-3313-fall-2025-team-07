@@ -22,3 +22,6 @@ We are creating a small e-commerce website using Java, Springboot, and SQLite to
   
 ## Gantt Chart
 - [Here](project-plan/README.md) is our Gantt project plan
+
+## Loom Video
+- [Here](https://www.loom.com/share/dfe56252be7b4029b071bb575946e3a4?sid=7e8f3d44-9917-48c9-8fc9-e8e250792e1b) is a loom video discussing our project plan. 
