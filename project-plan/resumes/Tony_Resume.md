@@ -1,4 +1,5 @@
 # Tony Williams
+**Email** twill746@students.kennesaw.edu  
 **GitHub:** [tony-w0528](https://github.com/LeoVanRensburg)
 
 ---  
@@ -28,4 +29,4 @@ GPA: 3.50
 ---  
 ## Skills & Interests
 - **Languages:** English (proficient), Spanish (proficient)
-- **Interests:** Sports, travel, website development
+- **Interests:** Sports, travel, website development, game design
