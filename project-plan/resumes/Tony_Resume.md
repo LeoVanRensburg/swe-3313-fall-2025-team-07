@@ -19,13 +19,6 @@ GPA: 3.50
 - **Developed a program** that constantly monitored the status and functionality of certain parts of tarmac vehicles and updated managers and drivers when issues arose.
 - **Debugging in Java** of software used to manage staffing and hours for employees. Integrating **Open5GS core** components to verify 5G performance for research payloads.
 
-### Kennesaw State University Research Program, Kennesaw, GA
-*Aug 2024 – Present*  
-
-- Designed and developed Federated Learning testbed using CORE for simulated programs with unstable networks.
-- Presented findings monthly to project leader.
-- Dedicated ~5 hours/week.
-
 ---  
 ## Projects
 ### Employee data management site
