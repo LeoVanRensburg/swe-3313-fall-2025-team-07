@@ -18,7 +18,7 @@ GPA: 3.50
 ### Delta Tech Ops, Atlanta, GA
 **Research Assistant** - August 2025 – Present
 - **Developed a program** that constantly monitored the status and functionality of certain parts of tarmac vehicles and updated managers and drivers when issues arose.
-- **Debugging in Java** of software used to manage staffing and hours for employees. Integrating **Open5GS core** components to verify 5G performance for research payloads.
+- **Debugging in Java** of software used to manage staffing and hours for employees.
 
 ---  
 ## Projects
