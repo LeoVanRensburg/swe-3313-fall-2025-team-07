@@ -29,4 +29,4 @@ GPA: 3.50
 ---  
 ## Skills & Interests
 - **Languages:** English (proficient), Spanish (proficient)
-- **Interests:** Sports, travel, website development
+- **Interests:** Sports, travel, website development, game design
