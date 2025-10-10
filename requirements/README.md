@@ -30,13 +30,13 @@
 *   **Priority:** Must Have
 *   **Estimated Effort:** 0.25 days
 *   **Type:** Functional
-*   **Description:** A logged-in user must have a "Logout" button available. Clicking this button will terminate their session and return them to the main inventory or login page.
+*   **Description:** A logged-in user must have a "Logout" button available. Clicking this button must terminate their session and redirect them to the main inventory page. If the user subsequently attempts to access any page that requires authentication, the system must prompt for login.
 
 **T7S-6: Create the initial admin account**
 *   **Priority:** Must Have
 *   **Estimated Effort:** 0.25 days
 *   **Type:** Functional
-*   **Description:** A mechanism is required to create the first admin user, as admins cannot self-register. This will be handled by a database seed script or a documented manual setup process.
+*   **Description:** The system must provide a secure, one-time mechanism to create the first administrative user. This process must be clearly documented for initial system setup.
 
 ---
 
@@ -46,7 +46,7 @@
 *   **Priority:** Must Have
 *   **Estimated Effort:** 1 day
 *   **Type:** Functional
-*   **Description:** The system must display all available inventory items sorted by price from highest to lowest. Each item must show its name, price (formatted with $ sign, commas for thousands separators, and two decimal points), brief description, and at least one picture. Items that have been sold must not appear in the list.
+*   **Description:** The system must display all available inventory items sorted by price from highest to lowest. Each item listing represents a unique, single-quantity item. Each item must show its name, price (formatted with $ sign, commas for thousands separators, and two decimal points), brief description, and at least one picture. Items that have been sold must not appear in the list.
 
 **T7S-8: Search the inventory**
 *   **Priority:** Must Have
@@ -57,8 +57,8 @@
 **T7S-9: Store currency values correctly**
 *   **Priority:** Must Have
 *   **Estimated Effort:** 0.25 days
-*   **Type:** Non-Functional
-*   **Description:** The system must store all price values in a decimal/currency format that is base-10, not floating-point, to ensure accurate financial calculations.
+*   **Type:** Functional
+*   **Description:** The system must store and calculate all monetary values with perfect precision, ensuring there are no rounding errors in financial calculations like subtotals, taxes, or totals.
 
 **T7S-10: Handle initial empty inventory state**
 *   **Priority:** Must Have
@@ -74,13 +74,13 @@
 *   **Priority:** Must Have
 *   **Estimated Effort:** 0.5 days
 *   **Type:** Functional
-*   **Description:** The system must provide an "Add to Cart" button for each inventory item. When clicked, the item must be added to the user's shopping cart. The system must allow users to add multiple items to their cart.
+*   **Description:** The system must provide an "Add to Cart" button for each inventory item. Since each item is unique, adding it to the cart reserves that specific item for the user. The system must allow users to add multiple distinct items to their cart.
 
 **T7S-12: View and manage the shopping cart**
 *   **Priority:** Must Have
 *   **Estimated Effort:** 1 day
 *   **Type:** Functional
-*   **Description:** The system must provide a way for users to view the contents of their shopping cart, showing each item's name and price. A subtotal of all items in the cart must be displayed. The cart page must include a "Pay Now" button that starts the checkout process and a "Return to Shopping" option to go back without checking out.
+*   **Description:** The system must provide a way for users to view the contents of their shopping cart, showing each item's name and price. A subtotal of all items in the cart must be displayed. The cart page must include a "Checkout" button that starts the checkout process and a "Return to Shopping" option to go back without checking out.
 
 **T7S-13: Remove an item from the cart**
 *   **Priority:** Must Have
@@ -128,6 +128,18 @@
 *   **Type:** Functional
 *   **Description:** The checkout page must provide a button allowing users to return to shopping without completing their purchase, preserving their cart contents.
 
+**T7S-41: Require login to complete checkout**
+*   **Priority:** Must Have
+*   **Estimated Effort:** 0.25 days
+*   **Type:** Functional
+*   **Description:** The system must require the user to be logged in to start checkout and must associate the shopping cart and all completed orders with that user’s account.
+
+**T7S-44: Protect payment data**
+*   **Priority:** Must Have
+*   **Estimated Effort:** 0.5 days
+*   **Type:** Non-Functional
+*   **Description:** The system must not store full credit card numbers or CVV, must mask card inputs on screen, must transmit payment data only over secure connections, and must persist only the last four digits for display on receipts.
+
 ---
 
 ### **T7E-5: Order Processing**
@@ -148,13 +160,19 @@
 *   **Priority:** Must Have
 *   **Estimated Effort:** 1 day
 *   **Type:** Functional
-*   **Description:** When the user clicks "Complete Order," the system will simulate a successful payment transaction. It will then mark all purchased items as sold, removing them from the available inventory view but preserving them for sales reports.
+*   **Description:** When the user clicks "Complete Order," the system will simulate a successful payment transaction. It will then mark all purchased items as sold, removing these unique items permanently from the available inventory view but preserving them for sales reports.
 
 **T7S-23: Generate a purchase receipt**
 *   **Priority:** Must Have
 *   **Estimated Effort:** 0.5 days
 *   **Type:** Functional
 *   **Description:** After processing an order, the system must display a receipt showing all purchased items, the subtotal, tax, shipping cost, grand total, the last four digits of the credit card, and the shipping address.
+
+**T7S-42: Verify item availability at checkout**
+*   **Priority:** Must Have
+*   **Estimated Effort:** 0.5 days
+*   **Type:** Functional
+*   **Description:** When the user views the order confirmation or clicks "Complete Order," the system must verify that each item in the cart is still available. Unavailable items must be removed from the cart with a clear message, and totals must be recalculated before proceeding.
 
 **T7S-25: Exit the receipt screen**
 *   **Priority:** Must Have
@@ -168,6 +186,12 @@
 *   **Type:** Functional
 *   **Description:** When an order is completed, the purchased items must immediately become visible in the admin sales report. The system must ensure real-time synchronization between completed orders and the sales report data.
 
+**T7S-43: Apply currency rounding rules**
+*   **Priority:** Must Have
+*   **Estimated Effort:** 0.25 days
+*   **Type:** Non-Functional
+*   **Description:** The system must compute monetary values using base-10 decimal arithmetic and round tax and totals to the nearest cent using round half up. Example: subtotal $19.99, tax at 6% = $1.1994, rounded to $1.20.
+
 ---
 
 ### **T7E-6: Admin Functions**
@@ -176,7 +200,7 @@
 *   **Priority:** Must Have
 *   **Estimated Effort:** 1.5 days
 *   **Type:** Functional
-*   **Description:** The system must provide an admin interface that displays a report of all sold inventory items, including purchaser information. Each item in the report must be clickable to view the full receipt.
+*   **Description:** The system must provide an admin interface that displays a report of all sold inventory items, including purchaser information (purchaser's full name, shipping address, and email address). Each item in the report must be clickable to view the full receipt.
 
 **T7S-28: Export the sales report**
 *   **Priority:** Must Have
@@ -194,13 +218,13 @@
 *   **Priority:** Must Have
 *   **Estimated Effort:** 1 day
 *   **Type:** Functional
-*   **Description:** As an admin, I want to be able to edit the details (name, description, price, picture) of an existing, unsold inventory item from an admin interface.
+*   **Description:** An admin must be able to edit the details (name, description, price, picture) of an existing, unsold inventory item from an admin interface.
 
 **T7S-31: Delete an inventory item**
 *   **Priority:** Must Have
 *   **Estimated Effort:** 0.5 days
 *   **Type:** Functional
-*   **Description:** As an admin, I want to be able to delete an inventory item that has not yet been sold. The system should prevent deletion of items that are part of a completed sale.
+*   **Description:** An admin must be able to delete an inventory item that has not yet been sold. The system must prevent the deletion of items that are part of a completed sale.
 
 ---
 
@@ -234,7 +258,7 @@
 *   **Priority:** Must Have
 *   **Estimated Effort:** 1 day
 *   **Type:** Non-Functional
-*   **Description:** The system must validate all user inputs, including proper formatting of email addresses, credit card numbers, and other form fields, with clear error messages for invalid entries.
+*   **Description:** The system must validate all user inputs, including proper formatting of credit card numbers, phone numbers, and other form fields. When an email address is collected, it must be validated for proper format. Validation errors must be displayed with clear messages.
 
 **T7S-37: Manage user sessions**
 *   **Priority:** Must Have
@@ -248,7 +272,11 @@
 *   **Type:** Non-Functional
 *   **Description:** The system must store user passwords using secure hashing techniques and must not display passwords in plain text at any point.
 
----
+**T7S-45: Standardize checkout CTA labels**
+*   **Priority:** Must Have
+*   **Estimated Effort:** 0.25 days
+*   **Type:** Non-Functional
+*   **Description:** The system must use "Checkout" as the button label from the cart to initiate checkout, "Confirm Order" as the button label on the checkout page to proceed to the order confirmation page, and "Complete Order" as the button label to finalize the purchase, ensuring consistent wording throughout.
 
 ## Version 2
 
