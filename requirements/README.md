@@ -306,4 +306,4 @@
 *   **Priority:** Needs to Have
 *   **Estimated Effort:** 1.5 days
 *   **Type:** Functional
-*   **Description:** A logged-in user must be able to access a "My Orders" page from their account. This page will list all their past orders. Clicking on a specific order will display the full receipt for that transaction.
+*   **Description:** A logged-in user must be able to access a "My Orders" page from their account. This page will list all their past orders. Clicking on a specific order will display the full receipt for that transaction. 

@@ -27,12 +27,15 @@ We are creating a small e-commerce website using Java, Springboot, and SQLite to
 - [Here](https://www.loom.com/share/dfe56252be7b4029b071bb575946e3a4?sid=7e8f3d44-9917-48c9-8fc9-e8e250792e1b) is a loom video discussing our project plan. 
 
 ## Requirements
-Introduction goes here
+For this project our goal is to create a functional e-commerce site that can sell various items. 
 
-### Requirements Page
+The detailed requirements for the site are elicited [here](requirements/README.md).
 
 ### Use Case Diagram
+- Click [here](./requirements/use-case.md) for a detailed Use Case Diagram for the project.
 
 ### Decision Table Page
+- Click [here](./requirements/decision-table.md) for a detailed Decision Table for all the processes found in the project. 
 
 ### Presentation
+- Click here [here](https://www.loom.com/share/dfe56252be7b4029b071bb575946e3a4?sid=7e8f3d44-9917-48c9-8fc9-e8e250792e1b) for a loom video discussing the requirements for this project. 
