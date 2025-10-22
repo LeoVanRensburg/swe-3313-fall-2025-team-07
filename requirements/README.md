@@ -6,7 +6,7 @@
 *   **Priority:** Must Have
 *   **Estimated Effort:** 1 day
 *   **Type:** Functional
-*   **Description:** A new user must be able to register for an account by providing a unique username and a password with at least 6 characters. The system must verify the username is not already in use and store the user's credentials securely.
+*   **Description:** A new user must be able to register for an account by providing their full name, a valid email address, a unique username, and a password with at least 6 characters. The system must verify the username and email are not already in use, validate the email format, and store the user's credentials securely.
 
 **T7S-2: Log in as a user**
 *   **Priority:** Must Have
@@ -25,12 +25,6 @@
 *   **Estimated Effort:** 0.25 days
 *   **Type:** Functional
 *   **Description:** An admin user must be able to log in with the same process as regular users. After login, the system must provide access to admin-specific features.
-
-**T7S-5: Log out**
-*   **Priority:** Must Have
-*   **Estimated Effort:** 0.25 days
-*   **Type:** Functional
-*   **Description:** A logged-in user must have a "Logout" button available. Clicking this button must terminate their session and redirect them to the main inventory page. If the user subsequently attempts to access any page that requires authentication, the system must prompt for login.
 
 **T7S-6: Create the initial admin account**
 *   **Priority:** Must Have
@@ -93,12 +87,6 @@
 *   **Estimated Effort:** 0.25 days
 *   **Type:** Functional
 *   **Description:** The system must display a Checkout button that is disabled when the cart is empty and enabled when the cart contains items.
-
-**T7S-15: Access the cart from anywhere**
-*   **Priority:** Must Have
-*   **Estimated Effort:** 0.5 days
-*   **Type:** Functional
-*   **Description:** A persistent shopping cart icon showing the number of items in the cart must be visible in the application header. Clicking this icon takes the user to the shopping cart view page.
 
 **T7S-16: Persist cart contents**
 *   **Priority:** Must Have
@@ -214,18 +202,6 @@
 *   **Type:** Functional
 *   **Description:** The system must provide an interface for admins to add new inventory items, including name, price, description, and at least one image.
 
-**T7S-30: Edit an inventory item**
-*   **Priority:** Must Have
-*   **Estimated Effort:** 1 day
-*   **Type:** Functional
-*   **Description:** An admin must be able to edit the details (name, description, price, picture) of an existing, unsold inventory item from an admin interface.
-
-**T7S-31: Delete an inventory item**
-*   **Priority:** Must Have
-*   **Estimated Effort:** 0.5 days
-*   **Type:** Functional
-*   **Description:** An admin must be able to delete an inventory item that has not yet been sold. The system must prevent the deletion of items that are part of a completed sale.
-
 ---
 
 ### **T7E-7: User Experience & Design**
@@ -236,23 +212,11 @@
 *   **Type:** Non-Functional
 *   **Description:** Before coding begins, the team must create high-fidelity mockups of all application screens and user flows to demonstrate the final appearance and functionality of the application.
 
-**T7S-33: Implement responsive design**
-*   **Priority:** Must Have
-*   **Estimated Effort:** 2 days
-*   **Type:** Non-Functional
-*   **Description:** The application interface must be responsive and work across different device sizes, including desktop, tablet, and mobile.
-
 **T7S-34: Ensure intuitive navigation**
 *   **Priority:** Must Have
 *   **Estimated Effort:** 1 day
 *   **Type:** Non-Functional
 *   **Description:** The application must provide intuitive navigation with clear paths forward, backward, and to cancel actions. All interactive elements must be clearly labeled and respond appropriately to user interaction.
-
-**T7S-35: Implement clear error handling**
-*   **Priority:** Must Have
-*   **Estimated Effort:** 1 day
-*   **Type:** Non-Functional
-*   **Description:** The system must provide clear, user-friendly error messages for all error conditions, including invalid input, system errors, and transaction failures.
 
 **T7S-36: Validate user input**
 *   **Priority:** Must Have
@@ -260,25 +224,21 @@
 *   **Type:** Non-Functional
 *   **Description:** The system must validate all user inputs, including proper formatting of credit card numbers, phone numbers, and other form fields. When an email address is collected, it must be validated for proper format. Validation errors must be displayed with clear messages.
 
-**T7S-37: Manage user sessions**
-*   **Priority:** Must Have
-*   **Estimated Effort:** 0.75 days
-*   **Type:** Non-Functional
-*   **Description:** The system must maintain user sessions to keep users logged in as they navigate between pages, with appropriate timeout handling and security measures.
-
-**T7S-38: Securely store passwords**
-*   **Priority:** Must Have
-*   **Estimated Effort:** 0.5 days
-*   **Type:** Non-Functional
-*   **Description:** The system must store user passwords using secure hashing techniques and must not display passwords in plain text at any point.
-
 **T7S-45: Standardize checkout CTA labels**
 *   **Priority:** Must Have
 *   **Estimated Effort:** 0.25 days
 *   **Type:** Non-Functional
-*   **Description:** The system must use "Checkout" as the button label from the cart to initiate checkout, "Confirm Order" as the button label on the checkout page to proceed to the order confirmation page, and "Complete Order" as the button label to finalize the purchase, ensuring consistent wording throughout.
+*   **Description:** The system must use "Pay Now" as the button label from the cart to initiate the payment process, "Confirm Order" as the button label on the checkout/payment page to proceed to the order confirmation page, and "Complete Order" as the button label to finalize the purchase, ensuring consistent wording throughout.
 
 ## Version 2
+
+### **T7E-1: User Authentication**
+
+**T7S-5: Log out**
+*   **Priority:** Wants to Have
+*   **Estimated Effort:** 0.25 days
+*   **Type:** Functional
+*   **Description:** A logged-in user must have a "Logout" button available. Clicking this button must terminate their session and redirect them to the main inventory page. If the user subsequently attempts to access any page that requires authentication, the system must prompt for login.
 
 ### **T7E-2: Inventory Management**
 
@@ -300,10 +260,26 @@
 
 ---
 
+### **T7E-6: Admin Functions**
+
+**T7S-30: Edit an inventory item**
+*   **Priority:** Wants to Have
+*   **Estimated Effort:** 1 day
+*   **Type:** Functional
+*   **Description:** An admin must be able to edit the details (name, description, price, picture) of an existing, unsold inventory item from an admin interface.
+
+**T7S-31: Delete an inventory item**
+*   **Priority:** Wants to Have
+*   **Estimated Effort:** 0.5 days
+*   **Type:** Functional
+*   **Description:** An admin must be able to delete an inventory item that has not yet been sold. The system must prevent the deletion of items that are part of a completed sale.
+
+---
+
 ### **T7E-8: User Account Management**
 
 **T7S-39: View order history**
-*   **Priority:** Needs to Have
+*   **Priority:** Wants to Have
 *   **Estimated Effort:** 1.5 days
 *   **Type:** Functional
 *   **Description:** A logged-in user must be able to access a "My Orders" page from their account. This page will list all their past orders. Clicking on a specific order will display the full receipt for that transaction. 
