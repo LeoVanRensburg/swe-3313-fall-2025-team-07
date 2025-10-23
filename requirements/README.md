@@ -284,4 +284,4 @@
 *   **Type:** Functional
 *   **Description:** A logged-in user must be able to access a "My Orders" page from their account. This page will list all their past orders. Clicking on a specific order will display the full receipt for that transaction. 
 
-Gemini 2.5 Pro was used to help edit and verify the requirements to ensure accuracy. 
+_Gemini 2.5 Pro was used to help edit and verify the requirements to ensure accuracy and consistency._
