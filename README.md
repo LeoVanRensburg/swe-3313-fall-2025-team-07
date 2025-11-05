@@ -39,3 +39,11 @@ The detailed requirements for the site are elicited [here](requirements/README.m
 
 ### Presentation
 - Click here [here](https://www.loom.com/share/5665eda55f0a416eb84ee78255f64b71?sid=8634bbff-8924-4a01-bb75-a63f4c7e89c1) for a loom video discussing the requirements for this project. 
+
+## User Interface Design
+
+### Marvel Design Link
+- Here is a link to our [High Fidelity User Interface Design]() using Marvel.
+
+### Loom Video
+- [Here](https://www.loom.com/share/dfe56252be7b4029b071bb575946e3a4?sid=7e8f3d44-9917-48c9-8fc9-e8e250792e1b) is a loom video discussing our user interface design. 
