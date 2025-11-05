@@ -43,7 +43,7 @@ The detailed requirements for the site are elicited [here](requirements/README.m
 ## User Interface Design
 
 ### Marvel Design Link
-- Here is a link to our [High Fidelity User Interface Design]() using Marvel.
+- Here is a link to our [High Fidelity User Interface Design](https://marvelapp.com/prototype/g588h1i) using Marvel.
 
 ### Loom Video
 - [Here](https://www.loom.com/share/dfe56252be7b4029b071bb575946e3a4?sid=7e8f3d44-9917-48c9-8fc9-e8e250792e1b) is a loom video discussing our user interface design. 
