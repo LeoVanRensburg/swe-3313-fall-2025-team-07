@@ -30,7 +30,7 @@ To write and access our database we will:
 
 We will ensure that the database is stored in a physical `.db` file on the disk, so any changes to the database persist. 
 
-[Here](./DatabaseExample.java) is some example code for how we plan on modifying and accessing our database. 
+[Here](./DatabaseExample.java) is some example code for how we plan on modifying and accessing our database. The code shows how to perform each step listed above. 
 
 Below are some article that show examples for how to access a SQLite database in Java using the SQLite-JDBC driver:
 1. [Article 1](https://www.sqlitetutorial.net/sqlite-java/sqlite-jdbc-driver/)
