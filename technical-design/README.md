@@ -15,7 +15,79 @@
 
 ## A. Implementation Language(s)
 
+### Language: Java
+
+### Why Java?
+- **Reliability:** It’s a stable, widely adopted language ideal for building scalable, high-traffic
+web apps such as e-commerce platforms.
+- **Strong typing:** Helps prevent runtime errors and supports secure data handling, which
+is crucial for user authentication and payment processes.
+- **Large ecosystem:** Integrates easily with Spring Boot, Maven, and SQLite libraries to
+simply web app development
+- **Cross-platform:** Runs on any system supporting the JVM
+- **Productivity:** IDEs like intelliJ and tools like Maven improve build automation and
+dependency management
+
+
+### Use in Project
+- Backend logic (controllers, services, models)
+- Integration with Spring Boot for RESTful APIs and SQLite database access
+
+### Documentation and Tutorials
+- [Official Java Documentation](https://docs.oracle.com/en/java/)
+- [W3Schools Java Tutorial](https://www.w3schools.com/java/)
+- [GeeksforGeeks Java Tutorial](https://www.geeksforgeeks.org/java/java/#)
+
 ## B. Implementation Framework(s)
+
+### Frontend Framework: Spring Boot
+
+### Why Spring Boot?
+- **Simple setup:** It autoconfigures common components/dependencies through Maven,
+  allowing faster deployment
+- **RESTful API support:** Makes it easy to create and consume REST APIs
+- **Dependency Injection:**  Improves modularity and reduces coupling across
+  services/controllers
+- **Security:** Spring Security supports encrypted passwords and role-based authorization
+- **Data management:** Works easily with Spring Data JPA for interacting with SQLite,
+  reducing repetitive SQL code
+
+### Use in Project
+- Backend logic (controllers, services, models)
+- REST API endpoints for handling registration, login, inventory retrieval, and order
+processing
+- Spring Data JPA for connection to SQLite database for the storage of users, items, and
+orders
+- Spring Security for password hashing and admin-only privileges
+
+### Documentation and Tutorials
+- [Official Spring Boot Documentation](https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/)
+- [Spring Initializer (Setup)](https://start.spring.io/)
+- [Baeldung Spring Boot Tutorial](https://www.baeldung.com/spring-boot)
+
+
+---
+### Frontend Framework: Bootstrap
+
+### Why Bootstrap?
+- **Responsive design:** Automatically adjusts layouts across different devices, ensuring
+  consistency
+- **Pre-built UI components:** Includes ready-to-use components such as buttons and
+  forms for faster development
+- **Fast prototyping:**  Enables fast frontend development without manually writing
+  extensive CSS or JS for every element
+- **Simple integration:** Easily works with backend frameworks like Spring Boot
+- **Customization:**  Integrates with custom CSS and supports theming through variables
+
+### Use in Project
+- Grid layouts and responsive design for all frontend pages
+- Consistent color palette and button styles across the app
+- Form and alert components for user interactions
+
+### Documentation and Tutorials
+- [Official Bootstrap 5 Documentation](https://getbootstrap.com/docs/5.3/getting-started/introduction/)
+- [Bootstrap Grid System Overview](https://getbootstrap.com/docs/5.3/layout/grid/)
+- [Traversy Media Bootstrap Tutorial (YouTube)](https://www.youtube.com/watch?v=5GcQtLDGXy8)
 
 ## C. Data Storage Plan
 We chose to use a SQLite database to have our application store our data. To access the SQLite database, we will be using the SQLite-JDBC driver for Java. 
@@ -47,5 +119,71 @@ Below are some article that show examples for how to access a SQLite database in
 ## H. Authentication and Authorization Plan
 
 ## I. Coding Style Guide
+
+### Language: Java
+
+### Naming Conventions
+
+| Type          | Convention                  | Example                              |
+|---------------|-----------------------------|--------------------------------------|
+| **Classes**   | PascalCase                  | `InventoryController`, `UserService` |
+| **Methods**   | camelCase                   | `getItemById()`, `calculateTotal()`  |
+| **Variables** | camelCase                   | `userName`, `orderList`              |
+| **Constants** | UPPER_CASE with underscores | `TAX_RATE`, `MAX_LOGIN_ATTEMPTS`     |
+| **Packages**  | all lowercase               | `com.ecommerce.controllers`          |
+
+### Commenting
+
+- Use Javadoc (/** … */) for all public classes and methods, describing purpose, parameters, and return values.
+```java
+/**
+ * Calculates total cost including sales tax.
+ *
+ * @param subtotal the price before tax
+ * @return the final total including tax
+ */
+public double calculateTotal(double subtotal) {
+    return subtotal * 1.06;
+}
+```
+- Incline comments (// …) for complex logic or clarifying intent.
+
+```java
+// Prevent checkout if the cart is empty
+if (cart.isEmpty()) {
+    throw new IllegalStateException("Cart cannot be empty");
+}
+```
+
+- Avoid redundant comments; the code should mostly explain itself.
+
+### Formatting
+- Indention: 4 spaces (no tabs).
+- Line length: Max 100 characters.
+- One blank line between methods.
+- Use consistent brace style (K&R):
+
+```java
+if (condition) {
+   // code
+} else {
+   // code
+}
+```
+### Source Control
+- Version control: GitHub
+- Branching model: GitFlow
+  - `main`: stable production code
+  - `develop`: integration of latest features
+  - `feature/<feature-name>`: new work
+  - `bugfix/<issue>`: small corrections
+- Commit messages should be descriptive and concise
+  - `feat`: add user authentication logic
+  - `fix`: resolve null pointer in checkout controller
+
+### References
+- [Cornell Java Style Guide](https://www.cs.cornell.edu/courses/JavaAndDS/JavaStyle.html)
+- [Google Java Style Guide](https://google.github.io/styleguide/javaguide.html)
+
 
 ## Technical Design Presentation
