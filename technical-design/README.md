@@ -118,6 +118,35 @@ Below are some article that show examples for how to access a SQLite database in
 
 ## H. Authentication and Authorization Plan
 
+1. **Overview**  
+   This e-commerce website uses Spring Boot, Spring Security and SQLite to handle both authentication and authorization. Authentication will verify the identity of the user attempting to access the system, while authorization determines the permissions the user has.  
+   All users share a single login form. After a successful authentication, the system determines whether the user is a regular user or an administrator. The system will then grant the administrator the special administrator privelages. 
+
+2. **Authentication**  
+   The system uses Spring Security’s form-based login with a custom UserDetailsService to load user credentials and roles from the SQLite database.  
+
+   **Process Flow:**  
+   - The user submits their email and password through the shared login form.  
+   - Spring Security verifies the user’s identity (email and password) who is attempting to access the system through the configured AuthenticationProvider.  
+   - The custom UserDetailsService loads the user’s details including email, password, and role(s) from the SQLite database. This role information determines whether the user is a regular user or an administrator.  
+   - The retrieved user details are returned to the AuthenticationProvider, which compares the provided information with the stored data.  
+   - Upon successful validation Spring Security redirects the user to the dashboard corresponding to their role.  
+
+3. **Authorization**  
+   Once authenticated, the system checks the Granted Authorities associated with the currently authenticated user to authorize the user actions.  
+   - **Users** can access and modify their own data including:  
+     - Search the product inventory  
+     - View and managing their shopping cart  
+     - Adding or removing items from the shopping cart  
+     - Checkout  
+     - View their order history  
+   - **Administrators** have all the permissions of a regular user, plus additional administrative privileges, such as:  
+     - Viewing sales reports  
+     - Exporting Sales Data  
+     - Adding new inventory items  
+     - Editing existing inventory  
+     - Deleting inventory items
+
 ## I. Coding Style Guide
 
 ### Language: Java
