@@ -112,9 +112,70 @@ Below are some article that show examples for how to access a SQLite database in
 
 ## E. Entity/Field Descriptions
 
+### Users
+| Property | Type                       | Default      | Nullable | Relationship | Notes                                |
+|----------|----------------------------|--------------|----------|--------------|--------------------------------------|
+| UserID   | int, identity, primary key | Identity(1,1)| No       |              | Unique identification for each user. |
+| Email    | nvarchar(100)              |              | No       |              | User login email, unique.            |
+| Password | nvarchar(200)              |              | No       |              | Hashed password.                     |
+| IsAdmin  | bit                        | 0            | No       |              | 1 = Administrator 0 = User           |
+
+### Inventory
+| Property      | Type                       | Default      | Nullable | Relationship | Notes                                      |
+|---------------|----------------------------|--------------|----------|--------------|--------------------------------------------|
+| ItemID        | int, identity, primary key | Identity(1,1)| No       |              | Unique identification for each item.       |
+| ItemName      | nvarchar(100)              |              | No       |              | Item name.                                 |
+| ItemDescription| nvarchar(500)             |              | Yes      |              | Description of the item.                   |
+| ItemPrice     | decimal(10,2)              |              | No       |              | Price of the item.                         |
+| IsSold        | bit                        | 0            | No       |              | 0 = Not sold 1 = Sold                      |
+| ItemPicture   | nvarchar(200)              |              | Yes      |              | Item image.                                |
+
+### Sales
+| Property  | Type                       | Default      | Nullable | Relationship                       | Notes                                             |
+|-----------|----------------------------|--------------|----------|------------------------------------|---------------------------------------------------|
+| SalesID   | int, identity, primary key | Identity(1,1)| No       |                                    | Unique identification for each sale/order.        |
+| ItemID    | int, foreign key           |              | No       | Inventory.ItemID                   | Item in the sale.                                 |
+| ShippingID| int, foreign key           |              | No       | ShippingInformation.ShippingID     | Shipping for the sale.                            |
+| UserID    | int, foreign key           |              | No       | User.UserID                        | User who made the sale.                           |
+| Address   | nvarchar(200)              |              | No       |                                    | Shipping Address.                                 |
+| TaxRate   | Decimal(5,2)               |              | No       |                                    | Tax rate for the specific item.                   |
+| Total     | decimal(10,2)              |              | No       |                                    | Total price of sale, including tax rate.          |
+
+### Shipping Information
+| Property      | Type                       | Default      | Nullable | Relationship | Notes                                        |
+|---------------|----------------------------|--------------|----------|--------------|----------------------------------------------|
+| ShippingID    | int, identity, primary key | Identity(1,1)| No       |              | Unique identification for each shipping created. |
+| ShippingType  | nvarchar(50)               |              | No       |              | Overnight, 3-Day or Ground.                  |
+| Speed         | int                        |              | No       |              | Days of shipping.                            |
+| ShippingPrice | decimal(10,2)              |              | No       |              | Cost of the shipping.                        |
+
+
 ## F. Data Examples
 
 ## G. Database Seed Data
+
+### Users
+| UserID | Email              | Password         | IsAdmin |
+|--------|--------------------|------------------|--------|
+| 1      | admin@example.com  | AdminPassword123 | 1      |
+| 2      | user@example.com   | UserPassword123  | 0      |
+
+### Inventory
+| ItemID | ItemName                         | Item Description                                                                                                                                                                                                                                                                                                                                 | ItemPrice | IsSold | ItemPicture        |
+|--------|----------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|--------|--------------------|
+| 1      | Master Sword - The Legend of Zelda | A legendary, sacred blade said to be “the sword that seals the darkness.” Only a true hero can wield it. The Master Sword is infused with divine power and is known for its ability to repel and even destroy evil, especially forces like Ganon.                                                                                                | 1,000.00 | 0      | //Picture Location |
+| 2      | Pikachu - Pokemon                | An Electric-type Pokémon known as the mascot of the series. Small yellow mouse with lightning-bolt tail and electric cheeks that can shock opponents.                                                                                                                                                                                            | 100.00   | 0      | //Picture Location |
+| 3      | Bulbasaur - Pokemon              | A Grass/Poison-type starter Pokémon with a plant bulb on its back. It soaks up sunlight and uses the energy stored in that bulb to grow.                                                                                                                                                                                                         | 90.00    | 0      | //Picture Location |
+| 4      | Pokeball - Pokemon               | The basic capture device used by Trainers. You throw it at a wild Pokémon to catch it and store it so you can use that Pokémon later.                                                                                                                                                                                                            | 50.00    | 0      | //Picture Location |
+| 5      | Raygun - Call of Duty            | A legendary, experimental wonder weapon said to “bend the laws of physics.” Only the bold can control it. The Ray Gun channels unstable cosmic energy, disintegrating the undead and tearing through anything foolish enough to stand in its path.                                                                                               | 125.00   | 0      | //Picture Location |
+| 6      | Blue Spiny Shell - Super Mario   | A dreaded, heat-seeking menace said to “punish the one in first.” The Blue Spiny Shell locks onto the leader, soaring past everyone else before exploding in a storm of spikes and chaos, turning the race upside down in an instant.                                                                                                             | 95.00    | 0      | //Picture Location |
+
+### Shipping Information
+| ShippingID | ShippingType | Speed | ShippingPrice |
+|------------|--------------|-------|---------------|
+| 1          | Overnight    | 1     | 29.00         |
+| 2          | 3-Day        | 3     | 19.00         |
+| 3          | Ground       | 14    | 0.00          |
 
 ## H. Authentication and Authorization Plan
 
