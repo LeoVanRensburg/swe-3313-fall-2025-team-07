@@ -110,6 +110,40 @@ Below are some article that show examples for how to access a SQLite database in
 
 ## D. Entity Relationship Diagram
 
+```mermaid
+erDiagram
+    USER ||--o{ INVENTORY: has
+    INVENTORY }o --|| SHIPPING_INFORMATION : contains
+    SALES }|--|| SHIPPING_INFORMATION : includes
+    USER {
+        UserId int PK
+        Email nvarchar(100)
+        Password nvarchar(200)
+        IsAdmin bit
+    }
+    INVENTORY {
+        ItemId int PK
+        ItemName nvarchar(100)
+        Description nvarchar(500)
+        Price float
+        IsSold bit
+    }
+    SALES {
+        SaleId int PK
+        ItemId int FK
+        UserId int FK
+        ShippingId int FK
+        Address nvarchar(200)
+        TaxRate float
+        Total float
+    }
+    SHIPPING_INFORMATION {
+        ShippingId int PK
+        ShippingType nvarchar(50)
+        ShippingPrice float
+    }
+```
+
 ## E. Entity/Field Descriptions
 
 ### Users
@@ -152,6 +186,8 @@ Below are some article that show examples for how to access a SQLite database in
 
 ## F. Data Examples
 
+![alt text](/technical-design/database-example-data.png)
+
 ## G. Database Seed Data
 
 ### Users
@@ -163,12 +199,12 @@ Below are some article that show examples for how to access a SQLite database in
 ### Inventory
 | ItemID | ItemName                         | Item Description                                                                                                                                                                                                                                                                                                                                 | ItemPrice | IsSold | ItemPicture        |
 |--------|----------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------|--------|--------------------|
-| 1      | Master Sword - The Legend of Zelda | A legendary, sacred blade said to be “the sword that seals the darkness.” Only a true hero can wield it. The Master Sword is infused with divine power and is known for its ability to repel and even destroy evil, especially forces like Ganon.                                                                                                | 1,000.00 | 0      | //Picture Location |
-| 2      | Pikachu - Pokemon                | An Electric-type Pokémon known as the mascot of the series. Small yellow mouse with lightning-bolt tail and electric cheeks that can shock opponents.                                                                                                                                                                                            | 100.00   | 0      | //Picture Location |
-| 3      | Bulbasaur - Pokemon              | A Grass/Poison-type starter Pokémon with a plant bulb on its back. It soaks up sunlight and uses the energy stored in that bulb to grow.                                                                                                                                                                                                         | 90.00    | 0      | //Picture Location |
-| 4      | Pokeball - Pokemon               | The basic capture device used by Trainers. You throw it at a wild Pokémon to catch it and store it so you can use that Pokémon later.                                                                                                                                                                                                            | 50.00    | 0      | //Picture Location |
-| 5      | Raygun - Call of Duty            | A legendary, experimental wonder weapon said to “bend the laws of physics.” Only the bold can control it. The Ray Gun channels unstable cosmic energy, disintegrating the undead and tearing through anything foolish enough to stand in its path.                                                                                               | 125.00   | 0      | //Picture Location |
-| 6      | Blue Spiny Shell - Super Mario   | A dreaded, heat-seeking menace said to “punish the one in first.” The Blue Spiny Shell locks onto the leader, soaring past everyone else before exploding in a storm of spikes and chaos, turning the race upside down in an instant.                                                                                                             | 95.00    | 0      | //Picture Location |
+| 1      | Master Sword - The Legend of Zelda | A legendary, sacred blade said to be “the sword that seals the darkness.” Only a true hero can wield it. The Master Sword is infused with divine power and is known for its ability to repel and even destroy evil, especially forces like Ganon.                                                                                                | 1,000.00 | 0      | ~/pictures/master_sword.png |
+| 2      | Pikachu - Pokemon                | An Electric-type Pokémon known as the mascot of the series. Small yellow mouse with lightning-bolt tail and electric cheeks that can shock opponents.                                                                                                                                                                                            | 100.00   | 0      | ~/pictures/pikachu.png |
+| 3      | Bulbasaur - Pokemon              | A Grass/Poison-type starter Pokémon with a plant bulb on its back. It soaks up sunlight and uses the energy stored in that bulb to grow.                                                                                                                                                                                                         | 90.00    | 0      | ~/pictures/bulbasaur.png |
+| 4      | Pokeball - Pokemon               | The basic capture device used by Trainers. You throw it at a wild Pokémon to catch it and store it so you can use that Pokémon later.                                                                                                                                                                                                            | 50.00    | 0      | ~/pictures/pokeball.png |
+| 5      | Raygun - Call of Duty            | A legendary, experimental wonder weapon said to “bend the laws of physics.” Only the bold can control it. The Ray Gun channels unstable cosmic energy, disintegrating the undead and tearing through anything foolish enough to stand in its path.                                                                                               | 125.00   | 0      | ~/pictures/raygun.png |
+| 6      | Blue Spiny Shell - Super Mario   | A dreaded, heat-seeking menace said to “punish the one in first.” The Blue Spiny Shell locks onto the leader, soaring past everyone else before exploding in a storm of spikes and chaos, turning the race upside down in an instant.                                                                                                             | 95.00    | 0      | ~/pictures/blue_shiny_spell.png |
 
 ### Shipping Information
 | ShippingID | ShippingType | Speed | ShippingPrice |
