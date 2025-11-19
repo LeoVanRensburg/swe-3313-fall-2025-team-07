@@ -50,7 +50,7 @@ The detailed requirements for the site are elicited [here](requirements/README.m
 
 ## Technical Design
 
-[Here](~/technical-design/README.md) is the technical design portion of our project. In this portion of our project we go over the technical design the implementation stage of our project will be following. 
+[Here](technical-design/README.md) is the technical design portion of our project. In this portion of our project we go over the technical design the implementation stage of our project will be following. 
 
 ### Loom Video
 - [Here]() is a loom video discussing the technical design stage of the project.
