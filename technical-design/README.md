@@ -313,3 +313,4 @@ if (condition) {
 
 
 ## Technical Design Presentation
+- [Here](https://www.loom.com/share/bb4b044e1abb4146bc6ba3bc8c3de148) is a link to a video that discusses the technical design section of this project in-depth.
