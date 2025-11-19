@@ -46,4 +46,11 @@ The detailed requirements for the site are elicited [here](requirements/README.m
 - Here is a link to our [High Fidelity User Interface Design](https://marvelapp.com/prototype/g588h1i) using Marvel.
 
 ### Loom Video
-- [Here](https://www.loom.com/share/d6aa338c846346b59d2143befed64800) is a loom video discussing our user interface design. 
+- [Here](https://www.loom.com/share/d6aa338c846346b59d2143befed64800) is a loom video discussing our user interface design.
+
+## Technical Design
+
+[Here](~/technical-design/README.md) is the technical design portion of our project. In this portion of our project we go over the technical design the implementation stage of our project will be following. 
+
+### Loom Video
+- [Here]() is a loom video discussing the technical design stage of the project.
