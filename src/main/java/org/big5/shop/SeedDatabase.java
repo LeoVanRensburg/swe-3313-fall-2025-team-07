@@ -35,246 +35,124 @@ public class SeedDatabase {
     private static final Map<String, ItemData> SEED_DATA = new HashMap<>();
 
     static {
-        // Pokemon Collection
-        SEED_DATA.put("charmander.png", new ItemData(
-            "Charmander Plush",
-            24.99,
-            "Adorable Charmander plush toy from the Pokemon series. Soft and cuddly, perfect for any Pokemon fan!",
-            "Pokemon"
-        ));
-        SEED_DATA.put("pika.png", new ItemData(
-            "Pikachu Figure",
-            19.99,
-            "Classic Pikachu collectible figure. High-quality design featuring everyone's favorite electric Pokemon!",
-            "Pokemon"
-        ));
-        SEED_DATA.put("pika2.png", new ItemData(
-            "Detective Pikachu",
-            29.99,
-            "Special edition Detective Pikachu figure with hat. Limited collector's item from the movie!",
-            "Pokemon"
-        ));
+        // Pokémon Collection
         SEED_DATA.put("pika3.png", new ItemData(
-            "Pikachu Keychain",
-            9.99,
-            "Cute Pikachu keychain accessory. Perfect for your keys, backpack, or collection!",
-            "Pokemon"
+            "Pikachu",
+            400.00,
+            "One of the most beloved Pokémon, known for his electric abilities and loyal personality. A symbol of friendship and adventure, Pikachu continues to capture hearts around the world.",
+            "Pokémon"
         ));
-        SEED_DATA.put("pokeball.png", new ItemData(
-            "Pokeball Replica",
-            34.99,
-            "Official size Pokeball replica. Opens up and features authentic details from the games!",
-            "Pokemon"
+        SEED_DATA.put("puff.png", new ItemData(
+            "Jigglypuff",
+            150.00,
+            "A charming and playful Pokémon, famous for her soothing lullabies and adorable round form. With a voice that can calm friend and foe alike, Jigglypuff brings both cuteness and quiet wherever it goes.",
+            "Pokémon"
         ));
-        SEED_DATA.put("pokeball1.png", new ItemData(
-            "Great Ball Replica",
-            39.99,
-            "Great Ball replica with premium finish. Catch 'em all with this beautiful collectible!",
-            "Pokemon"
-        ));
-        SEED_DATA.put("red.png", new ItemData(
-            "Pokemon Trainer Red Figure",
-            49.99,
-            "Legendary trainer Red action figure. Highly detailed with multiple poses available!",
-            "Pokemon"
+        SEED_DATA.put("charmander.png", new ItemData(
+            "Charmander",
+            800.00,
+            "Charmander is a small Fire-type Pokémon known for the flame on its tail, which reflects its health and mood. Light on its feet and eager to grow stronger, it’s a dependable partner for trainers starting their journey.",
+            "Pokémon"
         ));
 
-        // Zelda Collection
-        SEED_DATA.put("link.png", new ItemData(
-            "Link Action Figure",
-            44.99,
-            "Hero of Hyrule Link action figure. Comes with sword and shield accessories!",
-            "Zelda"
-        ));
-        SEED_DATA.put("zelda.png", new ItemData(
-            "Princess Zelda Statue",
-            79.99,
-            "Beautiful Princess Zelda collectible statue. Hand-painted with exquisite detail!",
-            "Zelda"
+        // The Legend of Zelda Collection
+        SEED_DATA.put("shield.png", new ItemData(
+            "Hylian Shield",
+            1500.00,
+            "A legendary emblem of courage, built to withstand even the fiercest attacks. Trusted by heroes across generations, its sturdy design and iconic crest make it a timeless protector in any adventure.",
+            "The Legend of Zelda"
         ));
         SEED_DATA.put("mastersword.png", new ItemData(
-            "Master Sword Replica",
-            149.99,
-            "Full-size Master Sword replica. The legendary blade that seals the darkness!",
-            "Zelda"
-        ));
-        SEED_DATA.put("shield.png", new ItemData(
-            "Hylian Shield Replica",
-            129.99,
-            "Authentic Hylian Shield replica. Display-quality with intricate Triforce design!",
-            "Zelda"
+            "Master Sword",
+            1700.00,
+            "A legendary, sacred blade said to be \"the sword that seals the darkness.\" Only a true hero can wield it. The Master Sword is infused with divine power and is known for its ability to repel and even destroy evil, especially forces like Ganon.",
+            "The Legend of Zelda"
         ));
         SEED_DATA.put("fairybow.png", new ItemData(
-            "Fairy Bow Replica",
-            89.99,
-            "Fairy Bow from Ocarina of Time. Perfect for cosplay or display!",
-            "Zelda"
-        ));
-        SEED_DATA.put("sword.png", new ItemData(
-            "Wooden Practice Sword",
-            29.99,
-            "Training sword like young Link used. Safe foam construction for play!",
-            "Zelda"
-        ));
-        SEED_DATA.put("turtle.png", new ItemData(
-            "Korok Seed Plush",
-            14.99,
-            "Yahaha! You found me! Adorable Korok plush from Breath of the Wild!",
-            "Zelda"
+            "Fairy Bow",
+            400.00,
+            "The Fairy Bow is a graceful yet powerful weapon, infused with sacred magic. Its enchanted arrows strike with precision, making it a trusted tool for heroes facing mystical foes and hidden dangers.",
+            "The Legend of Zelda"
         ));
 
-        // Mario Collection
-        SEED_DATA.put("mario.png", new ItemData(
-            "Mario Classic Figure",
-            24.99,
-            "Classic Super Mario action figure. It's-a me, Mario!",
-            "Mario"
-        ));
-        SEED_DATA.put("mario1.png", new ItemData(
-            "Fire Mario Figure",
-            29.99,
-            "Mario in his Fire Flower power-up form. Throw fireballs at your enemies!",
-            "Mario"
-        ));
-        SEED_DATA.put("mario2.png", new ItemData(
-            "Tanooki Mario Plush",
-            34.99,
-            "Super Mario in his adorable Tanooki suit. Soft and huggable!",
-            "Mario"
+        // Super Mario Collection
+        SEED_DATA.put("red.png", new ItemData(
+            "Super Mushroom",
+            400.00,
+            "The Super Mushroom is an iconic power-up that boosts the user to new heights. It grants extra strength and resilience, turning small heroes into mighty adventurers.",
+            "Super Mario"
         ));
         SEED_DATA.put("star.png", new ItemData(
-            "Super Star Power-Up",
-            19.99,
-            "Glowing Super Star collectible. Grants invincibility and plays the iconic music!",
-            "Mario"
+            "Super Star",
+            3000.00,
+            "The Super Star is a dazzling power-up that grants brief invincibility and unstoppable speed. Shining with vibrant energy, it lets users charge through enemies and obstacles with effortless brilliance.",
+            "Super Mario"
         ));
         SEED_DATA.put("flower.webp", new ItemData(
-            "Fire Flower Lamp",
-            39.99,
-            "Fire Flower decorative lamp. Lights up your room with power-up magic!",
-            "Mario"
-        ));
-        SEED_DATA.put("hammer.png", new ItemData(
-            "Mario Hammer Toy",
-            27.99,
-            "Mario's signature hammer. Soft foam construction for safe play!",
-            "Mario"
+            "Fire Flower",
+            800.00,
+            "The Fire Flower grants the user the ability to throw controlled fireballs, adding reliable ranged offense to their toolkit. Practical and effective, it’s one of Mario’s most dependable power-ups.",
+            "Super Mario"
         ));
 
         // Kirby Collection
-        SEED_DATA.put("kirby.png", new ItemData(
-            "Kirby Plush",
-            22.99,
-            "Super soft Kirby plush toy. The pink puffball of Dream Land!",
-            "Kirby"
-        ));
-        SEED_DATA.put("kirby2.png", new ItemData(
-            "Sword Kirby Figure",
-            26.99,
-            "Kirby with sword ability. Ready to slash through any adventure!",
-            "Kirby"
-        ));
-        SEED_DATA.put("puff.png", new ItemData(
-            "Waddle Dee Plush",
-            18.99,
-            "Cute Waddle Dee plush. Kirby's loyal friend from Dream Land!",
+        SEED_DATA.put("sword.png", new ItemData(
+            "Sword",
+            500.00,
+            "Kirby’s Sword ability grants him classic hero flair, giving him swift, clean strikes and powerful spin attacks. With this trusty blade, Kirby becomes a tiny but fearless warrior ready to take on any challenge.",
             "Kirby"
         ));
         SEED_DATA.put("starrod.png", new ItemData(
-            "Star Rod Replica",
-            44.99,
-            "Kirby's Star Rod weapon replica. Shoots stars and grants wishes!",
+            "Star Rod",
+            1800.00,
+            "The Star Rod is a legendary, dream-fueled wand capable of unleashing powerful bursts of light. As the source of Dream Land’s magic, it shines with cosmic energy and grants Kirby incredible strength when wielded.",
+            "Kirby"
+        ));
+        SEED_DATA.put("hammer.png", new ItemData(
+            "Hammer",
+            900.00,
+            "The Hammer is a heavy, hard-hitting weapon that delivers massive power with every swing. Known for smashing obstacles and enemies alike, it’s one of Kirby’s most formidable and iconic abilities.",
             "Kirby"
         ));
 
         // Kingdom Hearts Collection
         SEED_DATA.put("kingdomkey.png", new ItemData(
-            "Kingdom Key Keyblade",
-            89.99,
-            "Sora's iconic Kingdom Key Keyblade replica. Opens the door to your heart!",
+            "Kingdom Key",
+            600.00,
+            "The Kingdom Key is a classic, balanced Keyblade that embodies light and destiny. Reliable and iconic, it serves as the starting weapon for many heroes, unlocking both new paths and hidden potential.",
             "Kingdom Hearts"
         ));
         SEED_DATA.put("oblivion.png", new ItemData(
-            "Oblivion Keyblade",
-            94.99,
-            "Dark and powerful Oblivion Keyblade. Forged from memories of darkness!",
+            "Oblivion",
+            2200.00,
+            "Oblivion is a dark and formidable Keyblade, steeped in shadow and power. Known for its sleek design and high strength, it symbolizes sacrifice and resolve, granting its wielder unmatched ferocity in battle.",
             "Kingdom Hearts"
         ));
         SEED_DATA.put("divinerose.png", new ItemData(
-            "Divine Rose Keyblade",
-            99.99,
-            "Elegant Divine Rose Keyblade. Beautiful and powerful weapon of light!",
-            "Kingdom Hearts"
-        ));
-        SEED_DATA.put("sora2.png", new ItemData(
-            "Sora Action Figure",
-            54.99,
-            "Kingdom Hearts Sora action figure. Includes multiple Keyblades!",
-            "Kingdom Hearts"
-        ));
-        SEED_DATA.put("kh.png", new ItemData(
-            "Kingdom Hearts Crown Necklace",
-            29.99,
-            "Silver crown necklace from Kingdom Hearts. Symbol of friendship!",
-            "Kingdom Hearts"
-        ));
-        SEED_DATA.put("crest.png", new ItemData(
-            "Organization XIII Coat",
-            149.99,
-            "Black Organization XIII coat. Premium quality cosplay outfit!",
-            "Kingdom Hearts"
-        ));
-        SEED_DATA.put("crest2.png", new ItemData(
-            "Nobody Symbol Pin",
-            12.99,
-            "Organization XIII Nobody symbol pin. Show your allegiance!",
+            "Divine Rose",
+            1900.00,
+            "Divine Rose is an elegant yet fiercely powerful Keyblade, inspired by enchanted beauty and inner strength. Its intricate design hides exceptional attack power, making it a favorite choice for heroes seeking both grace and might.",
             "Kingdom Hearts"
         ));
 
         // Minecraft Collection
-        SEED_DATA.put("minecraft.png", new ItemData(
-            "Minecraft Logo Poster",
-            14.99,
-            "Official Minecraft logo poster. Perfect for decorating your room!",
-            "Minecraft"
-        ));
-        SEED_DATA.put("steve.png", new ItemData(
-            "Steve Action Figure",
-            19.99,
-            "Minecraft Steve action figure with articulated joints. Build your world!",
-            "Minecraft"
-        ));
-        SEED_DATA.put("steveandalex.png", new ItemData(
-            "Steve & Alex Figure Set",
-            34.99,
-            "Steve and Alex figure duo pack. Team up for adventures!",
-            "Minecraft"
-        ));
         SEED_DATA.put("diamondsword.png", new ItemData(
-            "Diamond Sword Foam Toy",
-            24.99,
-            "Minecraft diamond sword foam replica. The most valuable weapon!",
+            "Diamond Sword",
+            700.00,
+            "The Diamond Sword is a durable, high-powered weapon crafted from rare diamonds. Known for its sharpness and reliability, it stands as one of Minecraft’s most trusted tools for surviving tough battles and dangerous mobs.",
             "Minecraft"
         ));
         SEED_DATA.put("goldenapple.webp", new ItemData(
-            "Golden Apple Plush",
-            16.99,
-            "Enchanted golden apple plush. Restores health and grants protection!",
+            "Golden Apple",
+            900.00,
+            "The Golden Apple is a rare and magical treat, prized for its powerful healing and protective effects. Shining with enchantment, it’s a lifesaving item for adventurers facing tough battles and perilous challenges.",
             "Minecraft"
         ));
         SEED_DATA.put("dragonegg.webp", new ItemData(
-            "Dragon Egg Replica",
-            39.99,
-            "End Dragon Egg replica with LED lights. The rarest block in Minecraft!",
+            "Dragon Egg",
+            1500.00,
+            "The Dragon Egg is a rare and mysterious trophy, left behind after defeating the Ender Dragon. Pulsing with ancient energy, it stands as a symbol of triumph and the ultimate achievement in any Minecraft world.",
             "Minecraft"
-        ));
-
-        // Halo Collection
-        SEED_DATA.put("halo.png", new ItemData(
-            "Master Chief Helmet Replica",
-            199.99,
-            "Full-scale Master Chief helmet replica. Finish the fight in style!",
-            "Halo"
         ));
     }
 
