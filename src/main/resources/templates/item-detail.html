@@ -14,8 +14,8 @@
 <body>
 <nav class="navbar" style="background-color: #0060FF;">
     <div class="container-fluid align-items-center">
-        <!-- th:href ensures links work regardless of where this page is served -->
-        <a th:href="@{/home}" class="navbar-brand text-white fs-1 me-4 fw-bold">Big5</a>
+        <!-- Link to static home page (no controller needed yet) -->
+        <a th:href="@{/}" class="navbar-brand text-white fs-1 me-4 fw-bold">Big5</a>
         <a th:href="@{/items}" class="btn btn-light rounded-pill px-4 me-2 fw-bold">All Items</a>
         <a th:href="@{/categories}" class="btn btn-light rounded-pill px-4 me-2 fw-bold">Categories</a>
         <form class="d-flex flex-grow-1 mx-3" role="search">
