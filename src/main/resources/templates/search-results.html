@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: head('Search Results')"></head>
+<body class="d-flex flex-column min-vh-100">
+
+<nav th:replace="fragments/layout :: header"></nav>
+
+<main class="container py-4">
+    <h2 class="mb-4">
+        <span th:if="${query} != null and ${query} != ''" th:text="|Results for '${query}'|">Results</span>
+        <span th:if="${query} == null or ${query} == ''">All Items</span>
+    </h2>
+
+    <div class="container-fluid py-2">
+        <div class="row" style="column-gap: 40px">
+            <div class="col-12 fs-5" th:if="${items} == null or ${items.isEmpty()}">
+                No items found.
+                <div class="mt-3 text-center">
+                    <img src="/pictures/box.png" alt="Sad box" class="img-fluid" style="max-width: 325px;">
+                </div>
+            </div>
+
+            <div class="col-md-3" th:each="item : ${items}">
+                <div class="p-1 rounded bg-light shadow-sm" style="height: 150px; position: relative; margin-bottom: 50px;">
+                    <a th:href="@{'/product/' + ${item.id}}" class="text-decoration-none">
+                        <div class="row">
+                            <div class="col-md-5 text-end">
+                                <img th:src="@{'/pictures/' + ${item.image}}" class="img-fluid" style="max-width: 120px;" th:alt="${item.name}">
+                            </div>
+                            <div class="col-md-7">
+                                <h4 class="fw-bold" style="color: #8190A5;">
+                                    <span th:text="${item.name}">NAME</span><br>
+                                    <span th:text="'$' + ${item.price}">$0</span>
+                                </h4>
+                            </div>
+                        </div>
+                    </a>
+
+                    <form th:action="@{/cart/add}" method="post">
+                        <input type="hidden" name="itemId" th:value="${item.id}" />
+                        <button class="btn fw-bold text-white rounded-circle fs-5" style="background-color: #0060FF; position: absolute; bottom: 10px; right: 10px; width: 44px; height: 44px; line-height: 1;">+</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="fragments/layout :: footer"></footer>
+<th:block th:replace="fragments/layout :: scripts"></th:block>
+
+</body>
+</html>
