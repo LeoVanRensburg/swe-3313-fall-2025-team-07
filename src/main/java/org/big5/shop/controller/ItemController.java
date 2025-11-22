@@ -5,9 +5,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Controller
@@ -24,19 +28,24 @@ public class ItemController {
         Database.Item item = itemOptional.get();
 
         // Get suggestions - items from the same category or random items
-        List<Database.Item> allItems = Database.getAvailableItems();
+        List<Database.Item> allItems = new ArrayList<>(Database.getAvailableItems());
+        allItems.removeIf(i -> i.id != null && i.id.equals(id));
+        Collections.shuffle(allItems);
+
         List<Database.Item> suggestions = allItems.stream()
-            .filter(i -> !i.id.equals(id)) // Exclude current item
-            .filter(i -> i.category != null && i.category.equals(item.category)) // Same category
-            .limit(3)
-            .collect(Collectors.toList());
+                .filter(i -> Objects.equals(i.category, item.category))
+                .limit(3)
+                .collect(Collectors.toList());
 
         // If we don't have enough suggestions from the same category, add more random items
         if (suggestions.size() < 3) {
-            suggestions = allItems.stream()
-                .filter(i -> !i.id.equals(id))
-                .limit(3)
-                .collect(Collectors.toList());
+            int remaining = 3 - suggestions.size();
+            List<Long> chosenIds = suggestions.stream().map(i -> i.id).collect(Collectors.toList());
+            List<Database.Item> fillers = allItems.stream()
+                    .filter(i -> !chosenIds.contains(i.id))
+                    .limit(remaining)
+                    .collect(Collectors.toList());
+            suggestions.addAll(fillers);
         }
 
         // Create a DTO for Thymeleaf
@@ -48,6 +57,24 @@ public class ItemController {
             .collect(Collectors.toList()));
 
         return "item-detail";
+    }
+
+    @GetMapping("/search")
+    public String searchItems(@RequestParam(name = "q", required = false) String q, Model model) {
+        List<Database.Item> results;
+        if (q == null || q.isBlank()) {
+            return "redirect:/";
+        } else {
+            results = Database.searchItems(q);
+        }
+
+        List<ItemDTO> items = results.stream()
+            .map(ItemDTO::new)
+            .collect(Collectors.toList());
+
+        model.addAttribute("items", items);
+        model.addAttribute("query", q);
+        return "search-results";
     }
 
     // DTO to expose fields to Thymeleaf
