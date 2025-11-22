@@ -18,8 +18,8 @@
         <a th:href="@{/items}" class="btn btn-light rounded-pill px-4 me-2 fw-bold">All Items</a>
         <!-- Static categories page until controllers are made to make it dynamic  -->
         <a th:href="@{/categories.html}" class="btn btn-light rounded-pill px-4 me-2 fw-bold">Categories</a>
-        <form class="d-flex flex-grow-1 mx-3" role="search">
-            <input type="text" class="form-control rounded-pill" placeholder="Search for items">
+        <form class="d-flex flex-grow-1 mx-3" role="search" th:action="@{/search}" method="get">
+            <input type="text" class="form-control rounded-pill" name="q" placeholder="Search for items">
         </form>
         <button class="btn btn-light rounded-pill me-2">
             <i class="bi bi-cart fs-4 px-2"></i>
