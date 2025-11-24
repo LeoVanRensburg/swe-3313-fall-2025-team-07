@@ -68,7 +68,6 @@ public class CartController {
         return "redirect:/cart";
     }
 
-
     public static class CartItemDTO{
         private Long id;
         private Long itemId;

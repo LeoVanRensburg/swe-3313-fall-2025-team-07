@@ -5,7 +5,6 @@ import org.big5.shop.model.Database;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -15,7 +14,7 @@ import java.util.stream.Collectors;
 @Controller
 public class OrderController {
 
-    private long sessionUserId(HttpSession session){
+    private Long sessionUserId(HttpSession session){
         return (Long) session.getAttribute("userId");
     }
 
@@ -45,34 +44,34 @@ public class OrderController {
                              Model model,
                              @RequestParam String shippingMethod,
                              @RequestParam String firstName,
-                             @RequestParam String lastname,
+                             @RequestParam String lastName,
                              @RequestParam String streetAddress,
-                             @RequestParam String aptSuite,
+                             @RequestParam(required = false) String aptSuite,
                              @RequestParam String city,
                              @RequestParam String state,
-                             @RequestParam String zipcode,
+                             @RequestParam String zipCode,
                              @RequestParam String phoneNumber,
                              @RequestParam String cardNumber){
-        if (session == null || session.getAttribute("userId") == null) {
+        if (session.getAttribute("userId") == null) {
             return "redirect:/login";
         } try {
             Database.Order order = Database.createOrder(sessionUserId(session),
                     shippingMethod,
                     firstName,
-                    lastname,
+                    lastName,
                     streetAddress,
                     aptSuite,
                     city,
                     state,
-                    zipcode,
+                    zipCode,
                     phoneNumber,
                     cardNumber);
 
             model.addAttribute("order", order);
             return "order-confirmation";
         }catch (IllegalArgumentException e){
-            model.addAttribute("message", e.getMessage());
-            return "error";
+            model.addAttribute("error", e.getMessage());
+            return "checkout";
         }
     }
 }
