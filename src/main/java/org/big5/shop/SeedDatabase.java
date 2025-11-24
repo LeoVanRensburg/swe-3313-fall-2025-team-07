@@ -11,7 +11,7 @@ import java.util.*;
 /**
  * Cross-platform database seeding utility for Big5 Shop
  * Works on Mac, Ubuntu, and Windows
- *
+
  * Run with: java org.big5.shop.SeedDatabase
  * Or: mvn exec:java -Dexec.mainClass="org.big5.shop.SeedDatabase"
  */
