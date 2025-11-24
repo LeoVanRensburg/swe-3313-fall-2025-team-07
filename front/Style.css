@@ -1,0 +1,11 @@
+﻿body {
+    background-color: turquoise;
+}
+.container {
+    border-radius: 40px;
+}
+.col {
+    font-family: sans-serif;
+    font-size: xx-large;
+    font-weight: bold;
+}
