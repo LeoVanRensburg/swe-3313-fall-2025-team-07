@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/layout :: head('Categories')"></head>
+<style>
+    .low-low { font-size: 1.51rem; line-height: 1; }
+</style>
+<body>
+
+<div th:replace="fragments/layout :: header"></div>
+
+<main>
+
+<div class="container-fluid py-5" style="background-color: #41b6ff;">
+    <div class="row">
+        <div class="col">
+            <h1 class="display-6 fw-bold text-white text-center">SHOP BY CATEGORY</h1>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid py-5">
+    <div class="row justify-content-center" style="column-gap: 40px">
+        <div class="col-md-3">
+            <a th:href="@{/category/Pokémon}" class="text-decoration-none">
+                <div class="p-1 rounded bg-light shadow-sm" style="height: 150px;">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <h3 class="fw-bold" style="color: #8190A5;">POKÉMON<br>COLLECTION</h3>
+                        </div>
+                        <div class="col-md-5 text-end">
+                            <img th:src="@{/pictures/pokeball1.png}" class="img-fluid" style="max-width: 135px;" alt="Pokéball">
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a th:href="@{/category/The Legend of Zelda}" class="text-decoration-none">
+                <div class="p-1 rounded bg-light shadow-sm" style="height: 150px;">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <h3 class="fw-bold" style="color: #8190A5;">ZELDA<br>COLLECTION</h3>
+                        </div>
+                        <div class="col-md-5 text-end py-3">
+                            <img th:src="@{/pictures/crest2.png}" class="img-fluid" style="max-width: 120px;" alt="Zelda crest">
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a th:href="@{/category/Kirby}" class="text-decoration-none">
+                <div class="p-1 rounded bg-light shadow-sm" style="height: 150px;">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h3 class="fw-bold" style="color: #8190A5;">KIRBY<br>COLLECTION</h3>
+                        </div>
+                        <div class="col-md-6 text-end">
+                            <img th:src="@{/pictures/kirby.png}" class="img-fluid" style="max-width: 135px;" alt="Kirby">
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid py-2 pb-5">
+    <div class="row justify-content-center" style="column-gap: 40px">
+        <div class="col-md-3">
+            <a th:href="@{/category/Kingdom Hearts}" class="text-decoration-none">
+                <div class="p-1 rounded bg-light shadow-sm" style="height: 150px;">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <h3 class="fw-bold" style="color: #8190A5;"><span class="low-low">KINGDOM&nbsp;HEARTS</span><br>COLLECTION</h3>
+                        </div>
+                        <div class="col-md-5 text-end">
+                            <img th:src="@{/pictures/kh.png}" class="img-fluid" style="max-width: 110px;" alt="Kingdom Hearts keyblade">
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a th:href="@{/category/Minecraft}" class="text-decoration-none">
+                <div class="p-1 rounded bg-light shadow-sm" style="height: 150px;">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <h3 class="fw-bold" style="color: #8190A5;">MINECRAFT COLLECTION</h3>
+                        </div>
+                        <div class="col-md-5 text-end">
+                            <img th:src="@{/pictures/minecraft.png}" class="img-fluid" style="max-width: 130px;" alt="Minecraft block">
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-3">
+            <a th:href="@{/category/Super Mario}" class="text-decoration-none">
+                <div class="p-1 rounded bg-light shadow-sm" style="height: 150px;">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h3 class="fw-bold" style="color: #8190A5;">SUPER&nbsp;MARIO<br>COLLECTION</h3>
+                        </div>
+                        <div class="col-md-6 text-end">
+                            <img th:src="@{/pictures/mario1.png}" class="img-fluid" style="max-width: 125px;" alt="Mario">
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments/layout :: footer"></div>
+<div th:replace="fragments/layout :: scripts"></div>
+
+</main>
+
+</body>
+</html>

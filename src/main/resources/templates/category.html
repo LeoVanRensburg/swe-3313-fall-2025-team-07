@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: head(${categoryName})"></head>
+<body>
+
+<div th:replace="fragments/layout :: header"></div>
+
+<style>
+  body { overflow-x: hidden;}
+</style>
+
+<main>
+  <div class="container-fluid" style="background-color: #f9f908; height: 300px;" th:if="${#strings.equalsIgnoreCase(categoryName, 'Pokémon')}">
+    <div class="row align-items-center">
+      <div class="col-md-8" style="margin-top: -30px;">
+        <h1 class="display-3 fw-bold text-white text-center">POKÉMON COLLECTION</h1>
+      </div>
+      <div class="col-md-4" style="margin-top: -10px;">
+        <img th:src="@{/pictures/pika2.png}"  style="max-width: 250px;" alt="Pokémon">
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid" style="background-color: #417B4C; height: 300px;" th:if="${#strings.equalsIgnoreCase(categoryName, 'The Legend of Zelda')}">
+    <div class="row align-items-center">
+      <div class="col-md-8">
+        <h1 class="display-3 fw-bold text-white text-center">ZELDA COLLECTION</h1>
+      </div>
+      <div class="col-md-4 py-2">
+        <img th:src="@{/pictures/link.png}" style="max-width: 235px;" alt="Zelda">
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid" style="background-color: #ff16c1; height: 300px;" th:if="${#strings.equalsIgnoreCase(categoryName, 'Kirby')}">
+    <div class="row align-items-center">
+      <div class="col-md-8">
+        <h1 class="display-3 fw-bold text-white text-center">KIRBY COLLECTION</h1>
+      </div>
+      <div class="col-md-4">
+        <img th:src="@{/pictures/kirby2.png}" style="max-width: 220px;" alt="Kirby">
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid" style="background-color: #152B5D; height: 300px;" th:if="${#strings.equalsIgnoreCase(categoryName, 'Kingdom Hearts')}">
+    <div class="row align-items-center">
+      <div class="col-md-8">
+        <h1 class="display-4 fw-bold text-white text-center">KINGDOM HEARTS COLLECTION</h1>
+      </div>
+      <div class="col-md-4 py-2">
+        <img th:src="@{/pictures/sora2.png}" style="max-width: 135px;" alt="Kingdom Hearts">
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid" style="background-color: #1ccf08; height: 300px;" th:if="${#strings.equalsIgnoreCase(categoryName, 'Minecraft')}">
+    <div class="row align-items-center">
+      <div class="col-md-8" style="margin-top: -30px;">
+        <h1 class="display-3 fw-bold text-white text-center">MINECRAFT COLLECTION</h1>
+      </div>
+      <div class="col-md-4 py-3">
+        <img th:src="@{/pictures/steveandalex.png}" style="max-width: 330px;" alt="Minecraft">
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid" style="background-color: #f90808; height: 300px;" th:if="${#strings.equalsIgnoreCase(categoryName, 'Super Mario')}">
+    <div class="row align-items-center">
+      <div class="col-md-8">
+        <h1 class="display-3 fw-bold text-white text-center">SUPER MARIO COLLECTION</h1>
+      </div>
+      <div class="col-md-4" style="margin-top: -10px;">
+        <img th:src="@{/pictures/mario2.png}" style="max-width: 230px;" alt="Mario">
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid py-5">
+    <div class="row justify-content-center" style="column-gap: 40px; row-gap: 40px;" th:if="${not #lists.isEmpty(items)}">
+      <div class="col-md-3 mb-4" th:each="it : ${items}">
+        <div class="p-1 rounded bg-light shadow-sm" style="height: 150px; position: relative;">
+          <a th:href="@{'/product/' + ${it.id}}" class="text-decoration-none">
+            <div class="row">
+              <div class="col-md-5 text-end">
+                <img th:src="@{'/pictures/' + ${it.image}}" class="img-fluid" style="max-width: 120px;" th:alt="${it.name}">
+              </div>
+              <div class="col-md-7">
+                <h4 class="fw-bold"style="color: #8190A5;">
+                  <span th:text="${#strings.toUpperCase(it.name)}">NAME</span><br>
+                  <span th:text="'$' + ${it.price}">$0</span>
+                </h4>
+              </div>
+            </div>
+          </a>
+          <form th:action="@{/cart/add}" method="post">
+            <input type="hidden" name="itemId" th:value="${it.id}" />
+              <button class="btn fw-bold text-white rounded-circle fs-5" style="background-color: #0060FF; position: absolute; bottom: 10px; right: 10px; width: 44px; height: 44px; line-height: 1;">+</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="row" th:if="${#lists.isEmpty(items)}">
+      <div class="col-12 text-center text-secondary">No items found.</div>
+    </div>
+  </div>
+</main>
+
+<div th:replace="fragments/layout :: footer"></div>
+<div th:replace="fragments/layout :: scripts"></div>
+
+</body>
+</html>
