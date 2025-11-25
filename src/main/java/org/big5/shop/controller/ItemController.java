@@ -8,11 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
-import java.util.Optional;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -82,6 +78,32 @@ public class ItemController {
         model.addAttribute("items", items);
         model.addAttribute("query", q);
         return "search-results";
+    }
+
+    @GetMapping({"/categories"})
+    public String categories(Model model, HttpSession session) {
+        if (session == null || session.getAttribute("userId") == null) {
+            return "redirect:/login";
+        }
+        return "categories";
+    }
+
+    @GetMapping("/category/{name}")
+    public String category(@PathVariable("name") String name, Model model, HttpSession session) {
+        if (session == null || session.getAttribute("userId") == null) {
+            return "redirect:/login";
+        }
+
+        List<Database.Item> items = Database.getAvailableItems().stream()
+                .filter(i -> i.category != null && i.category.equalsIgnoreCase(name))
+                .sorted(Comparator.comparing((Database.Item i) -> i.price).reversed())
+                .collect(Collectors.toList());
+
+        List<ItemDTO> itemDTOs = items.stream().map(ItemDTO::new).collect(Collectors.toList());
+
+        model.addAttribute("categoryName", name);
+        model.addAttribute("items", itemDTOs);
+        return "category";
     }
 
     // DTO to expose fields to Thymeleaf
