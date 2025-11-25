@@ -17,7 +17,10 @@ public class UserController {
     // LOGIN
     // ==================================================================================
     @GetMapping("/login")
-    public String loginForm(){
+    public String loginForm(HttpSession session){
+        if(session != null && session.getAttribute("userId") != null){
+            return "redirect:/";
+        }
         return "login";
     }
 
@@ -48,7 +51,10 @@ public class UserController {
     // SIGNUP
     // ==================================================================================
     @GetMapping("/signup")
-    public String signupForm(){
+    public String signupForm(HttpSession session){
+        if(session != null && session.getAttribute("userId") != null){
+            return "redirect:/";
+        }
         return "signup";
     }
 
@@ -81,6 +87,6 @@ public class UserController {
     @PostMapping("/logout")
     public String logout(HttpSession session){
         session.invalidate();
-        return "redirect:/";
+        return "redirect:/login";
     }
 }
