@@ -20,7 +20,7 @@ public class OrderController {
 
     @GetMapping("/checkout")
     public String showCheckout(Model model, HttpSession session) {
-        if(session.getAttribute("userId") == null){
+        if (session == null || session.getAttribute("userId") == null) {
             return "redirect:/login";
         }
         List<Database.CartItem> cartItems = Database.getCartItems(sessionUserId(session));

@@ -1,5 +1,6 @@
 package org.big5.shop.controller;
 
+import jakarta.servlet.http.HttpSession;
 import org.big5.shop.model.Database;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +19,10 @@ import java.util.stream.Collectors;
 public class ItemController {
 
     @GetMapping("/product/{id}")
-    public String itemDetail(@PathVariable Long id, Model model) {
+    public String itemDetail(@PathVariable Long id, Model model, HttpSession session) {
+        if (session == null || session.getAttribute("userId") == null) {
+            return "redirect:/login";
+        }
         Optional<Database.Item> itemOptional = Database.findItemById(id);
 
         if (itemOptional.isEmpty()) {
@@ -60,7 +64,10 @@ public class ItemController {
     }
 
     @GetMapping("/search")
-    public String searchItems(@RequestParam(name = "q", required = false) String q, Model model) {
+    public String searchItems(@RequestParam(name = "q", required = false) String q, Model model, HttpSession session) {
+        if (session == null || session.getAttribute("userId") == null) {
+            return "redirect:/login";
+        }
         List<Database.Item> results;
         if (q == null || q.isBlank()) {
             return "redirect:/";

@@ -21,12 +21,21 @@
         <form class="d-flex flex-grow-1 mx-3" role="search" th:action="@{/search}" method="get">
             <input type="text" class="form-control rounded-pill" name="q" placeholder="Search for items">
         </form>
-        <button class="btn btn-light rounded-pill me-2">
+        <button class="btn btn-light rounded-pill me-2" id="cart">
             <i class="bi bi-cart fs-4 px-2"></i>
         </button>
-        <button class="btn btn-light rounded-pill">
-            <i class="bi bi-person fs-4 px-2"></i>
-        </button>
+        <div class="dropdown">
+            <button class="btn btn-light rounded-pill dropdown-toggle" id="profile" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-person fs-4 px-2"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                    <form th:action="@{/logout}" method="post" class="m-0">
+                        <button type="submit" class="dropdown-item">Logout</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
     </div>
 </nav>
 
