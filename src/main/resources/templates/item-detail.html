@@ -6,13 +6,13 @@
 
 <div class="container py-5">
     <div class="row align-items-center justify-content-center rounded bg-light shadow-sm p-5">
-        <div class="col-md-4 text-center" style="margin-right: 55px;">
+        <div class="col-12 col-sm-12 col-md-4 col-lg-4 text-center" style="margin-right: 55px;">
             <div class="rounded bg-white align-items-center justify-content-center py-3" style="height: 350px;">
                 <!-- Dynamic Image: assumes 'item.image' contains 'charmander.png' -->
                 <img th:src="@{'/pictures/' + ${item.image}}" style="height:100%" alt="Product Image">
             </div>
         </div>
-        <div class="col-md-7">
+        <div class="col-12 col-sm-12 col-md-7 col-lg-7">
             <!-- Dynamic Name -->
             <h1 class="fw-bold" style="color: #8190A5;" th:text="${item.name}">Product Name</h1>
 
@@ -25,7 +25,10 @@
             <!-- Add to Cart Logic (Optional: Form to submit ID) -->
             <form th:action="@{/cart/add}" method="post">
                 <input type="hidden" name="itemId" th:value="${item.id}" />
-                <button type="submit" class="btn text-white fw-bold rounded-pill mb-4" style="background-color: #0060FF; font-size: 25px;">
+                <button type="submit"
+                        class="btn text-white fw-bold rounded-pill mb-4"
+                        th:attr="disabled=${cartItemIds != null and cartItemIds.contains(item.id)} ? 'disabled' : null"
+                        th:style="${(cartItemIds != null and cartItemIds.contains(item.id))} ? 'background-color: #6c757d; font-size: 25px;' : 'background-color: #0060FF; font-size: 25px;'">
                     + Add to Cart
                 </button>
             </form>
@@ -48,16 +51,16 @@
     <div class="row justify-content-center" style="column-gap: 40px">
 
         <!-- LOOP START: This generates a card for every item in the 'suggestions' list -->
-        <div class="col-md-3" th:each="suggestedItem : ${suggestions}">
+        <div class="col-12 col-sm-6 col-md-4 col-lg-3" th:each="suggestedItem : ${suggestions}">
             <div class="p-1 rounded bg-light shadow-sm" style="height: 150px; position: relative;">
 
                 <!-- Link to the suggested item's page using its ID -->
                 <a th:href="@{'/product/' + ${suggestedItem.id}}" class="text-decoration-none">
                     <div class="row">
-                        <div class="col-md-5 text-end">
+                        <div class="col-12 col-sm-5 col-md-5 text-end">
                             <img th:src="@{'/pictures/' + ${suggestedItem.image}}" class="img-fluid" style="max-width: 120px;">
                         </div>
-                        <div class="col-md-7">
+                        <div class="col-12 col-sm-7 col-md-7">
                             <!-- Mixed text using concatenation or spans -->
                             <h4 class="fw-bold" style="color: #8190A5;">
                                 <span th:text="${suggestedItem.name}">NAME</span><br>
@@ -70,7 +73,11 @@
                 <!-- Quick Add Button -->
                 <form th:action="@{/cart/add}" method="post">
                     <input type="hidden" name="itemId" th:value="${suggestedItem.id}" />
-                    <button class="btn fw-bold text-white rounded-circle fs-5" style="background-color: #0060FF; position: absolute; bottom: 10px; right: 10px; width: 44px; height: 44px; line-height: 1;">+</button>
+                    <button
+                        class="btn fw-bold text-white rounded-circle fs-5"
+                        th:attr="disabled=${cartItemIds != null and cartItemIds.contains(suggestedItem.id)} ? 'disabled' : null"
+                        th:style="${(cartItemIds != null and cartItemIds.contains(suggestedItem.id))} ? 'background-color: #6c757d; position: absolute; bottom: 10px; right: 10px; width: 44px; height: 44px; line-height: 1;' : 'background-color: #0060FF; position: absolute; bottom: 10px; right: 10px; width: 44px; height: 44px; line-height: 1;'"
+                    >+</button>
                 </form>
             </div>
         </div>

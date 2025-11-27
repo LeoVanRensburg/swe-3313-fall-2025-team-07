@@ -20,14 +20,14 @@
                 </div>
             </div>
 
-            <div class="col-md-3" th:each="item : ${items}">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3" th:each="item : ${items}">
                 <div class="p-1 rounded bg-light shadow-sm" style="height: 150px; position: relative; margin-bottom: 50px;">
                     <a th:href="@{'/product/' + ${item.id}}" class="text-decoration-none">
                         <div class="row">
-                            <div class="col-md-5 text-end">
+                            <div class="col-12 col-sm-5 col-md-5 text-end">
                                 <img th:src="@{'/pictures/' + ${item.image}}" class="img-fluid" style="max-width: 120px;" th:alt="${item.name}">
                             </div>
-                            <div class="col-md-7">
+                            <div class="col-12 col-sm-7 col-md-7">
                                 <h4 class="fw-bold" style="color: #8190A5;">
                                     <span th:text="${item.name}">NAME</span><br>
                                     <span th:text="'$' + ${item.price}">$0</span>
@@ -38,7 +38,11 @@
 
                     <form th:action="@{/cart/add}" method="post">
                         <input type="hidden" name="itemId" th:value="${item.id}" />
-                        <button class="btn fw-bold text-white rounded-circle fs-5" style="background-color: #0060FF; position: absolute; bottom: 10px; right: 10px; width: 44px; height: 44px; line-height: 1;">+</button>
+                        <button
+                            class="btn fw-bold text-white rounded-circle fs-5"
+                            th:attr="disabled=${cartItemIds != null and cartItemIds.contains(item.id)} ? 'disabled' : null"
+                            th:style="${(cartItemIds != null and cartItemIds.contains(item.id))} ? 'background-color: #6c757d; position: absolute; bottom: 10px; right: 10px; width: 44px; height: 44px; line-height: 1;' : 'background-color: #0060FF; position: absolute; bottom: 10px; right: 10px; width: 44px; height: 44px; line-height: 1;'"
+                        >+</button>
                     </form>
                 </div>
             </div>

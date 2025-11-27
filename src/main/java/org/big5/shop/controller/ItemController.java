@@ -19,6 +19,7 @@ public class ItemController {
         if (session == null || session.getAttribute("userId") == null) {
             return "redirect:/login";
         }
+        Long userId = (Long) session.getAttribute("userId");
         Optional<Database.Item> itemOptional = Database.findItemById(id);
 
         if (itemOptional.isEmpty()) {
@@ -56,6 +57,12 @@ public class ItemController {
             .map(ItemDTO::new)
             .collect(Collectors.toList()));
 
+        Set<Long> cartItemIds = Database.getCartItems(userId).stream()
+                .map(ci -> ci.itemId)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toSet());
+        model.addAttribute("cartItemIds", cartItemIds);
+
         return "item-detail";
     }
 
@@ -64,6 +71,7 @@ public class ItemController {
         if (session == null || session.getAttribute("userId") == null) {
             return "redirect:/login";
         }
+        Long userId = (Long) session.getAttribute("userId");
         List<Database.Item> results;
         if (q == null || q.isBlank()) {
             return "redirect:/";
@@ -77,6 +85,12 @@ public class ItemController {
 
         model.addAttribute("items", items);
         model.addAttribute("query", q);
+
+        Set<Long> cartItemIds = Database.getCartItems(userId).stream()
+                .map(ci -> ci.itemId)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toSet());
+        model.addAttribute("cartItemIds", cartItemIds);
         return "search-results";
     }
 
@@ -93,6 +107,7 @@ public class ItemController {
         if (session == null || session.getAttribute("userId") == null) {
             return "redirect:/login";
         }
+        Long userId = (Long) session.getAttribute("userId");
 
         List<Database.Item> items = Database.getAvailableItems().stream()
                 .filter(i -> i.category != null && i.category.equalsIgnoreCase(name))
@@ -103,6 +118,12 @@ public class ItemController {
 
         model.addAttribute("categoryName", name);
         model.addAttribute("items", itemDTOs);
+
+        Set<Long> cartItemIds = Database.getCartItems(userId).stream()
+                .map(ci -> ci.itemId)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toSet());
+        model.addAttribute("cartItemIds", cartItemIds);
         return "category";
     }
 

@@ -12,10 +12,10 @@
 <main>
   <div class="container-fluid" style="background-color: #f9f908; height: 300px;" th:if="${#strings.equalsIgnoreCase(categoryName, 'Pokémon')}">
     <div class="row align-items-center">
-      <div class="col-md-8" style="margin-top: -30px;">
+      <div class="col-12 col-sm-12 col-md-8 col-lg-8" style="margin-top: -30px;">
         <h1 class="display-3 fw-bold text-white text-center">POKÉMON COLLECTION</h1>
       </div>
-      <div class="col-md-4" style="margin-top: -10px;">
+      <div class="col-12 col-sm-12 col-md-4 col-lg-4" style="margin-top: -10px;">
         <img th:src="@{/pictures/pika2.png}"  style="max-width: 250px;" alt="Pokémon">
       </div>
     </div>
@@ -23,10 +23,10 @@
 
   <div class="container-fluid" style="background-color: #417B4C; height: 300px;" th:if="${#strings.equalsIgnoreCase(categoryName, 'The Legend of Zelda')}">
     <div class="row align-items-center">
-      <div class="col-md-8">
+      <div class="col-12 col-sm-12 col-md-8 col-lg-8">
         <h1 class="display-3 fw-bold text-white text-center">ZELDA COLLECTION</h1>
       </div>
-      <div class="col-md-4 py-2">
+      <div class="col-12 col-sm-12 col-md-4 col-lg-4 py-2">
         <img th:src="@{/pictures/link.png}" style="max-width: 235px;" alt="Zelda">
       </div>
     </div>
@@ -34,10 +34,10 @@
 
   <div class="container-fluid" style="background-color: #ff16c1; height: 300px;" th:if="${#strings.equalsIgnoreCase(categoryName, 'Kirby')}">
     <div class="row align-items-center">
-      <div class="col-md-8">
+      <div class="col-12 col-sm-12 col-md-8 col-lg-8">
         <h1 class="display-3 fw-bold text-white text-center">KIRBY COLLECTION</h1>
       </div>
-      <div class="col-md-4">
+      <div class="col-12 col-sm-12 col-md-4 col-lg-4">
         <img th:src="@{/pictures/kirby2.png}" style="max-width: 220px;" alt="Kirby">
       </div>
     </div>
@@ -45,10 +45,10 @@
 
   <div class="container-fluid" style="background-color: #152B5D; height: 300px;" th:if="${#strings.equalsIgnoreCase(categoryName, 'Kingdom Hearts')}">
     <div class="row align-items-center">
-      <div class="col-md-8">
+      <div class="col-12 col-sm-12 col-md-8 col-lg-8">
         <h1 class="display-4 fw-bold text-white text-center">KINGDOM HEARTS COLLECTION</h1>
       </div>
-      <div class="col-md-4 py-2">
+      <div class="col-12 col-sm-12 col-md-4 col-lg-4 py-2">
         <img th:src="@{/pictures/sora2.png}" style="max-width: 135px;" alt="Kingdom Hearts">
       </div>
     </div>
@@ -56,10 +56,10 @@
 
   <div class="container-fluid" style="background-color: #1ccf08; height: 300px;" th:if="${#strings.equalsIgnoreCase(categoryName, 'Minecraft')}">
     <div class="row align-items-center">
-      <div class="col-md-8" style="margin-top: -30px;">
+      <div class="col-12 col-sm-12 col-md-8 col-lg-8" style="margin-top: -30px;">
         <h1 class="display-3 fw-bold text-white text-center">MINECRAFT COLLECTION</h1>
       </div>
-      <div class="col-md-4 py-3">
+      <div class="col-12 col-sm-12 col-md-4 col-lg-4 py-3">
         <img th:src="@{/pictures/steveandalex.png}" style="max-width: 330px;" alt="Minecraft">
       </div>
     </div>
@@ -67,10 +67,10 @@
 
   <div class="container-fluid" style="background-color: #f90808; height: 300px;" th:if="${#strings.equalsIgnoreCase(categoryName, 'Super Mario')}">
     <div class="row align-items-center">
-      <div class="col-md-8">
+      <div class="col-12 col-sm-12 col-md-8 col-lg-8">
         <h1 class="display-3 fw-bold text-white text-center">SUPER MARIO COLLECTION</h1>
       </div>
-      <div class="col-md-4" style="margin-top: -10px;">
+      <div class="col-12 col-sm-12 col-md-4 col-lg-4" style="margin-top: -10px;">
         <img th:src="@{/pictures/mario2.png}" style="max-width: 230px;" alt="Mario">
       </div>
     </div>
@@ -78,14 +78,14 @@
 
   <div class="container-fluid py-5">
     <div class="row justify-content-center" style="column-gap: 40px; row-gap: 40px;" th:if="${not #lists.isEmpty(items)}">
-      <div class="col-md-3 mb-4" th:each="it : ${items}">
+      <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4" th:each="it : ${items}">
         <div class="p-1 rounded bg-light shadow-sm" style="height: 150px; position: relative;">
           <a th:href="@{'/product/' + ${it.id}}" class="text-decoration-none">
             <div class="row">
-              <div class="col-md-5 text-end">
+              <div class="col-12 col-sm-5 col-md-5 text-end">
                 <img th:src="@{'/pictures/' + ${it.image}}" class="img-fluid" style="max-width: 120px;" th:alt="${it.name}">
               </div>
-              <div class="col-md-7">
+              <div class="col-12 col-sm-7 col-md-7">
                 <h4 class="fw-bold"style="color: #8190A5;">
                   <span th:text="${#strings.toUpperCase(it.name)}">NAME</span><br>
                   <span th:text="'$' + ${it.price}">$0</span>
@@ -95,7 +95,11 @@
           </a>
           <form th:action="@{/cart/add}" method="post">
             <input type="hidden" name="itemId" th:value="${it.id}" />
-              <button class="btn fw-bold text-white rounded-circle fs-5" style="background-color: #0060FF; position: absolute; bottom: 10px; right: 10px; width: 44px; height: 44px; line-height: 1;">+</button>
+            <button
+              class="btn fw-bold text-white rounded-circle fs-5"
+              th:attr="disabled=${cartItemIds != null and cartItemIds.contains(it.id)} ? 'disabled' : null"
+              th:style="${(cartItemIds != null and cartItemIds.contains(it.id))} ? 'background-color: #6c757d; position: absolute; bottom: 10px; right: 10px; width: 44px; height: 44px; line-height: 1;' : 'background-color: #0060FF; position: absolute; bottom: 10px; right: 10px; width: 44px; height: 44px; line-height: 1;'"
+            >+</button>
           </form>
         </div>
       </div>

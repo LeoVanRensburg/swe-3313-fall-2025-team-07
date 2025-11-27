@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/layout :: head('Shopping Cart - Big5 Shop')"></head>
+
+<body>
+
+<div class="container py-3">
+  <h1 class="text-center mt-2 mb-4" style="color: #8190A5;font-weight: 600;">Shopping Cart</h1>
+
+  <hr class="mt-1">
+
+  <div class="row">
+
+    <div class="col-12 col-sm-12 col-md-8 col-lg-8 bg-light p-4 rounded border border-secondary" style="--bs-gutter-x:5rem;">
+
+      <nav aria-label="breadcrumb" class="mb-4" style="--bs-breadcrumb-divider: '>';">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/" class="text-decoration-none">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Shopping Cart</li>
+        </ol>
+      </nav>
+
+      <div style="max-height: 420px; overflow-y: auto;">
+      <table class="table table-borderless mb-0">
+        <thead>
+        <tr>
+          <th scope="col">Product Details</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Price</th>
+          <th scope="col">Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${#lists.isEmpty(items)}">
+          <td colspan="4" class="text-center pt-1 pb-2">
+              <div class="mb-2 text-center">
+                  <i class="bi bi-cart-x text-muted" style="font-size: 11rem;"></i>
+              </div>
+              <div class="fw-bold mb-5" style="font-size: 25px;color: #595C5F;">
+                  There are no items in your cart.
+              </div>
+          </td>
+        </tr>
+        <th:block th:each="item : ${items}">
+          <tr>
+            <td>
+              <img th:src="@{'/pictures/' + ${item.image}}" class="img-fluid" style="max-width: 100px;"
+                   th:alt="${item.name}">
+              <div th:text="${item.name}">Item Name</div>
+              <form th:action="@{/cart/remove}" method="post" style="display:inline;">
+                <input type="hidden" name="cartItemId" th:value="${item.id}" />
+                <button type="submit" class="btn btn-link text-danger p-0 fw-bold" style="font-size: 0.9rem; text-decoration: none;">Remove</button>
+              </form>
+            </td>
+            <td>
+              <input type="number" class="form-control" th:value="${item.quantity}" min="1" style="width: 80px;margin-top: 35px" disabled>
+            </td>
+            <td class="pt-5" th:text="${'$' + #numbers.formatDecimal(item.price, 1, 'COMMA', 2, 'POINT')}">$0.00</td>
+            <td class="pt-5" th:text="${'$' + #numbers.formatDecimal(item.price * item.quantity, 1, 'COMMA', 2, 'POINT')}">$0.00</td>
+          </tr>
+          <tr>
+            <td colspan="4" class="py-0"><hr class="mt-1"></td>
+          </tr>
+        </th:block>
+        </tbody>
+      </table>
+      </div>
+
+      <div class="text-center mt-3">
+        <a th:href="@{/categories}" class="btn text-white rounded-pill fw-bold" style="background-color: #0060FF; border-radius: 0;font-size: 20px;">
+          Keep Shopping
+        </a>
+      </div>
+    </div>
+
+
+    <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+      <div class="card shadow-sm">
+        <div class="card-header bg-light">
+          <h4 class="card-title fw-ligh text-center" style="color: #000000;">Total</h4>
+        </div>
+        <div class="card-body" th:with="subtotal=${total}, tax=${subtotal * 0.06}, grandTotal=${subtotal + tax}">
+          <div class="d-flex justify-content-between mb-2">
+            <span class="text-secondary">Subtotal:</span>
+            <span id="subtotal" class="fw-bold" th:text="${'$' + #numbers.formatDecimal(subtotal, 1, 'COMMA', 2, 'POINT')}">$0.00</span>
+          </div>
+          <div class="d-flex justify-content-between mb-2">
+            <span class="text-secondary">Estimated Shipping:</span>
+            <spman id="shipping" class="fw-bold">-</spman>
+          </div>
+          <div class="d-flex justify-content-between mb-2">
+            <span class="text-secondary">Estimated Tax:</span>
+            <span id="tax" class="fw-bold" th:text="${'$' + #numbers.formatDecimal(tax, 1, 'COMMA', 2, 'POINT')}">$0.00</span>
+          </div>
+          <hr>
+          <div class="d-flex justify-content-between mb-4">
+            <h5 class="text-secondary">Estimated Total:</h5>
+            <h5 id="total" class="fw-bold text-dark" th:text="${'$' + #numbers.formatDecimal(grandTotal, 1, 'COMMA', 2, 'POINT')}">$0.00</h5>
+          </div>
+
+          <div class="text-center">
+            <button class="btn text-white rounded-pill fw-bold" style="background-color: #0060FF;font-size: 20px" onclick="proceedToCheckout()">Continue to Checkout</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div th:replace="fragments/layout :: footer"></div>
+<div th:replace="fragments/layout :: scripts"></div>
+</body>
+
+</html>
