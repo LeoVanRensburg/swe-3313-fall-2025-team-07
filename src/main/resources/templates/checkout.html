@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/layout :: head('Shipping - Big5 Shop')"></head>
+
+
+<!--http://localhost:8080/checkout-->
+<!--http://localhost:8080/test-login-->
+<body>
+<div class="container py-5">
+    <h1 class="fw-semi bold text-center mb-5" style="color: #8190A5;">Checkout</h1>
+    <hr class="mt-2">
+
+    <div class="row">
+
+        <!--Shipping Address (Left Panel)-->
+        <div class="col-md-8 bg-light p-4 rounded border border-secondary">
+
+            <!--Breadcrumb-->
+            <nav aria-label="breadcrumb" class="mb-4">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/cart.html">Shipping</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Payment</li>
+                </ol>
+            </nav>
+
+            <h3 class="mb-1 fw-light">Shipping Address</h3>
+
+            <!--Shipping Address detail section-->
+            <form method="post" th:action="@{/checkout}">
+                <div class = "row">
+                    <!--First & Last Name -->
+                    <div class = "col-md-6 mb-3">
+                        <label for="firstName" class="form-label">First name*</label>
+                        <input type="text" class="form-control" id="firstName" name="firstName" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="lastName" class="form-label">Last name*</label>
+                        <input type="text" class="form-control" id="lastName" name="firstName" required>
+                    </div>
+
+                    <!--Street Address-->
+                    <div class="mb-3">
+                        <label for="streetAddress" class="form-label">Street Address*</label>
+                        <input type="text" class="form-control" id="streetAddress" name="streetAddress" required>
+                    </div>
+
+                    <!--Apartment (Optional) -->
+                    <div class="mb-3">
+                        <label for="aptSuite" class="form-label">Apt, suite, unit, etc</label>
+                        <input type="text" class="form-control" id="aptSuite" name="aptSuite" required>
+                    </div>
+
+                    <div class = "row">
+                        <!--city, state, zip code-->
+                        <div class = "col-md-6 mb-3">
+                            <label for="city" class="form-label">City*</label>
+                            <input type="text" class="form-control" id="city" name="city" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="state" class="form-label">State*</label>
+                            <input type="text" class="form-control" id="state" name="state" required>
+                        </div>
+                        <div class="col-md-2 mb-3">
+                            <label for="zipCode" class="form-label">Zip Code*</label>
+                            <input type="text" class="form-control" id="zipCode" name="zipCode" required>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+
+
+        <!-- Order Summary Section (Right Panel) -->
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-white border-bottom">
+                    <h4 class="card-title fw-semi-bold text-center" style="color: #000000">Shopping Cart</h4>
+                </div>
+
+                <div class="card-body">
+                    <!--Cart items-->
+                    <div class="d-flex justify-content-between mb-2">
+                    </div>
+
+
+                    <!--Summary-->
+                    <hr class="my-3">
+
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Subtotal</span>
+                        <span>${}</span>
+                    </div>
+
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Shipping</span>
+                        <span>${}</span>
+                    </div>
+
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Tax</span>
+                        <span>${}</span>
+                    </div>
+
+                    <!--divider (line)-->
+                    <hr class="my-2">
+
+                    <!--total-->
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Total</span>
+                        <span>${}</span>
+                    </div>
+
+                    <!--Place order button-->
+
+                    <div class="text-center">
+                        <button class="btn text-white px-5 py-2" style="background-color: #0060FF;" onclick="placeOrder()">Place
+                            Your Order</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div th:replace="fragments/layout :: footer"></div>
+    <div th:replace="fragments/layout :: scripts"></div>
+</body>
+
+</html>
