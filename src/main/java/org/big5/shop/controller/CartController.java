@@ -27,10 +27,10 @@ public class CartController {
 
         List<CartItemDTO> items = cartItems.stream().map(CartItemDTO::new).collect(Collectors.toList());
 
-        double total = items.stream().mapToDouble(i -> i.getPrice() * i.getQuantity()).sum();
+        double subtotal = items.stream().mapToDouble(i -> i.getPrice() * i.getQuantity()).sum();
 
         model.addAttribute("items", items);
-        model.addAttribute("total", total);
+        model.addAttribute("subtotal", subtotal);
 
         return "cart";
     }
