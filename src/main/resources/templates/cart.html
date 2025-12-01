@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments/layout :: head('Shopping Cart - Big5 Shop')"></head>
+<head th:replace="fragments/layout :: head('Shopping Cart')"></head>
 
 <body>
 
@@ -80,7 +80,7 @@
         <div class="card-header bg-light">
           <h4 class="card-title fw-ligh text-center" style="color: #000000;">Total</h4>
         </div>
-        <div class="card-body" th:with="subtotal=${total}, tax=${subtotal * 0.06}, grandTotal=${subtotal + tax}">
+        <div class="card-body" th:with="subtotal=${subtotal}, tax=${subtotal * 0.06}, total=${subtotal + tax}">
           <div class="d-flex justify-content-between mb-2">
             <span class="text-secondary">Subtotal:</span>
             <span id="subtotal" class="fw-bold" th:text="${'$' + #numbers.formatDecimal(subtotal, 1, 'COMMA', 2, 'POINT')}">$0.00</span>
@@ -96,7 +96,7 @@
           <hr>
           <div class="d-flex justify-content-between mb-4">
             <h5 class="text-secondary">Estimated Total:</h5>
-            <h5 id="total" class="fw-bold text-dark" th:text="${'$' + #numbers.formatDecimal(grandTotal, 1, 'COMMA', 2, 'POINT')}">$0.00</h5>
+            <h5 id="total" class="fw-bold text-dark" th:text="${'$' + #numbers.formatDecimal(total, 1, 'COMMA', 2, 'POINT')}">$0.00</h5>
           </div>
 
           <div class="text-center">
