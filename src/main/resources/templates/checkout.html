@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+
 
 <head th:replace="fragments/layout :: head('Shipping - Big5 Shop')">
 
@@ -17,6 +18,8 @@
 <div class="container py-5">
     <h1 class="fw-light text-center mb-5" style="color: #8190A5;">Checkout</h1>
     <hr class="mt-2">
+
+    <form method="post" th:action="@{/checkout}">
 
     <div class="row">
 
@@ -76,7 +79,7 @@
 
                     <!--Shipping Method-->
 
-                    <h3 class="mb-2 fw-light">Shipping Method</h3>
+                    <h2 class="mb-2 fw-light">Shipping Method</h2>
 
                     <!--Ground Shipping Option-->
                     <div class="row g-3">
@@ -143,13 +146,13 @@
 
                 <div class="card-body">
                     <!--Cart items-->
-                    <div th:each="item : ${item}" class="d-flex justify-content-between mb-3 p-3 bg-light rounded">
+                    <div th:each="item : ${items}" class="d-flex justify-content-between mb-3 p-3 bg-light rounded">
 
                         <!--Image (Left Side)-->
                         <div class="me-3 flex-shrink-0">
                             <div class="bg-light border align-items center justify-content-center rounded"
                                  style="width: 60px; height: 60px;">
-                                <i class="bi bi-box" style="font-size: 1.5rem; color#6c757d;"></i>
+                                <i class="bi bi-box" style="font-size: 1.5rem; color: #6c757d;"></i>
                             </div>
                         </div>
 
@@ -164,7 +167,7 @@
                         <div class="ms-2 align-self-start">
                             <form th:action="@{/cart/remove}" method="post" style="display:inline;">
                                 <input type="hidden" name="productId" th:value="${item.productId}"/>
-                                <button type="submit" class="btn btn-link p-0 text-danger" style="font-size 1.25rem;">
+                                <button type="submit" class="btn btn-link p-0 text-danger" style="font-size: 1.25rem;">
                                     <i class="bi bi-trash"></i>
                                 </button>
                             </form>
@@ -173,19 +176,40 @@
 
                     <!--Summary-->
 
+                    <hr class="my-3">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Subtotal</span>
+                        <span th:text="${#numbers.formatCurrency(subtotal)}"></span>
+                    </div>
+
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Shipping</span>
+                        <span> Help </span>
+                    </div>
+
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Estimated Tax</span>
+                        <span th:text="${#numbers.formatCurrency(tax)}"></span>
+                    </div>
+
+                    <hr class="my-2">
+                    <div class="d-flex justify-content-between fw-semibold mb-3">
+                        <span>Total</span>
+                        <span th:text="${#numbers.formatCurrency(subtotal + tax)}"></span>
+                    </div>
 
                     <!--Place order button-->
                     <div class="text-center">
-                        <button class="btn text-white px-5 py-2" style="background-color: #0060FF;" onclick="placeOrder()">Place
-                            Your Order
+                        <button class="btn text-white px-5 py-2" style="background-color: #0060FF;" onclick="placeOrder()">
+                            Place Your Order
                         </button>
                     </div>
+
                 </div>
             </div>
         </div>
-
-
     </div>
+    </form>
 </div>
     <div th:replace="fragments/layout :: footer"></div>
     <div th:replace="fragments/layout :: scripts"></div>
