@@ -127,6 +127,29 @@ public class ItemController {
         return "category";
     }
 
+    @GetMapping("/items")
+    public String allItems(Model model, HttpSession session) {
+        if (session == null || session.getAttribute("userId") == null) {
+            return "redirect:/login";
+        }
+        Long userId = (Long) session.getAttribute("userId");
+        List<Database.Item> allItems = new ArrayList<>(Database.getAvailableItems());
+
+        List<ItemDTO> items = allItems.stream()
+                .map(ItemDTO::new)
+                .collect(Collectors.toList());
+
+        model.addAttribute("items", items);
+
+        Set<Long> cartItemIds = Database.getCartItems(userId).stream()
+                .map(ci -> ci.itemId)
+                .filter(Objects::nonNull)
+                .collect(Collectors.toSet());
+        model.addAttribute("cartItemIds", cartItemIds);
+        return "items";
+    }
+
+
     // DTO to expose fields to Thymeleaf
     public static class ItemDTO {
         private Long id;
