@@ -1,14 +1,21 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 
 <head th:replace="fragments/layout :: head('Shipping - Big5 Shop')"></head>
+
+<style>
+    .breadcrumb-item + .breadcrumb-item::before{
+    content: ">";
+    color:#6c757d;
+    }
+</style>
 
 
 <!--http://localhost:8080/checkout-->
 <!--http://localhost:8080/test-login-->
 <body>
 <div class="container py-5">
-    <h1 class="fw-semi bold text-center mb-5" style="color: #8190A5;">Checkout</h1>
+    <h1 class="fw-light text-center mb-5" style="color: #8190A5;">Checkout</h1>
     <hr class="mt-2">
 
     <div class="row">
@@ -24,19 +31,19 @@
                 </ol>
             </nav>
 
-            <h3 class="mb-1 fw-light">Shipping Address</h3>
+            <h3 class="mb-4 fw-light">Shipping Address</h3>
 
             <!--Shipping Address detail section-->
             <form method="post" th:action="@{/checkout}">
                 <div class = "row">
                     <!--First & Last Name -->
                     <div class = "col-md-6 mb-3">
-                        <label for="firstName" class="form-label">First name*</label>
+                        <label for="firstName" class="form-label fw-light">First name*</label>
                         <input type="text" class="form-control" id="firstName" name="firstName" required>
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="lastName" class="form-label">Last name*</label>
-                        <input type="text" class="form-control" id="lastName" name="firstName" required>
+                        <input type="text" class="form-control" id="lastName" name="lastName" required>
                     </div>
 
                     <!--Street Address-->
@@ -48,7 +55,7 @@
                     <!--Apartment (Optional) -->
                     <div class="mb-3">
                         <label for="aptSuite" class="form-label">Apt, suite, unit, etc</label>
-                        <input type="text" class="form-control" id="aptSuite" name="aptSuite" required>
+                        <input type="text" class="form-control" id="aptSuite" name="aptSuite">
                     </div>
 
                     <div class = "row">
@@ -66,66 +73,68 @@
                             <input type="text" class="form-control" id="zipCode" name="zipCode" required>
                         </div>
                     </div>
+
+                    <!--Shipping Method-->
+
+                    <h3 class="mb-3 fw-light">Shipping Method</h3>
+
+                    <!--Ground Shipping Option-->
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <div class="border rounded p-3 d-flex align-items-center">
+                                <input class="form-check-input me-3 mt-1" type="radio" name="shippingMethod" value="Ground" id="ground" required>
+                                <div class="flex-grow-1 d-flex justify-content-between">
+                                    <div>
+                                        <label class="fw-light d-block mb-1" for="ground">Ground</label>
+                                        <small class="text-muted">7-14 days</small>
+                                    </div>
+                                    <div>
+                                        <span class="fw-light">Free</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Overnight-->
+                        <div class="col-md-6">
+                            <div class="border rounded p-3 d-flex align-items-center">
+                                <input class="form-check-input me-3 mt-1" type="radio" name="shippingMethod" value="Overnight" id="overnight">
+                                <div class="flex-grow-1 d-flex justify-content-between">
+                                    <div>
+                                        <label class="fw-light d-block mb-1" for="overnight">Overnight</label>
+                                        <small class="text-muted">1 day</small>
+                                    </div>
+                                    <div>
+                                        <span class="fw-light">$29</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--3 Day Shipping-->
+                    <div class="row g-3 mt-3">
+                        <div class="col-md-6">
+                            <div class="border rounded p-3 d-flex align-items-center">
+                                <input class="form-check-input me-3 mt-1" type="radio" name="shippingMethod" value="3-Day" id="3-day">
+                                <div class="flex-grow-1 d-flex justify-content-between">
+                                    <div>
+                                        <label class="fw-light d-block mb-1" for="3-day">3-Day</label>
+                                        <small class="text-muted">3 days</small>
+                                    </div>
+                                    <div>
+                                        <span class="fw-light">$19</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </form>
-
-        </div>
-
-
-        <!-- Order Summary Section (Right Panel) -->
-        <div class="col-md-4">
-            <div class="card shadow-sm h-100">
-                <div class="card-header bg-white border-bottom">
-                    <h4 class="card-title fw-semi-bold text-center" style="color: #000000">Shopping Cart</h4>
-                </div>
-
-                <div class="card-body">
-                    <!--Cart items-->
-                    <div class="d-flex justify-content-between mb-2">
-                    </div>
-
-
-                    <!--Summary-->
-                    <hr class="my-3">
-
-                    <div class="d-flex justify-content-between mb-2">
-                        <span>Subtotal</span>
-                        <span>${}</span>
-                    </div>
-
-                    <div class="d-flex justify-content-between mb-2">
-                        <span>Shipping</span>
-                        <span>${}</span>
-                    </div>
-
-                    <div class="d-flex justify-content-between mb-2">
-                        <span>Tax</span>
-                        <span>${}</span>
-                    </div>
-
-                    <!--divider (line)-->
-                    <hr class="my-2">
-
-                    <!--total-->
-                    <div class="d-flex justify-content-between mb-2">
-                        <span>Total</span>
-                        <span>${}</span>
-                    </div>
-
-                    <!--Place order button-->
-
-                    <div class="text-center">
-                        <button class="btn text-white px-5 py-2" style="background-color: #0060FF;" onclick="placeOrder()">Place
-                            Your Order</button>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
-
+</div>
     <div th:replace="fragments/layout :: footer"></div>
     <div th:replace="fragments/layout :: scripts"></div>
 </body>
-
 </html>
