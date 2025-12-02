@@ -1,7 +1,10 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments/layout :: head('Shipping - Big5 Shop')"></head>
+<head th:replace="fragments/layout :: head('Shipping - Big5 Shop')">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
 
 <style>
     .breadcrumb-item + .breadcrumb-item::before{
@@ -10,9 +13,6 @@
     }
 </style>
 
-
-<!--http://localhost:8080/checkout-->
-<!--http://localhost:8080/test-login-->
 <body>
 <div class="container py-5">
     <h1 class="fw-light text-center mb-5" style="color: #8190A5;">Checkout</h1>
@@ -76,7 +76,7 @@
 
                     <!--Shipping Method-->
 
-                    <h3 class="mb-3 fw-light">Shipping Method</h3>
+                    <h3 class="mb-2 fw-light">Shipping Method</h3>
 
                     <!--Ground Shipping Option-->
                     <div class="row g-3">
@@ -132,6 +132,59 @@
                 </div>
             </form>
         </div>
+
+
+        <!-- Order Summary Section (Right Panel)-->
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-white border-bottom">
+                    <h4 class="card-title fw-light text-center">Shopping Cart</h4>
+                </div>
+
+                <div class="card-body">
+                    <!--Cart items-->
+                    <div th:each="item : ${item}" class="d-flex justify-content-between mb-3 p-3 bg-light rounded">
+
+                        <!--Image (Left Side)-->
+                        <div class="me-3 flex-shrink-0">
+                            <div class="bg-light border align-items center justify-content-center rounded"
+                                 style="width: 60px; height: 60px;">
+                                <i class="bi bi-box" style="font-size: 1.5rem; color#6c757d;"></i>
+                            </div>
+                        </div>
+
+                        <!--Item Name,Qty, Price-->
+                        <div class="flex-grow-1">
+                            <div class="fw-bold" th:text="${item.name}"></div>
+                            <div class="text-muted small">QTY: <span th:text="${item.quantity}"></span></div>
+                            <div class="mt-1" th:text="${#numbers.formatCurrency(item.price * item.quantity)}"></div>
+                        </div>
+
+                        <!--Trash Icon-->
+                        <div class="ms-2 align-self-start">
+                            <form th:action="@{/cart/remove}" method="post" style="display:inline;">
+                                <input type="hidden" name="productId" th:value="${item.productId}"/>
+                                <button type="submit" class="btn btn-link p-0 text-danger" style="font-size 1.25rem;">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!--Summary-->
+
+
+                    <!--Place order button-->
+                    <div class="text-center">
+                        <button class="btn text-white px-5 py-2" style="background-color: #0060FF;" onclick="placeOrder()">Place
+                            Your Order
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
     </div>
 </div>
     <div th:replace="fragments/layout :: footer"></div>
