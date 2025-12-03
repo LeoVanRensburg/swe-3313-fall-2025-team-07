@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+
+<head th:replace="fragments/layout :: head('Shipping - Big5 Shop')">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+</head>
+
+<style>
+    .breadcrumb-item + .breadcrumb-item::before{
+    content: ">";
+    color:#6c757d;
+    }
+</style>
+
+<body>
+<div class="container py-5">
+    <h1 class="fw-light text-center mb-5" style="color: #8190A5;">Checkout</h1>
+    <hr class="mt-2">
+
+    <form method="post" th:action="@{/checkout}">
+        <div class="row">
+
+            <!--Payment Method (Left Panel)-->
+            <div class="col-md-8 bg-light p-4 rounded border border-secondary">
+
+                <!--Breadcrumb-->
+                <nav aria-label="breadcrumb" class="mb-4">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/checkout">Shipping</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Payment</li>
+                    </ol>
+                </nav>
+
+                <h3 class="mb-3 fw-light">Payment Method</h3>
+
+                <!--Credit/Debit Card Section-->
+                <div class="mb-3"></div>
+
+                    <!--Card Details-->
+                    <h3 class="mb-3 fw-light"> Card Details</h3>
+
+                    <div class="mb-3">
+                        <label for="cardName" class="form-label">Name on card*</label>
+                        <input type="text" class="form-control" id="cardName" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="cardNumber" class="form-label">Card number*</label>
+                        <input type="text" class="form-control" id="cardNumber" required>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="expiryDate" class="form-label">Expiration*</label>
+                            <input type="text" class="form-control" id="expiryDate" required>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="cvv" class="form-label">CVV*</label>
+                            <input type="text" class="form-control" id="cvv"required>
+                        </div>
+                    </div>
+
+                    <!--Billing Address-->
+                    <h3 class="mb-3 fw-light">Billing Address</h3>
+
+                    <div class = "row">
+                        <!--Street Address-->
+                        <div class="mb-3">
+                            <label for="streetAddress" class="form-label">Street Address*</label>
+                            <input type="text" class="form-control" id="streetAddress" name="streetAddress" required>
+                        </div>
+
+                        <div class = "row">
+                            <!--city, state, zip code-->
+                            <div class = "col-md-6 mb-3">
+                                <label for="city" class="form-label">City*</label>
+                                <input type="text" class="form-control" id="city" name="city" required>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="state" class="form-label">State*</label>
+                                <input type="text" class="form-control" id="state" name="state" required>
+                            </div>
+                            <div class="col-md-2 mb-3">
+                                <label for="zipCode" class="form-label">Zip Code*</label>
+                                <input type="text" class="form-control" id="zipCode" name="zipCode" required>
+                            </div>
+                        </div>
+                    </div>
+
+                <!-- Order Summary Section (Right Panel)-->
+                <div class="col-md-4">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-white border-bottom">
+                            <h4 class="card-title fw-light text-center">Shopping Cart</h4>
+                        </div>
+
+                        <div class="card-body">
+                        <!--Cart items-->
+                        <div th:each="item : ${items}" class="d-flex justify-content-between mb-3 p-3 bg-light rounded">
+
+                            <!--Image (Left Side)-->
+                            <div class="me-3 flex-shrink-0">
+                                <div class="bg-light border align-items center justify-content-center rounded"
+                                     style="width: 60px; height: 60px;">
+                                    <i class="bi bi-box" style="font-size: 1.5rem; color: #6c757d;"></i>
+                                </div>
+                            </div>
+
+                            <!--Item Name,Qty, Price-->
+                            <div class="flex-grow-1">
+                                <div class="fw-bold" th:text="${item.name}"></div>
+                                <div class="text-muted small">QTY: <span th:text="${item.quantity}"></span></div>
+                                <div class="mt-1" th:text="${#numbers.formatCurrency(item.price * item.quantity)}"></div>
+                            </div>
+
+                            <!--Trash Icon-->
+                            <div class="ms-2 align-self-start">
+                                <form th:action="@{/cart/remove}" method="post" style="display:inline;">
+                                    <input type="hidden" name="productId" th:value="${item.productId}"/>
+                                    <button type="submit" class="btn btn-link p-0 text-danger" style="font-size: 1.25rem;">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!--Order Summary-->
+
+                        <hr class="my-3">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Subtotal</span>
+                            <span th:text="${#numbers.formatCurrency(subtotal)}"></span>
+                        </div>
+
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Shipping</span>
+                            <span> TBD </span>
+                        </div>
+
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Estimated Tax</span>
+                            <span th:text="${#numbers.formatCurrency(tax)}"></span>
+                        </div>
+
+                        <hr class="my-2">
+                        <div class="d-flex justify-content-between fw-semibold mb-3">
+                            <span>Total</span>
+                            <span th:text="${#numbers.formatCurrency(subtotal + tax)}"></span>
+                        </div>
+
+                        <!--Place Your Order Button-->
+                        <div class="text-center">
+                            <button class="btn text-white px-5 py-2" style="background-color: #0060FF;" onclick="placeOrder()">
+                                Place Your Order
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div th:replace="fragments/layout :: footer"></div>
+<div th:replace="fragments/layout :: scripts"></div>
+</body>
+</html>
