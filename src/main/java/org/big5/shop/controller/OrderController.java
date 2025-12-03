@@ -74,4 +74,13 @@ public class OrderController {
             return "checkout";
         }
     }
+
+    // Static until checkout is finished
+    @GetMapping("/order-confirmation")
+    public String showOrderConfirmation(/* HttpSession session */) {
+//        if (session == null || session.getAttribute("userId") == null) {
+//            return "redirect:/login";
+//        }
+        return "order-confirmation";
+    }
 }
