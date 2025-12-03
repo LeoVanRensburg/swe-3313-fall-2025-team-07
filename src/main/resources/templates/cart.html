@@ -72,12 +72,13 @@
       </div>
     </div>
 
-
+    <!-- Order Summary Section (Right Panel)-->
     <div class="col-12 col-sm-12 col-md-4 col-lg-4">
       <div class="card">
         <div class="card-header bg-light">
-          <h4 class="card-title fw-ligh text-center" style="color: #000000;">Total</h4>
+          <h4 class="card-title fw-ligh text-center" style="color: #000000;">Cart</h4>
         </div>
+
         <div class="card-body" th:with="subtotal=${subtotal}, tax=${subtotal * 0.06}, total=${subtotal + tax}">
           <div class="d-flex justify-content-between mb-2">
             <span class="text-secondary">Subtotal:</span>
@@ -85,7 +86,7 @@
           </div>
           <div class="d-flex justify-content-between mb-2">
             <span class="text-secondary">Estimated Shipping:</span>
-            <spman id="shipping" class="fw-bold">-</spman>
+            <span id="shipping" class="fw-bold">-</span>
           </div>
           <div class="d-flex justify-content-between mb-2">
             <span class="text-secondary">Estimated Tax:</span>
