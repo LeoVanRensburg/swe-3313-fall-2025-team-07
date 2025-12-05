@@ -581,6 +581,143 @@ public class Database {
     }
 
     // ==================================================================================
+    // NEW MODULE: SALES REPORTING (Additions only)
+    // ==================================================================================
+
+    /**
+     * 1. Data Structure for the main Sales Report list.
+     * Contains just enough info to show "What was sold" and "Who bought it".
+     */
+    public static class SalesReportItem {
+        public Long orderId;        // Used to create the link to the receipt
+        public String date;
+        public String purchaserEmail;
+        public String itemName;
+        public BigDecimal itemPrice;
+        public Integer quantity;
+
+        public SalesReportItem(Long orderId, String date, String purchaserEmail,
+                               String itemName, BigDecimal itemPrice, Integer quantity) {
+            this.orderId = orderId;
+            this.date = date;
+            this.purchaserEmail = purchaserEmail;
+            this.itemName = itemName;
+            this.itemPrice = itemPrice;
+            this.quantity = quantity;
+        }
+    }
+
+    /**
+     * 2. Data Structure for the Detailed Receipt.
+     * We create a new class here because the existing 'Order' class
+     * is missing fields like Address, Tax, and Shipping Cost.
+     */
+    public static class OrderReceipt {
+        public Long orderId;
+        public String orderDate;
+        public String purchaserEmail;
+        public String shippingName;
+        public String shippingAddress; // Formatted full address
+        public BigDecimal subtotal;
+        public BigDecimal tax;
+        public BigDecimal shippingCost;
+        public BigDecimal total;
+        public List<OrderItem> items = new ArrayList<>();
+    }
+
+    /**
+     * Method A: Generate the list of all sales.
+     * Use this for your main Admin Report table.
+     */
+    public static List<SalesReportItem> getSalesReport() {
+        return query(conn -> {
+            List<SalesReportItem> report = new ArrayList<>();
+            // Join orders and order_items to flatten the data for a report view
+            String sql = "SELECT o.id as order_id, o.order_date, o.purchaser_email, " +
+                    "       oi.item_name, oi.item_price, oi.quantity " +
+                    "FROM orders o " +
+                    "JOIN order_items oi ON o.id = oi.order_id " +
+                    "ORDER BY o.id DESC"; // Newest orders first
+
+            try (PreparedStatement stmt = conn.prepareStatement(sql);
+                 ResultSet rs = stmt.executeQuery()) {
+
+                while (rs.next()) {
+                    report.add(new SalesReportItem(
+                            rs.getLong("order_id"),
+                            rs.getString("order_date"),
+                            rs.getString("purchaser_email"),
+                            rs.getString("item_name"),
+                            rs.getBigDecimal("item_price"),
+                            rs.getInt("quantity")
+                    ));
+                }
+            }
+            return report;
+        });
+    }
+
+    /**
+     * Method B: Get detailed receipt for a specific order ID.
+     * Use this when the admin clicks a row in the report.
+     */
+    public static Optional<OrderReceipt> getReceipt(Long orderId) {
+        return query(conn -> {
+            OrderReceipt receipt = null;
+
+            // 1. Fetch Order Details (Shipping, Tax, etc)
+            String sqlOrder = "SELECT * FROM orders WHERE id = ?";
+            try (PreparedStatement stmt = conn.prepareStatement(sqlOrder)) {
+                stmt.setLong(1, orderId);
+                ResultSet rs = stmt.executeQuery();
+                if (rs.next()) {
+                    receipt = new OrderReceipt();
+                    receipt.orderId = rs.getLong("id");
+                    receipt.orderDate = rs.getString("order_date");
+                    receipt.purchaserEmail = rs.getString("purchaser_email");
+                    receipt.subtotal = rs.getBigDecimal("subtotal");
+                    receipt.tax = rs.getBigDecimal("tax");
+                    receipt.shippingCost = rs.getBigDecimal("shipping_cost");
+                    receipt.total = rs.getBigDecimal("total");
+
+                    // Combine name
+                    receipt.shippingName = rs.getString("shipping_first_name") + " " +
+                            rs.getString("shipping_last_name");
+
+                    // Format Address
+                    String apt = rs.getString("shipping_apt_suite");
+                    if (apt == null) apt = "";
+                    receipt.shippingAddress = rs.getString("shipping_street_address") + " " + apt + ", " +
+                            rs.getString("shipping_city") + ", " +
+                            rs.getString("shipping_state") + " " +
+                            rs.getString("shipping_zip_code");
+                }
+            }
+
+            if (receipt == null) return Optional.empty();
+
+            // 2. Fetch Items for this order
+            String sqlItems = "SELECT * FROM order_items WHERE order_id = ?";
+            try (PreparedStatement stmt = conn.prepareStatement(sqlItems)) {
+                stmt.setLong(1, orderId);
+                ResultSet rs = stmt.executeQuery();
+                while (rs.next()) {
+                    OrderItem item = new OrderItem();
+                    item.id = rs.getLong("id");
+                    item.orderId = rs.getLong("order_id");
+                    item.itemId = rs.getLong("item_id");
+                    item.itemName = rs.getString("item_name");
+                    item.itemPrice = rs.getBigDecimal("item_price");
+                    item.quantity = rs.getInt("quantity");
+                    receipt.items.add(item);
+                }
+            }
+
+            return Optional.of(receipt);
+        });
+    }
+
+    // ==================================================================================
     // EXAMPLE USAGE
     // ==================================================================================
 
