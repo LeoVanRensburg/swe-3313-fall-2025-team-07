@@ -36,8 +36,8 @@ public class UserController {
             Database.User user = userTemp.get();
 
             session.setAttribute("userId", user.id);
-            //admin role set in DB
-            //session.setAttribute("isAdmin", user.isAdmin);
+            //admin role setted in DB
+            session.setAttribute("isAdmin", user.isAdmin);
 
             return "redirect:/";
         } else {
