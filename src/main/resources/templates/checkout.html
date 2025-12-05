@@ -85,7 +85,7 @@
 
                     <!--Ground Shipping Option-->
                     <div class="row g-3">
-                        <div class="col-md-6">
+                        <div class="col-md-6 bg-white">
                             <div class="border rounded p-3 d-flex align-items-center">
                                 <input class="form-check-input me-3 mt-1" type="radio" name="shippingMethod" value="Ground" id="ground" required>
                                 <div class="flex-grow-1 d-flex justify-content-between">
@@ -101,7 +101,7 @@
                         </div>
 
                         <!--Overnight-->
-                        <div class="col-md-6">
+                        <div class="col-md-6 bg-white">
                             <div class="border rounded p-3 d-flex align-items-center">
                                 <input class="form-check-input me-3 mt-1" type="radio" name="shippingMethod" value="Overnight" id="overnight">
                                 <div class="flex-grow-1 d-flex justify-content-between">
@@ -119,7 +119,7 @@
 
                     <!--3 Day Shipping-->
                     <div class="row g-3 mt-3">
-                        <div class="col-md-6">
+                        <div class="col-md-6 bg-white">
                             <div class="border rounded p-3 d-flex align-items-center">
                                 <input class="form-check-input me-3 mt-1" type="radio" name="shippingMethod" value="3-Day" id="3-day">
                                 <div class="flex-grow-1 d-flex justify-content-between">
@@ -160,7 +160,7 @@
 
                         <!--Item Name,Qty, Price-->
                         <div class="flex-grow-1">
-                            <div class="fw-bold" th:text="${item.name}"></div>
+                            <div class="fw-semibold" th:text="${item.name}"></div>
                             <div class="text-muted small">QTY: <span th:text="${item.quantity}"></span></div>
                             <div class="mt-1" th:text="${#numbers.formatCurrency(item.price * item.quantity)}"></div>
                         </div>
@@ -200,7 +200,7 @@
                     </div>
 
                     <!--Continue to Payment Button-->
-                    <div class="text-center">
+                    <div class="text-center pb-3">
                         <button class="btn text-white rounded-pill fw-bold px-5" style="background-color: #0060FF;font-size: 19px" onclick="placeOrder()">
                             Continue to Payment
                         </button>

@@ -33,12 +33,16 @@
                 <h3 class="mb-3 fw-light">Payment Method</h3>
 
                 <!--Credit/Debit Card Section-->
-                <div class="p-3 mb-3">
-                    <div class="form-check">
-                        <input class="form-check-input me-3" type="radio" name="paymentMethod" value="creditCard" id="creditCard"checked>
+                <div class="border rounded p-3 mb-4 bg-white">
+                    <div class="d-flex align-items-center">
+                        <input class="form-check-input me-3" type="radio" name="paymentMethod" value="creditCard" id="creditCard" checked>
                         <label class="form-check-label" for="creditCard">Credit/Debit Card</label>
+                        <div class="ms-auto d-flex gap-2">
+                            <img src="/pictures/mastercard.png" style="height: 24px; width: auto;">
+                            <img src="/pictures/visa.png" style="height: 24px; width: auto">
+                            <img src="/pictures/americanexpress.png" style="height: 24px; width: auto">
+                        </div>
                     </div>
-                    <!--still need to add the cc pictures inside the box-->
                 </div>
 
                 <!--Card Details-->
@@ -46,23 +50,23 @@
 
                 <div class="mb-3">
                     <label for="cardName" class="form-label">Name on card*</label>
-                    <input type="text" class="form-control" id="cardName" required>
+                    <input type="text" class="form-control" id="cardName" name="cardName" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="cardNumber" class="form-label">Card number*</label>
-                    <input type="text" class="form-control" id="cardNumber" required>
+                    <input type="text" class="form-control" id="cardNumber" name="cardNumber" required>
                 </div>
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
-                        <label for="expiryDate" class="form-label">Expiration*</label>
-                        <input type="text" class="form-control" id="expiryDate" required>
+                        <label for="expirationDate" class="form-label">Expiration*</label>
+                        <input type="text" class="form-control" id="expirationDate" name="expirationDate" required>
                     </div>
 
                     <div class="col-md-6 mb-3">
                         <label for="cvv" class="form-label">CVV*</label>
-                        <input type="text" class="form-control" id="cvv" required>
+                        <input type="text" class="form-control" id="cvv" name="cvv"required>
                     </div>
                 </div>
 
@@ -93,65 +97,67 @@
                         </div>
                     </div>
                 </div>
-                <!-- Order Summary Section (Right Panel)-->
-                <div class="col-12 col-sm-12 col-md-4 col-lg-4">
-                    <div class="card">
-                        <div class="card-header bg-light">
-                            <h4 class="card-title fw-light text-center" style="color: #000000;">Cart</h4>
-                        </div>
 
-                        <div class="card-body">
-                            <!--Cart items-->
-                            <div th:each="item : ${items}" class="d-flex justify-content-between mb-3 p-3 bg-light rounded">
+            </div>
+            <!-- Order Summary Section (Right Panel)-->
+            <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                <div class="card">
+                    <div class="card-header bg-light">
+                        <h4 class="card-title fw-light text-center" style="color: #000000;">Cart</h4>
+                    </div>
 
-                                <!--Image (Left Side)-->
+                    <div class="card-body">
+                        <!--Cart items-->
+                        <div th:each="item : ${items}" class="d-flex justify-content-between mb-3 p-3 bg-light rounded">
 
-                                <div class="me-3 flex-shrink-0">
-                                    <div class="bg-light border align-items center justify-content-center rounded"
-                                         style="width: 60px; height: 60px;">
-                                        <i class="bi bi-box" style="font-size: 1.5rem; color: #6c757d;"></i>
-                                    </div>
+                            <!--Image (Left Side)-->
+
+                            <div class="me-3 flex-shrink-0">
+                                <div class="bg-light border align-items center justify-content-center rounded"
+                                     style="width: 60px; height: 60px;">
+                                    <i class="bi bi-box" style="font-size: 1.5rem; color: #6c757d;"></i>
                                 </div>
+                            </div>
 
-                                <!--Item Name,Qty, Price-->
-                                <div class="flex-grow-1">
-                                    <div class="fw-bold" th:text="${item.name}"></div>
-                                    <div class="text-muted small">QTY: <span th:text="${item.quantity}"></span></div>
-                                    <div class="mt-1" th:text="${#numbers.formatCurrency(item.price * item.quantity)}"></div>
-                                 </div>
+                            <!--Item Name,Qty, Price-->
+                            <div class="flex-grow-1">
+                                <div class="fw-semibold" th:text="${item.name}"></div>
+                                <div class="text-muted small">QTY: <span th:text="${item.quantity}"></span></div>
+                                <div class="mt-1" th:text="${#numbers.formatCurrency(item.price * item.quantity)}"></div>
                             </div>
                         </div>
+                    </div>
 
-                        <!--Order Summary-->
+                    <!--Order Summary-->
+                    <div class="p-3">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-secondary">Subtotal:</span>
+                        <span class="fw-semibold" th:text="${#numbers.formatCurrency(subtotal)}"></span>
+                    </div>
 
-                        <div class="d-flex justify-content-between mb-2">
-                            <span class="text-secondary">Subtotal:</span>
-                            <span class="fw-semibold" th:text="${#numbers.formatCurrency(subtotal)}"></span>
-                        </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-secondary">Shipping:</span>
+                        <span class="fw-semibold">  TBD </span>
+                    </div>
 
-                        <div class="d-flex justify-content-between mb-2">
-                            <span class="text-secondary">Shipping:</span>
-                            <span class="fw-semibold">  TBD </span>
-                        </div>
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="text-secondary">Tax:</span>
+                        <span class="fw-semibold" th:text="${#numbers.formatCurrency(tax)}"></span>
+                    </div>
 
-                        <div class="d-flex justify-content-between mb-2">
-                            <span class="text-secondary">Tax:</span>
-                            <span class="fw-semibold" th:text="${#numbers.formatCurrency(tax)}"></span>
-                        </div>
-
-                        <hr>
-                        <div class="d-flex justify-content-between mb-4">
-                            <span class="fw-semibold">Total</span>
-                            <span class="fw-semibold" th:text="${#numbers.formatCurrency(subtotal + tax)}"></span>
-                        </div>
+                    <hr>
+                    <div class="d-flex justify-content-between mb-4">
+                        <span class="fw-semibold">Total</span>
+                        <span class="fw-semibold" th:text="${#numbers.formatCurrency(subtotal + tax)}"></span>
+                    </div>
+                    </div>
 
 
-                        <!--Place Your Order Button-->
-                        <div class="text-center">
-                            <button class="btn text-white rounded-pill fw-bold px-5" style="background-color: #0060FF;font-size: 19px" onclick="placeOrder()">
-                                Place Your Order
-                            </button>
-                        </div>
+                    <!--Place Your Order Button-->
+                    <div class="text-center pb-3">
+                        <button type="submit'" class="btn text-white rounded-pill fw-bold px-5" style="background-color: #0060FF;font-size: 19px">
+                            Place Your Order
+                        </button>
                     </div>
                 </div>
             </div>
