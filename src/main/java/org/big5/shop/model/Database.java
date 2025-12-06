@@ -266,6 +266,32 @@ public class Database {
         );
     }
 
+    //Returns all users for 'manage users'
+    public static List<User> getAllUsers() {
+        return query(conn -> {
+            List<User> users = new ArrayList<>();
+            String sql = "SELECT * FROM users ORDER BY id";
+            try(PreparedStatement stmt = conn.prepareStatement(sql); ResultSet rs = stmt.executeQuery()){
+                while (rs.next()) {
+                    users.add(mapUser(rs));
+                }
+            }
+            return users;
+        });
+    }
+
+    //Updates admin/user status for 'Manage users'
+    public static void updateAdminStatus(Long userId, boolean isAdmin) {
+        transactionVoid(conn -> {
+            String sql = "UPDATE users SET is_admin = ? WHERE id = ?";
+            try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setInt(1, isAdmin ? 1 : 0);
+                stmt.setLong(2, userId);
+                stmt.executeUpdate();
+            }
+        });
+    }
+
     // ==================================================================================
     // MODULE: ITEMS
     // ==================================================================================

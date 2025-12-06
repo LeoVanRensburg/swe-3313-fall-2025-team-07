@@ -21,7 +21,7 @@ import java.io.PrintWriter;
 @Controller
 public class OrderController {
 
-    private Long sessionUserId(HttpSession session){
+    private Long sessionId(HttpSession session){
         return (Long) session.getAttribute("userId");
     }
 
@@ -41,7 +41,7 @@ public class OrderController {
             return "redirect:/cart";
         }
 
-        List<Database.CartItem> cartItems = Database.getCartItems(sessionUserId(session));
+        List<Database.CartItem> cartItems = Database.getCartItems(sessionId(session));
 
         List<CartController.CartItemDTO> items  = cartItems.stream().map(CartController.CartItemDTO::new).collect(Collectors.toList());
 
@@ -78,7 +78,7 @@ public class OrderController {
             return "redirect:/login";
         }
 
-        Long userId = sessionUserId(session);
+        Long userId = sessionId(session);
 
         try {
             List<Database.CartItem> cartItems = Database.getCartItems(userId);
@@ -146,7 +146,7 @@ public class OrderController {
 
         session.removeAttribute("paymentFlow");
 
-        List<Database.CartItem> cartItems = Database.getCartItems(sessionUserId(session));
+        List<Database.CartItem> cartItems = Database.getCartItems(sessionId(session));
         List<CartController.CartItemDTO> items  = cartItems.stream().map(CartController.CartItemDTO::new).collect(Collectors.toList());
 
         double subtotal = items.stream().mapToDouble(i -> i.getPrice() * i.getQuantity()).sum();
@@ -172,7 +172,7 @@ public class OrderController {
             return "redirect:/login";
         }
 
-        List<Database.CartItem> cart = Database.getCartItems(sessionUserId(session));
+        List<Database.CartItem> cart = Database.getCartItems(sessionId(session));
         if (cart == null || cart.isEmpty()) {
             return "redirect:/cart";
         }
@@ -212,64 +212,4 @@ public class OrderController {
 //        }
         return "order-confirmation";
     }
-
-    @GetMapping("/admin/sales-report")
-    public String showSalesReport(Model model, HttpSession session) {
-        if (sessionUserId(session) == null || !isAdmin(session)) {
-            return "redirect:/login";
-        }
-
-        List<Database.SalesReportItem> rows = Database.getSalesReport();
-        model.addAttribute("rows", rows);
-
-        return "sales-report";
-    }
-
-    @GetMapping("/admin/sales-report/{orderId}")
-    public String viewReceipt(@PathVariable Long orderId, Model model, HttpSession session) {
-        if (sessionUserId(session) == null || !isAdmin(session)) {
-            return "redirect:/login";
-        }
-
-        Optional<Database.OrderReceipt> receiptOptional = Database.getReceipt(orderId);
-        if (receiptOptional.isPresent()) {
-            model.addAttribute("receipt", receiptOptional.get());
-            return "sales-receipt";
-        }
-
-        return "redirect:/admin/sales-report";
-    }
-
-    @GetMapping("/admin/sales-report/download")
-    public void downloadSalesReport(HttpSession session, HttpServletResponse response) throws IOException {
-        if (sessionUserId(session) == null || !isAdmin(session)) {
-            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Not authorized to download sales-report");
-            return;
-        }
-
-        List<Database.SalesReportItem> rows = Database.getSalesReport();
-        response.setContentType("text/csv");
-        response.setHeader("Content-Disposition", "attachment; filename=sales-report.csv");
-
-        try(PrintWriter writter = response.getWriter()){
-            writter.println("orderID,orderDate,purchaserEmail,itemName,itemPrice,quantity,lineTotal");
-
-            for (Database.SalesReportItem item : rows) {
-                BigDecimal lineTotal = item.itemPrice.multiply(new BigDecimal(item.quantity));
-
-                writter.printf(
-                        "%s,%s,%s,\"%s\",%s,%s,%s%n",
-                        item.orderId,
-                        item.date,
-                        item.purchaserEmail,
-                        item.itemName.replace("\"", "'"),
-                        item.itemPrice.toPlainString(),
-                        item.quantity,
-                        lineTotal.toPlainString()
-                        );
-            }
-        }
-
-    }
-
 }
