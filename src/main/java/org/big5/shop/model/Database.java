@@ -266,7 +266,7 @@ public class Database {
         );
     }
 
-    //Returns all users for 'manage users'
+    //Returns all users for 'admin/manage-users'
     public static List<User> getAllUsers() {
         return query(conn -> {
             List<User> users = new ArrayList<>();
@@ -280,7 +280,7 @@ public class Database {
         });
     }
 
-    //Updates admin/user status for 'Manage users'
+    //Updates admin/user status for 'admin/Manage-users'
     public static void updateAdminStatus(Long userId, boolean isAdmin) {
         transactionVoid(conn -> {
             String sql = "UPDATE users SET is_admin = ? WHERE id = ?";
