@@ -48,6 +48,14 @@ public class AdminController {
     //ADD ITEM
     // =======
     @GetMapping("/admin/add-items")
+    public String showAddItems(HttpSession session){
+        if (ifNotAdmin(session) != null){
+            return ifNotAdmin(session);
+        }
+        return "add-items";
+    }
+
+    @PostMapping("/admin/add-items")
     public String addItem(Model model,
                           HttpSession session,
                           @RequestParam String name,

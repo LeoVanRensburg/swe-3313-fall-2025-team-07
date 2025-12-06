@@ -246,38 +246,44 @@ public class SeedDatabase {
             System.err.println("Note: Could not clear existing items: " + e.getMessage());
         }
 
-        // Insert seed data
+        // Insert seed data (only iterate over defined products)
         int insertedCount = 0;
-        int skippedCount = 0;
+        int errorCount = 0;
+        Set<String> existingImages = new HashSet<>(imageFiles);
 
-        for (String imageFile : imageFiles) {
-            if (SEED_DATA.containsKey(imageFile)) {
-                ItemData itemData = SEED_DATA.get(imageFile);
-                try {
-                    Database.Item item = Database.createItem(
-                            itemData.name,
-                            itemData.price,
-                            itemData.description,
-                            imageFile,
-                            itemData.category
-                    );
-                    System.out.println("  ✓ Inserted: " + itemData.name + " (" + imageFile + ")");
-                    insertedCount++;
-                } catch (Exception e) {
-                    System.err.println("  ✗ Failed to insert " + imageFile + ": " + e.getMessage());
-                    skippedCount++;
-                }
-            } else {
-                System.out.println("  ⚠ Skipped: " + imageFile + " (no seed data defined)");
-                skippedCount++;
+        for (Map.Entry<String, ItemData> entry : SEED_DATA.entrySet()) {
+            String imageFile = entry.getKey();
+            ItemData itemData = entry.getValue();
+
+            if (!existingImages.contains(imageFile)) {
+                System.err.println("  ✗ Missing image: " + imageFile + " for product " + itemData.name);
+                errorCount++;
+                continue;
+            }
+
+            try {
+                Database.Item item = Database.createItem(
+                        itemData.name,
+                        itemData.price,
+                        itemData.description,
+                        imageFile,
+                        itemData.category
+                );
+                System.out.println("  ✓ Inserted: " + itemData.name + " (" + imageFile + ")");
+                insertedCount++;
+            } catch (Exception e) {
+                System.err.println("  ✗ Failed to insert " + imageFile + ": " + e.getMessage());
+                errorCount++;
             }
         }
 
         // Summary
         System.out.println("\n" + "=".repeat(60));
         System.out.println("Database seeding complete!");
-        System.out.println("  Items Inserted: " + insertedCount);
-        System.out.println("  Items Skipped:  " + skippedCount);
+        System.out.println("  Products inserted: " + insertedCount);
+        if (errorCount > 0) {
+            System.out.println("  Errors: " + errorCount);
+        }
         System.out.println("=".repeat(60) + "\n");
     }
 
