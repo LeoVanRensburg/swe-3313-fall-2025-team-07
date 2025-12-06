@@ -14,8 +14,8 @@
 
       <nav aria-label="breadcrumb" class="mb-4" style="--bs-breadcrumb-divider: '>';">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="/" class="text-decoration-none">Home</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Shopping Cart</li>
+          <li class="breadcrumb-item text-secondary">Home</li>
+          <li class="breadcrumb-item active" aria-current="page" style="color: #0060FF;">Shopping Cart</li>
         </ol>
       </nav>
 
@@ -99,7 +99,19 @@
           </div>
 
           <div class="text-center pb-3">
-            <button class="btn text-white rounded-pill fw-bold px-5" style="background-color: #0060FF;font-size: 19px" onclick="proceedToCheckout()">Continue to Checkout</button>
+
+              <a th:if="${!#lists.isEmpty(items)}" th:href="@{/checkout}"
+                 class="btn text-white rounded-pill fw-bold px-5"
+                 style="background-color: #0060FF; border-radius: 0;font-size: 19px;">
+                  Continue to Checkout
+              </a>
+
+              <button th:if="${#lists.isEmpty(items)}" type="button"
+                      class="btn text-white rounded-pill fw-bold px-5"
+                      style="background-color: #6c757d; border-radius: 0;font-size: 19px; opacity: 0.65; pointer-events: none;"
+                      aria-disabled="true" disabled>
+                  Continue to Checkout
+              </button>
           </div>
         </div>
       </div>

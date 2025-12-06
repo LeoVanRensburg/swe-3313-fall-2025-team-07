@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: head('Manage Users')"></head>
+<body>
+
+<div th:replace="fragments/layout :: header"></div>
+
+<main>
+    <div class="container" style="padding-top: 95px; max-width: 1000px;">
+        <div class="card">
+            <div class="card-header bg-white d-flex align-items-center justify-content-center">
+                <h5 class="card-title mb-0">Manage Users</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead class="table-light">
+                        <tr>
+                            <th scope="col">User ID</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Role</th>
+                            <th scope="col" class="text-end">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr>
+                            <td>1</td>
+                            <td>admin@example.com</td>
+                            <td><span class="badge text-bg-primary">ADMIN</span></td>
+                            <td class="text-end">
+                                <button type="button" class="btn btn-sm btn-outline-danger" disabled>
+                                    Demote to User
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>jane.doe@example.com</td>
+                            <td><span class="badge text-bg-secondary">USER</span></td>
+                            <td class="text-end">
+                                <button type="button" class="btn btn-sm btn-outline-success" disabled>
+                                    Promote to Admin
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>john.smith@example.com</td>
+                            <td><span class="badge text-bg-secondary">USER</span></td>
+                            <td class="text-end">
+                                <button type="button" class="btn btn-sm btn-outline-success" disabled>
+                                    Promote to Admin
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>maria.lee@example.com</td>
+                            <td><span class="badge text-bg-primary">ADMIN</span></td>
+                            <td class="text-end">
+                                <button type="button" class="btn btn-sm btn-outline-danger" disabled>
+                                    Demote to User
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center my-5">
+        <a th:href="@{/admin}" class="btn text-white rounded-pill fw-bold px-5" style="background-color: #0060FF; border-radius: 0;font-size: 19px;">Return to Panel</a>
+    </div>
+</main>
+
+<div th:replace="fragments/layout :: footer"></div>
+<div th:replace="fragments/layout :: scripts"></div>
+
+</body>
+</html>

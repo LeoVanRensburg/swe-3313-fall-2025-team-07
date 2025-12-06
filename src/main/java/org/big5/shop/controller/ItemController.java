@@ -149,6 +149,19 @@ public class ItemController {
         return "items";
     }
 
+    @GetMapping("/admin/add-items")
+    public String showAddItems(HttpSession session){
+        if (session == null || session.getAttribute("userId") == null) {
+            return "redirect:/login";
+        }
+
+        Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
+
+        if (isAdmin == null || !isAdmin) {
+            return "redirect:/";
+        }
+        return "add-items";
+    }
 
     // DTO to expose fields to Thymeleaf
     public static class ItemDTO {

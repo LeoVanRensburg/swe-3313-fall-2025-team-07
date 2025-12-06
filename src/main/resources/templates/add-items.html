@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: head('Add New Item')"></head>
+<body>
+
+<div th:replace="fragments/layout :: header"></div>
+
+<main>
+    <div class="container" style="padding-top: 95px; max-width: 1000px;">
+        <div class="card">
+            <div class="card-header bg-white d-flex align-items-center justify-content-center">
+                <h5 class="card-title mb-0">Add New Item</h5>
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="row g-3">
+
+                        <div class="col-12">
+                            <label class="form-label fw-semibold" for="itemName">Item Name</label>
+                            <input type="text" class="form-control" id="itemName" placeholder="e.g., Ness' Hat" disabled>
+                        </div>
+
+                        <div class="col-md-8">
+                            <label class="form-label fw-semibold" for="category">Category</label>
+                            <select class="form-select" id="category" disabled>
+                                <option selected>Choose category...</option>
+                                <option>Consoles</option>
+                                <option>Games</option>
+                                <option>Accessories</option>
+                                <option>Merchandise</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label fw-semibold" for="price">Price</label>
+                            <div class="input-group">
+                                <span class="input-group-text">$</span>
+                                <input type="number" class="form-control" id="price" step="0.01" min="0" placeholder="0.00" disabled>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label fw-semibold" for="imageFile">Upload Picture</label>
+                            <input class="form-control" type="file" id="imageFile" accept="image/*" disabled>
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label fw-semibold" for="description">Description</label>
+                            <textarea class="form-control" id="description" rows="4" placeholder="Description of the item..." disabled></textarea>
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <div class="d-flex gap-2 justify-content-center">
+                        <button type="button" class="btn btn-primary" disabled>
+                            <i class="bi bi-save"></i> Save Item
+                        </button>
+                        <button type="reset" class="btn btn-outline-secondary" disabled>Reset</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="text-center my-5" style="padding-bottom: 35px;">
+        <a th:href="@{/admin}" class="btn text-white rounded-pill fw-bold px-5" style="background-color: #0060FF; border-radius: 0;font-size: 19px;">Return to Panel</a>
+    </div>
+</main>
+
+<div th:replace="fragments/layout :: footer"></div>
+<div th:replace="fragments/layout :: scripts"></div>
+
+</body>
+</html>

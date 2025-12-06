@@ -89,4 +89,32 @@ public class UserController {
         session.invalidate();
         return "redirect:/login";
     }
+
+    @GetMapping("/admin")
+    public String showAdmin(HttpSession session){
+        if (session == null || session.getAttribute("userId") == null) {
+            return "redirect:/login";
+        }
+
+        Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
+
+        if (isAdmin == null || !isAdmin) {
+            return "redirect:/";
+        }
+        return "admin";
+    }
+
+    @GetMapping("/admin/manage-users")
+    public String showManageUsers(HttpSession session){
+        if (session == null || session.getAttribute("userId") == null) {
+            return "redirect:/login";
+        }
+
+        Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
+
+        if (isAdmin == null || !isAdmin) {
+            return "redirect:/";
+        }
+        return "manage-users";
+    }
 }

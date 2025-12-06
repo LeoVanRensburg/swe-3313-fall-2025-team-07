@@ -1,6 +1,7 @@
 package org.big5.shop.controller;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.HttpServletRequest;
 import org.big5.shop.model.Database;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,25 +37,40 @@ public class CartController {
     }
 
     @PostMapping("/cart/add")
-    public String addToCart(@RequestParam("itemId") Long itemId, HttpSession session){
+    public String addToCart(@RequestParam("itemId") Long itemId,
+                            HttpSession session,
+                            HttpServletRequest request){
 
         if (session == null || session.getAttribute("userId") == null) {
             return "redirect:/login";
         }
         Database.addToCart(sessionUserId(session), itemId);
 
-        return "redirect:/cart";
+        String referer = request.getHeader("Referer");
+        if (referer != null && !referer.isBlank()) {
+            return "redirect:" + referer;
+        }
+        return "redirect:/items";
     }
 
     @PostMapping("/cart/remove")
-    public String removeFromCart(@RequestParam("cartItemId") Long cartItemId, HttpSession session){
+    public String removeFromCart(@RequestParam("cartItemId") Long cartItemId,
+                                 HttpSession session,
+                                 HttpServletRequest request){
 
         if (session == null || session.getAttribute("userId") == null) {
             return "redirect:/login";
         }
         Database.removeFromCart(cartItemId);
 
-        return "redirect:/cart";
+        String referer = request.getHeader("Referer");
+        if (referer != null && !referer.isBlank() && !Database.getCartItems(sessionUserId(session)).isEmpty()) {
+            return "redirect:" + referer;
+        }
+        else if(Database.getCartItems(sessionUserId(session)).isEmpty()){
+            return "redirect:/cart";
+        }
+        return "redirect:/items";
     }
 
     @PostMapping("/cart/clear")

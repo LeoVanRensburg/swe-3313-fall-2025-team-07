@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.math.BigDecimal;
@@ -30,10 +31,16 @@ public class OrderController {
     }
 
     @GetMapping("/checkout")
-    public String showCheckout(Model model, HttpSession session) {
+    public String showCheckout(Model model, HttpSession session,
+                               @RequestParam(name = "shipping", required = false) String shipping) {
         if (session == null || session.getAttribute("userId") == null) {
             return "redirect:/login";
         }
+
+        if (Database.getCartItems((Long) session.getAttribute("userId")).isEmpty()) {
+            return "redirect:/cart";
+        }
+
         List<Database.CartItem> cartItems = Database.getCartItems(sessionUserId(session));
 
         List<CartController.CartItemDTO> items  = cartItems.stream().map(CartController.CartItemDTO::new).collect(Collectors.toList());
@@ -41,9 +48,15 @@ public class OrderController {
         double subtotal = items.stream().mapToDouble(i -> i.getPrice() * i.getQuantity()).sum();
         double tax = subtotal * 0.08;
 
+        String shippingMethod = getShipping(shipping);
+        double shippingCost = getShippingPrice(shippingMethod);
+
         model.addAttribute("items", items);
         model.addAttribute("tax", tax);
         model.addAttribute("subtotal", subtotal);
+        model.addAttribute("shippingMethod", shippingMethod);
+        model.addAttribute("shippingCost", shippingCost);
+        model.addAttribute("total", subtotal + tax + shippingCost);
 
         return "checkout";
     }
@@ -82,22 +95,14 @@ public class OrderController {
             }
 
             BigDecimal tax = subtotal.multiply(new BigDecimal("0.08"));
-            BigDecimal orderShippingCost;
-            String orderShippingMethod = shippingMethod.toLowerCase();
-
-            if(orderShippingMethod.equals("express")){
-                orderShippingCost = new BigDecimal("12.99");
-            }else if (orderShippingMethod.equals("overnight")){
-                orderShippingCost = new BigDecimal("24.99");
-            }else {
-                orderShippingCost = new BigDecimal("5.99");
-            }
+            String shipping = getShipping(shippingMethod);
+            BigDecimal orderShippingCost = new BigDecimal(String.format("%.2f", getShippingPrice(shipping)));
 
             BigDecimal total = subtotal.add(tax).add(orderShippingCost);
 
             Database.Order order = Database.createOrder(
                     userId,
-                    shippingMethod,
+                    shipping,
                     firstName,
                     lastName,
                     streetAddress,
@@ -123,8 +128,84 @@ public class OrderController {
         }
     }
 
+    @GetMapping("/checkout/payment")
+    public String showCheckoutPayment(Model model, HttpSession session,
+                                      @RequestParam(name = "shipping", required = false) String shipping) {
+        if (session == null || session.getAttribute("userId") == null) {
+            return "redirect:/login";
+        }
+
+        if (Database.getCartItems((Long) session.getAttribute("userId")).isEmpty()) {
+            return "redirect:/cart";
+        }
+
+        Boolean paymentFlow = (Boolean) session.getAttribute("paymentFlow");
+        if (paymentFlow == null || !paymentFlow) {
+            return "redirect:/checkout";
+        }
+
+        session.removeAttribute("paymentFlow");
+
+        List<Database.CartItem> cartItems = Database.getCartItems(sessionUserId(session));
+        List<CartController.CartItemDTO> items  = cartItems.stream().map(CartController.CartItemDTO::new).collect(Collectors.toList());
+
+        double subtotal = items.stream().mapToDouble(i -> i.getPrice() * i.getQuantity()).sum();
+        double tax = subtotal * 0.08;
+
+        String shippingMethod = getShipping(shipping);
+        double shippingCost = getShippingPrice(shippingMethod);
+
+        model.addAttribute("items", items);
+        model.addAttribute("tax", tax);
+        model.addAttribute("subtotal", subtotal);
+        model.addAttribute("shippingMethod", shippingMethod);
+        model.addAttribute("shippingCost", shippingCost);
+        model.addAttribute("total", subtotal + tax + shippingCost);
+
+        return "checkout-payment";
+    }
+
+    @PostMapping("/checkout/payment/start")
+    public String beginPayment(@RequestParam(name = "shipping", required = false) String shipping,
+                               HttpSession session) {
+        if (session == null || session.getAttribute("userId") == null) {
+            return "redirect:/login";
+        }
+
+        List<Database.CartItem> cart = Database.getCartItems(sessionUserId(session));
+        if (cart == null || cart.isEmpty()) {
+            return "redirect:/cart";
+        }
+
+        session.setAttribute("paymentFlow", Boolean.TRUE);
+
+        String method = getShipping(shipping);
+        String query = (method != null && !method.isBlank()) ? ("?shipping=" + method) : "";
+        return "redirect:/checkout/payment" + query;
+    }
+
+    private String getShipping(String method) {
+        if (method == null || method.isBlank()) return "Ground";
+        String m = method.trim().toLowerCase();
+        if (m.contains("overnight")) return "Overnight";
+        if (m.contains("3") || m.contains("three")) return "3-Day";
+        return "Ground";
+    }
+
+    private double getShippingPrice(String shipping) {
+        if(Objects.equals(shipping, "Overnight")){
+            return 29.00;
+        }
+        else if (Objects.equals(shipping, "3-Day")){
+            return 19.00;
+        }
+        else {
+            return 0.00;
+        }
+    }
+
     // Static until checkout is finished
-    @GetMapping("/order-confirmation")
+    @GetMapping("/checkout/order-confirmation")
     public String showOrderConfirmation(/* HttpSession session */) {
 //        if (session == null || session.getAttribute("userId") == null) {
 //            return "redirect:/login";

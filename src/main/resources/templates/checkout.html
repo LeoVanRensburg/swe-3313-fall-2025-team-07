@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 
-<head th:replace="fragments/layout :: head('Shipping - Big5 Shop')">
+<head th:replace="fragments/layout :: head(Shipping)">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
@@ -21,8 +21,6 @@
     <h1 class="text-center mt-2 mb-4" style="color: #8190A5;font-weight: 600;">Checkout</h1>
     <hr class="mt-1">
 
-    <form method="post" th:action="@{/checkout}">
-
     <div class="row">
 
         <!--Shipping Address (Left Panel)-->
@@ -31,51 +29,50 @@
             <!--Breadcrumb-->
             <nav aria-label="breadcrumb" class="mb-4">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/cart.html">Shipping</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Payment</li>
+                    <li class="breadcrumb-item active" aria-current="page" style="color: #0060FF;">Shipping</li>
+                    <li class="breadcrumb-item text-secondary">Payment</li>
                 </ol>
             </nav>
 
             <h3 class="mb-4 fw-light">Shipping Address</h3>
 
             <!--Shipping Address detail section-->
-            <form method="post" th:action="@{/checkout}">
                 <div class = "row">
                     <!--First & Last Name -->
                     <div class = "col-md-6 mb-3">
-                        <label for="firstName" class="form-label fw-light">First name*</label>
-                        <input type="text" class="form-control" id="firstName" name="firstName" required>
+                        <label for="firstName" class="form-label">First name*</label>
+                    <input type="text" class="form-control" id="firstName" name="firstName" required form="startPaymentForm">
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="lastName" class="form-label">Last name*</label>
-                        <input type="text" class="form-control" id="lastName" name="lastName" required>
+                    <input type="text" class="form-control" id="lastName" name="lastName" required form="startPaymentForm">
                     </div>
 
                     <!--Street Address-->
                     <div class="mb-3">
                         <label for="streetAddress" class="form-label">Street Address*</label>
-                        <input type="text" class="form-control" id="streetAddress" name="streetAddress" required>
+                    <input type="text" class="form-control" id="streetAddress" name="streetAddress" required form="startPaymentForm">
                     </div>
 
                     <!--Apartment (Optional) -->
                     <div class="mb-3">
                         <label for="aptSuite" class="form-label">Apt, suite, unit, etc</label>
-                        <input type="text" class="form-control" id="aptSuite" name="aptSuite">
+                    <input type="text" class="form-control" id="aptSuite" name="aptSuite" form="startPaymentForm">
                     </div>
 
                     <div class = "row">
                         <!--city, state, zip code-->
                         <div class = "col-md-6 mb-3">
                             <label for="city" class="form-label">City*</label>
-                            <input type="text" class="form-control" id="city" name="city" required>
+                        <input type="text" class="form-control" id="city" name="city" required form="startPaymentForm">
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="state" class="form-label">State*</label>
-                            <input type="text" class="form-control" id="state" name="state" required>
+                        <input type="text" class="form-control" id="state" name="state" required form="startPaymentForm">
                         </div>
                         <div class="col-md-2 mb-3">
                             <label for="zipCode" class="form-label">Zip Code*</label>
-                            <input type="text" class="form-control" id="zipCode" name="zipCode" required>
+                        <input type="text" class="form-control" id="zipCode" name="zipCode" required form="startPaymentForm">
                         </div>
                     </div>
 
@@ -83,59 +80,62 @@
 
                     <h3 class="mb-3 fw-light">Shipping Method</h3>
 
-                    <!--Ground Shipping Option-->
-                    <div class="row g-3">
-                        <div class="col-md-6 bg-white">
-                            <div class="border rounded p-3 d-flex align-items-center">
-                                <input class="form-check-input me-3 mt-1" type="radio" name="shippingMethod" value="Ground" id="ground" required>
-                                <div class="flex-grow-1 d-flex justify-content-between">
-                                    <div>
-                                        <label class="fw-light d-block mb-1" for="ground">Ground</label>
-                                        <small class="text-muted">7-14 days</small>
+                    <form th:action="@{/checkout}" method="get">
+                        <div class="row g-3">
+                            <div class="col-md-6 bg-white">
+                                <div class="border rounded p-3 d-flex align-items-center">
+                                    <input class="form-check-input me-3 mt-1" type="radio" name="shipping" value="Ground" id="ground"
+                                           th:checked="${shippingMethod == 'Ground'}" required onchange="this.form.submit()">
+                                    <div class="flex-grow-1 d-flex justify-content-between">
+                                        <div>
+                                            <label class="fw-light d-block mb-1" for="ground">Ground</label>
+                                            <small class="text-muted">7-14 days</small>
+                                        </div>
+                                        <div>
+                                            <span class="fw-light">Free</span>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <span class="fw-light">Free</span>
+                                </div>
+                            </div>
+
+                            <!--Overnight-->
+                            <div class="col-md-6 bg-white">
+                                <div class="border rounded p-3 d-flex align-items-center">
+                                    <input class="form-check-input me-3 mt-1" type="radio" name="shipping" value="Overnight" id="overnight"
+                                           th:checked="${shippingMethod == 'Overnight'}" onchange="this.form.submit()">
+                                    <div class="flex-grow-1 d-flex justify-content-between">
+                                        <div>
+                                            <label class="fw-light d-block mb-1" for="overnight">Overnight</label>
+                                            <small class="text-muted">1 day</small>
+                                        </div>
+                                        <div>
+                                            <span class="fw-light">$29</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!--Overnight-->
-                        <div class="col-md-6 bg-white">
-                            <div class="border rounded p-3 d-flex align-items-center">
-                                <input class="form-check-input me-3 mt-1" type="radio" name="shippingMethod" value="Overnight" id="overnight">
-                                <div class="flex-grow-1 d-flex justify-content-between">
-                                    <div>
-                                        <label class="fw-light d-block mb-1" for="overnight">Overnight</label>
-                                        <small class="text-muted">1 day</small>
-                                    </div>
-                                    <div>
-                                        <span class="fw-light">$29</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!--3 Day Shipping-->
-                    <div class="row g-3 mt-3">
-                        <div class="col-md-6 bg-white">
-                            <div class="border rounded p-3 d-flex align-items-center">
-                                <input class="form-check-input me-3 mt-1" type="radio" name="shippingMethod" value="3-Day" id="3-day">
-                                <div class="flex-grow-1 d-flex justify-content-between">
-                                    <div>
-                                        <label class="fw-light d-block mb-1" for="3-day">3-Day</label>
-                                        <small class="text-muted">3 days</small>
-                                    </div>
-                                    <div>
-                                        <span class="fw-light">$19</span>
+                        <!--3 Day Shipping-->
+                        <div class="row g-3 mt-3">
+                            <div class="col-md-6 bg-white">
+                                <div class="border rounded p-3 d-flex align-items-center">
+                                    <input class="form-check-input me-3 mt-1" type="radio" name="shipping" value="3-Day" id="3-day"
+                                           th:checked="${shippingMethod == '3-Day'}" onchange="this.form.submit()">
+                                    <div class="flex-grow-1 d-flex justify-content-between">
+                                        <div>
+                                            <label class="fw-light d-block mb-1" for="3-day">3-Day</label>
+                                            <small class="text-muted">3 days</small>
+                                        </div>
+                                        <div>
+                                            <span class="fw-light">$19</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
-            </form>
         </div>
 
 
@@ -148,31 +148,31 @@
 
                 <div class="card-body">
                     <!--Cart items-->
-                    <div th:each="item : ${items}" class="d-flex justify-content-between mb-3 p-3 bg-light rounded">
+                    <div style="max-height: 320px; overflow-y: auto;">
+                        <div th:each="item : ${items}" class="d-flex justify-content-between mb-3 p-3 bg-light rounded">
 
-                        <!--Image (Left Side)-->
-                        <div class="me-3 flex-shrink-0">
-                            <div class="bg-light border align-items center justify-content-center rounded"
-                                 style="width: 60px; height: 60px;">
-                                <i class="bi bi-box" style="font-size: 1.5rem; color: #6c757d;"></i>
+                            <!--Image (Left Side)-->
+                            <div class="me-3 flex-shrink-0 d-flex align-items-center">
+                                <img th:src="@{'/pictures/' + ${item.image}}" th:alt="${item.name}"
+                                     style="width: 60px; height: 60px; object-fit: cover; border: 1px solid #dee2e6; border-radius: .25rem;"/>
                             </div>
-                        </div>
 
-                        <!--Item Name,Qty, Price-->
-                        <div class="flex-grow-1">
-                            <div class="fw-semibold" th:text="${item.name}"></div>
-                            <div class="text-muted small">QTY: <span th:text="${item.quantity}"></span></div>
-                            <div class="mt-1" th:text="${#numbers.formatCurrency(item.price * item.quantity)}"></div>
-                        </div>
+                            <!--Item Name,Qty, Price-->
+                            <div class="flex-grow-1">
+                                <div class="fw-semibold" th:text="${item.name}"></div>
+                                <div class="text-muted small">QTY: <span th:text="${item.quantity}"></span></div>
+                                <div class="mt-1" th:text="${#numbers.formatCurrency(item.price * item.quantity)}"></div>
+                            </div>
 
-                        <!--Trash Icon-->
-                        <div class="ms-2 align-self-start">
-                            <form th:action="@{/cart/remove}" method="post" style="display:inline;">
-                                <input type="hidden" name="productId" th:value="${item.productId}"/>
-                                <button type="submit" class="btn btn-link p-0 text-danger" style="font-size: 1.25rem;">
-                                    <i class="bi bi-trash"></i>
-                                </button>
-                            </form>
+                            <!--Trash Icon-->
+                            <div class="ms-2 align-self-start">
+                                <form th:action="@{/cart/remove}" method="post" style="display:inline;">
+                                    <input type="hidden" name="cartItemId" th:value="${item.id}"/>
+                                    <button type="submit" class="btn btn-link p-0 text-danger" style="font-size: 1.25rem;">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
                         </div>
                     </div>
 
@@ -185,7 +185,7 @@
 
                     <div class="d-flex justify-content-between mb-2">
                         <span class="text-secondary">Shipping:</span>
-                        <span class="fw-semibold">  TBD </span>
+                        <span class="fw-semibold" th:text="${#numbers.formatCurrency(shippingCost)}">$0.00</span>
                     </div>
 
                     <div class="d-flex justify-content-between mb-2">
@@ -196,21 +196,22 @@
                     <hr>
                     <div class="d-flex justify-content-between mb-4">
                         <span class="fw-semibold">Total</span>
-                        <span class="fw-semibold" th:text="${#numbers.formatCurrency(subtotal + tax)}"></span>
+                        <span class="fw-semibold" th:text="${#numbers.formatCurrency(total)}">$0.00</span>
                     </div>
 
-                    <!--Continue to Payment Button-->
                     <div class="text-center pb-3">
-                        <button class="btn text-white rounded-pill fw-bold px-5" style="background-color: #0060FF;font-size: 19px" onclick="placeOrder()">
-                            Continue to Payment
-                        </button>
+                        <form th:action="@{/checkout/payment/start}" method="post" class="d-inline" id="startPaymentForm">
+                            <input type="hidden" name="shipping" th:value="${shippingMethod}" />
+                            <button type="submit" class="btn text-white rounded-pill fw-bold px-5" style="background-color: #0060FF;font-size: 19px">
+                                Continue to Payment
+                            </button>
+                        </form>
                     </div>
 
                 </div>
             </div>
         </div>
     </div>
-    </form>
 </div>
     <div th:replace="fragments/layout :: footer"></div>
     <div th:replace="fragments/layout :: scripts"></div>

@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/layout :: head('Admin Panel')"></head>
+<body>
+
+<div th:replace="fragments/layout :: header"></div>
+
+<main>
+    <div class="container-fluid"style="padding-top: 95px;">
+        <div class="row justify-content-center" style="column-gap: 40px">
+            <div class="col-md-4">
+                <a th:href="@{/admin/add-items}" class="text-decoration-none">
+                    <div class="p-1 rounded bg-light shadow-sm" style="height: 150px;">
+                        <div class="row">
+                            <div class="col-12 col-sm-7 col-md-7">
+                                <h3 class="fw-bold" style="color: #8190A5;">ADD<br>ITEMS</h3>
+                            </div>
+                            <div class="col-12 col-sm-5 col-md-5 text-end">
+                                <img th:src="@{/pictures/create.png}" class="img-fluid" style="max-width: 135px;" alt="Pokéball">
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a th:href="@{/admin/manage-users}" class="text-decoration-none">
+                    <div class="p-1 rounded bg-light shadow-sm" style="height: 150px;">
+                        <div class="row">
+                            <div class="col-12 col-sm-6 col-md-6">
+                                <h3 class="fw-bold" style="color: #8190A5;">MANAGE<br>USERS</h3>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-6 text-end">
+                                <img th:src="@{/pictures/manage.png}" class="img-fluid" style="max-width: 135px;" alt="Kirby">
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="row justify-content-center" style="padding-top: 75px;">
+            <div class="col-md-4">
+                <a th:href="@{/admin/sales-report}" class="text-decoration-none">
+                    <div class="p-1 rounded bg-light shadow-sm" style="height: 150px;">
+                        <div class="row">
+                            <div class="col-12 col-sm-7 col-md-7">
+                                <h3 class="fw-bold" style="color: #8190A5;">SALES<br>REPORT</h3>
+                            </div>
+                            <div class="col-12 col-sm-5 col-md-5 text-end">
+                                <img th:src="@{/pictures/report.png}" class="img-fluid" style="max-width: 130px;" alt="Minecraft block">
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<div th:replace="fragments/layout :: footer"></div>
+<div th:replace="fragments/layout :: scripts"></div>
+
+</body>
+</html>

@@ -1,19 +1,21 @@
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments/layout :: head('Shipping - Big5 Shop')">
+<head th:replace="fragments/layout :: head('Payment')">
+    <style>
+        .breadcrumb-item + .breadcrumb-item::before{
+            content: ">";
+            color:#6c757d;
+        }
+    </style>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <title>Checkout - Payment</title>
 </head>
 
-<style>
-    .breadcrumb-item + .breadcrumb-item::before{
-    content: ">";
-    color:#6c757d;
-    }
-</style>
+<body>
 
 <div class="container py-3">
-    <h1 class="text-center mt-2 mb-4" style="color: #8190A5;font-weight: 600;">Checkout</h1>
+    <h1 class="text-center mt-2 mb-4" style="color: #8190A5;font-weight: 600;">Payment Method</h1>
     <hr class="mt-1">
 
     <form method="post" th:action="@{/checkout}">
@@ -23,12 +25,22 @@
             <div class="col-md-8 bg-light p-4 rounded border border-secondary">
 
                 <!--Breadcrumb-->
-                <nav aria-label="breadcrumb" class="mb-4">
+                <nav aria-label="breadcrumb" class="mb-4" style="--bs-breadcrumb-divider: '>';">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/checkout">Shipping</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Payment</li>
+                        <li class="breadcrumb-item text-secondary">Shipping</li>
+                        <li class="breadcrumb-item active" aria-current="page" style="color: #0060FF;">Payment</li>
                     </ol>
                 </nav>
+
+                <input type="hidden" name="firstName">
+                <input type="hidden" name="lastName">
+                <input type="hidden" name="streetAddress">
+                <input type="hidden" name="aptSuite">
+                <input type="hidden" name="city">
+                <input type="hidden" name="state">
+                <input type="hidden" name="zipCode">
+                <input type="hidden" name="phoneNumber">
+                <input type="hidden" name="shippingMethod" th:value="${shippingMethod}">
 
                 <h3 class="mb-3 fw-light">Payment Method</h3>
 
@@ -66,7 +78,7 @@
 
                     <div class="col-md-6 mb-3">
                         <label for="cvv" class="form-label">CVV*</label>
-                        <input type="text" class="form-control" id="cvv" name="cvv"required>
+                        <input type="text" class="form-control" id="cvv" name="cvv" required>
                     </div>
                 </div>
 
@@ -108,54 +120,52 @@
 
                     <div class="card-body">
                         <!--Cart items-->
-                        <div th:each="item : ${items}" class="d-flex justify-content-between mb-3 p-3 bg-light rounded">
+                        <div style="max-height: 320px; overflow-y: auto;">
+                            <div th:each="item : ${items}" class="d-flex justify-content-between mb-3 p-3 bg-light rounded">
 
-                            <!--Image (Left Side)-->
-
-                            <div class="me-3 flex-shrink-0">
-                                <div class="bg-light border align-items center justify-content-center rounded"
-                                     style="width: 60px; height: 60px;">
-                                    <i class="bi bi-box" style="font-size: 1.5rem; color: #6c757d;"></i>
+                                <!--Image (Left Side)-->
+                                <div class="me-3 flex-shrink-0 d-flex align-items-center">
+                                    <img th:src="@{'/pictures/' + ${item.image}}" th:alt="${item.name}"
+                                         style="width: 60px; height: 60px; object-fit: cover; border: 1px solid #dee2e6; border-radius: .25rem;"/>
                                 </div>
-                            </div>
 
-                            <!--Item Name,Qty, Price-->
-                            <div class="flex-grow-1">
-                                <div class="fw-semibold" th:text="${item.name}"></div>
-                                <div class="text-muted small">QTY: <span th:text="${item.quantity}"></span></div>
-                                <div class="mt-1" th:text="${#numbers.formatCurrency(item.price * item.quantity)}"></div>
+                                <!--Item Name,Qty, Price-->
+                                <div class="flex-grow-1">
+                                    <div class="fw-semibold" th:text="${item.name}"></div>
+                                    <div class="text-muted small">QTY: <span th:text="${item.quantity}"></span></div>
+                                    <div class="mt-1" th:text="${#numbers.formatCurrency(item.price * item.quantity)}"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <!--Order Summary-->
                     <div class="p-3">
-                    <div class="d-flex justify-content-between mb-2">
-                        <span class="text-secondary">Subtotal:</span>
-                        <span class="fw-semibold" th:text="${#numbers.formatCurrency(subtotal)}"></span>
-                    </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-secondary">Subtotal:</span>
+                            <span class="fw-semibold" th:text="${#numbers.formatCurrency(subtotal)}">$0.00</span>
+                        </div>
 
-                    <div class="d-flex justify-content-between mb-2">
-                        <span class="text-secondary">Shipping:</span>
-                        <span class="fw-semibold">  TBD </span>
-                    </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-secondary">Shipping:</span>
+                            <span class="fw-semibold" th:text="${#numbers.formatCurrency(shippingCost)}">$0.00</span>
+                        </div>
 
-                    <div class="d-flex justify-content-between mb-2">
-                        <span class="text-secondary">Tax:</span>
-                        <span class="fw-semibold" th:text="${#numbers.formatCurrency(tax)}"></span>
-                    </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-secondary">Tax:</span>
+                            <span class="fw-semibold" th:text="${#numbers.formatCurrency(tax)}">$0.00</span>
+                        </div>
 
-                    <hr>
-                    <div class="d-flex justify-content-between mb-4">
-                        <span class="fw-semibold">Total</span>
-                        <span class="fw-semibold" th:text="${#numbers.formatCurrency(subtotal + tax)}"></span>
+                        <hr>
+                        <div class="d-flex justify-content-between mb-4">
+                            <span class="fw-semibold">Total</span>
+                            <span class="fw-semibold" th:text="${#numbers.formatCurrency(total)}">$0.00</span>
+                        </div>
                     </div>
-                    </div>
-
 
                     <!--Place Your Order Button-->
                     <div class="text-center pb-3">
-                        <button type="submit'" class="btn text-white rounded-pill fw-bold px-5" style="background-color: #0060FF;font-size: 19px">
+                        <button type="submit" class="btn text-white rounded-pill fw-bold px-5" style="background-color: #0060FF;font-size: 19px">
                             Place Your Order
                         </button>
                     </div>
@@ -164,7 +174,9 @@
         </div>
     </form>
 </div>
+
 <div th:replace="fragments/layout :: footer"></div>
 <div th:replace="fragments/layout :: scripts"></div>
+
 </body>
 </html>
