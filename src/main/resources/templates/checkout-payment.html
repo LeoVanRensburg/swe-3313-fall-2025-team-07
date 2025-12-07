@@ -19,6 +19,7 @@
     <hr class="mt-1">
 
     <form method="post" th:action="@{/checkout}">
+        <div th:if="${error}" class="alert alert-danger" role="alert" th:text="${error}">There was a problem with your input.</div>
         <div class="row">
 
             <!--Payment Method (Left Panel)-->
@@ -50,7 +51,7 @@
                         <input class="form-check-input me-3" type="radio" name="paymentMethod" value="creditCard" id="creditCard" checked>
                         <label class="form-check-label" for="creditCard">Credit/Debit Card</label>
                         <div class="ms-auto d-flex gap-2">
-                            <img src="/pictures/mastercard.png" style="height: 24px; width: auto;">
+                            <img src="/pictures/mastercard2.png" style="height: 24px; width: auto;">
                             <img src="/pictures/visa.png" style="height: 24px; width: auto">
                             <img src="/pictures/americanexpress.png" style="height: 24px; width: auto">
                         </div>
@@ -62,23 +63,27 @@
 
                 <div class="mb-3">
                     <label for="cardName" class="form-label">Name on card*</label>
-                    <input type="text" class="form-control" id="cardName" name="cardName" required>
+                    <input type="text" class="form-control" id="cardName" name="cardName" required
+                           pattern="[A-Za-z][A-Za-z .'-]{1,49}" maxlength="50" title="2–50 characters; letters, spaces, . ' - allowed">
                 </div>
 
                 <div class="mb-3">
                     <label for="cardNumber" class="form-label">Card number*</label>
-                    <input type="text" class="form-control" id="cardNumber" name="cardNumber" required>
+                    <input type="text" class="form-control" id="cardNumber" name="cardNumber" required
+                           pattern="[345]\d{12,18}" inputmode="numeric" maxlength="19" title="Enter 13 to 19 digits and start with 3, 4, or 5">
                 </div>
 
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <label for="expirationDate" class="form-label">Expiration*</label>
-                        <input type="text" class="form-control" id="expirationDate" name="expirationDate" required>
+                        <input type="text" class="form-control" id="expirationDate" name="expirationDate" required
+                               placeholder="MM/YY" pattern="(0[1-9]|1[0-2])\/\d{2}" title="Format MM/YY">
                     </div>
 
                     <div class="col-md-6 mb-3">
                         <label for="cvv" class="form-label">CVV*</label>
-                        <input type="text" class="form-control" id="cvv" name="cvv" required>
+                        <input type="text" class="form-control" id="cvv" name="cvv" required
+                               pattern="\d{3,4}" inputmode="numeric" maxlength="4" title="3 or 4 digits">
                     </div>
                 </div>
 
@@ -88,24 +93,28 @@
                 <div class = "row">
                     <!--Street Address-->
                     <div class="mb-3">
-                        <label for="streetAddress" class="form-label">Street Address*</label>
-                        <input type="text" class="form-control" id="streetAddress" name="streetAddress" required>
+                        <label for="billingStreetAddress" class="form-label">Street Address*</label>
+                        <input type="text" class="form-control" id="billingStreetAddress" name="billingStreetAddress" required
+                               pattern="[0-9A-Za-z][0-9A-Za-z .,'#\-]{4,99}" maxlength="100" title="5–100 characters; letters, numbers, spaces and . , ' # - allowed">
                     </div>
 
                     <div class = "row">
                         <!--city, state, zip code-->
                         <div class = "col-md-6 mb-3">
-                            <label for="city" class="form-label">City*</label>
-                            <input type="text" class="form-control" id="city" name="city" required>
+                            <label for="billingCity" class="form-label">City*</label>
+                            <input type="text" class="form-control" id="billingCity" name="billingCity" required
+                                   pattern="[A-Za-z][A-Za-z .'-]{1,49}" maxlength="50" title="2–50 characters; letters, spaces, . ' - allowed">
                         </div>
 
                         <div class="col-md-4 mb-3">
-                            <label for="state" class="form-label">State*</label>
-                            <input type="text" class="form-control" id="state" name="state" required>
+                            <label for="billingState" class="form-label">State*</label>
+                            <input type="text" class="form-control" id="billingState" name="billingState" required
+                                   pattern="[A-Za-z]{2}" maxlength="2" title="Two-letter state code (e.g., TX)">
                         </div>
                         <div class="col-md-2 mb-3">
-                            <label for="zipCode" class="form-label">Zip Code*</label>
-                            <input type="text" class="form-control" id="zipCode" name="zipCode" required>
+                            <label for="billingZipCode" class="form-label">Zip Code*</label>
+                            <input type="text" class="form-control" id="billingZipCode" name="billingZipCode" required
+                                   pattern="\d{5}" inputmode="numeric" maxlength="5" title="5-digit ZIP code">
                         </div>
                     </div>
                 </div>

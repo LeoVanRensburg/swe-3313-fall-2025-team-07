@@ -10,6 +10,15 @@
 
     <div class="container-fluid py-2">
         <div class="row justify-content-center" style="column-gap: 40px">
+            <div class="col-12 fs-5" th:if="${items} == null or ${items.isEmpty()}">
+                No items available at this time.
+                <div class="mt-3 text-center">
+                    <img src="/pictures/box.png" alt="Sad box" class="img-fluid" style="max-width: 325px;">
+                </div>
+            </div>
+
+    <div class="container-fluid py-2">
+        <div class="row justify-content-center" style="column-gap: 40px">
 
             <div class="col-12 col-sm-6 col-md-4 col-lg-3" th:each="item : ${items}">
                 <div class="p-1 rounded bg-light shadow-sm" style="height: 150px; position: relative; margin-bottom: 50px;">

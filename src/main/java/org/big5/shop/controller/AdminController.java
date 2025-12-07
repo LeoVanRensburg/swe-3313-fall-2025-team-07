@@ -41,7 +41,7 @@ public class AdminController {
         if (ifNotAdmin(session) != null){
             return ifNotAdmin(session);
         }
-        return "admin-dashboard";
+        return "admin";
     }
 
     // =======
@@ -108,7 +108,7 @@ public class AdminController {
         return "redirect:/admin/manage-users";
     }
 
-    @PostMapping("admin/manage-users/{id}/demote")
+    @PostMapping("/admin/manage-users/{id}/demote")
     public String demoteAdmin(@PathVariable("id") Long id, HttpSession session){
         if (ifNotAdmin(session) != null){
             return ifNotAdmin(session);

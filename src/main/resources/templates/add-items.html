@@ -12,50 +12,55 @@
                 <h5 class="card-title mb-0">Add New Item</h5>
             </div>
             <div class="card-body">
-                <form>
+                <form th:action="@{/admin/add-items}" method="post">
                     <div class="row g-3">
 
                         <div class="col-12">
                             <label class="form-label fw-semibold" for="itemName">Item Name</label>
-                            <input type="text" class="form-control" id="itemName" placeholder="e.g., Ness' Hat" disabled>
+                            <input type="text" class="form-control" id="itemName" name="name"
+                                   placeholder="e.g., Ness' Hat" th:value="${name}" required>
                         </div>
 
                         <div class="col-md-8">
                             <label class="form-label fw-semibold" for="category">Category</label>
-                            <select class="form-select" id="category" disabled>
-                                <option selected>Choose category...</option>
-                                <option>Consoles</option>
-                                <option>Games</option>
-                                <option>Accessories</option>
-                                <option>Merchandise</option>
+                            <select class="form-select" id="category" name="category" required>
+                                <option value="" th:selected="${category == null or category == ''}">Choose category...</option>
+                                <option value="Pokémon" th:selected="${category == 'Pokémon'}">Pokémon</option>
+                                <option value="The Legend of Zelda" th:selected="${category == 'The Legend of Zelda'}">The Legend of Zelda</option>
+                                <option value="Super Mario" th:selected="${category == 'Super Mario'}">Super Mario</option>
+                                <option value="Kirby" th:selected="${category == 'Kirby'}">Kirby</option>
+                                <option value="Kingdom Hearts" th:selected="${category == 'Kingdom Hearts'}">Kingdom Hearts</option>
+                                <option value="Minecraft" th:selected="${category == 'Minecraft'}">Minecraft</option>
                             </select>
                         </div>
                         <div class="col-md-4">
                             <label class="form-label fw-semibold" for="price">Price</label>
                             <div class="input-group">
                                 <span class="input-group-text">$</span>
-                                <input type="number" class="form-control" id="price" step="0.01" min="0" placeholder="0.00" disabled>
+                                <input type="number" class="form-control" id="price" name="price" step="0.01" min="0" placeholder="0.00" th:value="${price}" required>
                             </div>
                         </div>
 
                         <div class="col-12">
-                            <label class="form-label fw-semibold" for="imageFile">Upload Picture</label>
-                            <input class="form-control" type="file" id="imageFile" accept="image/*" disabled>
+                            <label class="form-label fw-semibold" for="imagePath">Image File Name</label>
+                            <input class="form-control" type="text" id="imagePath" name="imagePath"
+                                   placeholder="e.g., ness-hat.png" th:value="${imagePath}" required>
+                            <div class="form-text">Provide the name of the image file and make sure it exists in the /static/pictures directory.</div>
                         </div>
 
                         <div class="col-12">
                             <label class="form-label fw-semibold" for="description">Description</label>
-                            <textarea class="form-control" id="description" rows="4" placeholder="Description of the item..." disabled></textarea>
+                            <textarea class="form-control" id="description" name="description" rows="4" placeholder="Description of the item..." th:text="${description}"></textarea>
                         </div>
                     </div>
 
                     <hr class="my-4">
 
                     <div class="d-flex gap-2 justify-content-center">
-                        <button type="button" class="btn btn-primary" disabled>
+                        <button type="submit" class="btn btn-primary">
                             <i class="bi bi-save"></i> Save Item
                         </button>
-                        <button type="reset" class="btn btn-outline-secondary" disabled>Reset</button>
+                        <button type="reset" class="btn btn-outline-secondary">Reset</button>
                     </div>
                 </form>
             </div>
