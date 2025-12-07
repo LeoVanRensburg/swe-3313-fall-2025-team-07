@@ -41,17 +41,20 @@
                     <!--First & Last Name -->
                     <div class = "col-md-6 mb-3">
                         <label for="firstName" class="form-label">First name*</label>
-                    <input type="text" class="form-control" id="firstName" name="firstName" required form="startPaymentForm">
+                        <input type="text" class="form-control" id="firstName" name="firstName" required form="startPaymentForm"
+                               pattern="[A-Za-z][A-Za-z '\-]{1,39}" maxlength="40" title="Letters, spaces, apostrophes and hyphens only (2–40 chars)">
                     </div>
                     <div class="col-md-6 mb-3">
                         <label for="lastName" class="form-label">Last name*</label>
-                    <input type="text" class="form-control" id="lastName" name="lastName" required form="startPaymentForm">
+                        <input type="text" class="form-control" id="lastName" name="lastName" required form="startPaymentForm"
+                               pattern="[A-Za-z][A-Za-z '\-]{1,39}" maxlength="40" title="Letters, spaces, apostrophes and hyphens only (2–40 chars)">
                     </div>
 
                     <!--Street Address-->
                     <div class="mb-3">
                         <label for="streetAddress" class="form-label">Street Address*</label>
-                    <input type="text" class="form-control" id="streetAddress" name="streetAddress" required form="startPaymentForm">
+                        <input type="text" class="form-control" id="streetAddress" name="streetAddress" required form="startPaymentForm"
+                               pattern="[0-9A-Za-z][0-9A-Za-z .,'#\-]{4,99}" maxlength="100" title="5–100 characters; letters, numbers, spaces and . , ' # - allowed">
                     </div>
 
                     <!--Apartment (Optional) -->
@@ -64,15 +67,18 @@
                         <!--city, state, zip code-->
                         <div class = "col-md-6 mb-3">
                             <label for="city" class="form-label">City*</label>
-                        <input type="text" class="form-control" id="city" name="city" required form="startPaymentForm">
+                        <input type="text" class="form-control" id="city" name="city" required form="startPaymentForm"
+                               pattern="[A-Za-z][A-Za-z .'-]{1,49}" maxlength="50" title="2–50 characters; letters, spaces, . ' - allowed">
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="state" class="form-label">State*</label>
-                        <input type="text" class="form-control" id="state" name="state" required form="startPaymentForm">
+                        <input type="text" class="form-control" id="state" name="state" required form="startPaymentForm"
+                               pattern="[A-Z]{2}" maxlength="2" title="Two-letter state code (e.g., TX)">
                         </div>
                         <div class="col-md-2 mb-3">
                             <label for="zipCode" class="form-label">Zip Code*</label>
-                        <input type="text" class="form-control" id="zipCode" name="zipCode" required form="startPaymentForm">
+                        <input type="text" class="form-control" id="zipCode" name="zipCode" required form="startPaymentForm"
+                               pattern="\d{5}" inputmode="numeric" maxlength="5" title="5-digit ZIP code">
                         </div>
                     </div>
 

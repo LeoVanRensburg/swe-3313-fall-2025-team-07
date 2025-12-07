@@ -21,7 +21,7 @@ import java.io.PrintWriter;
 @Controller
 public class OrderController {
 
-    private Long sessionUserId(HttpSession session){
+    private Long sessionId(HttpSession session){
         return (Long) session.getAttribute("userId");
     }
 
@@ -41,7 +41,7 @@ public class OrderController {
             return "redirect:/cart";
         }
 
-        List<Database.CartItem> cartItems = Database.getCartItems(sessionUserId(session));
+        List<Database.CartItem> cartItems = Database.getCartItems(sessionId(session));
 
         List<CartController.CartItemDTO> items  = cartItems.stream().map(CartController.CartItemDTO::new).collect(Collectors.toList());
 
@@ -65,20 +65,25 @@ public class OrderController {
     public String placeOrder(HttpSession session,
                              Model model,
                              @RequestParam String shippingMethod,
-                             @RequestParam String firstName,
-                             @RequestParam String lastName,
-                             @RequestParam String streetAddress,
-                             @RequestParam(required = false) String aptSuite,
-                             @RequestParam String city,
-                             @RequestParam String state,
-                             @RequestParam String zipCode,
-                             @RequestParam String phoneNumber,
+                             @RequestParam(required = false) String phoneNumber,
                              @RequestParam String cardNumber){
         if (session.getAttribute("userId") == null) {
             return "redirect:/login";
         }
 
-        Long userId = sessionUserId(session);
+        Long userId = sessionId(session);
+
+        String firstName = clean((String) session.getAttribute("shipFirstName"));
+        String lastName = clean((String) session.getAttribute("shipLastName"));
+        String streetAddress = clean((String) session.getAttribute("shipStreetAddress"));
+        String aptSuite = clean((String) session.getAttribute("shipAptSuite"));
+        String city = clean((String) session.getAttribute("shipCity"));
+        String state = cleanState((String) session.getAttribute("shipState"));
+        String zipCode = clean((String) session.getAttribute("shipZipCode"));
+
+        if (firstName == null || lastName == null || streetAddress == null || city == null || state == null || zipCode == null) {
+            return "redirect:/checkout";
+        }
 
         try {
             List<Database.CartItem> cartItems = Database.getCartItems(userId);
@@ -114,11 +119,56 @@ public class OrderController {
                     cardNumber
             );
 
+            List<CartController.CartItemDTO> items  = cartItems.stream()
+                    .map(CartController.CartItemDTO::new)
+                    .collect(Collectors.toList());
+
+            String cardLast4 = (cardNumber != null && cardNumber.length() >= 4)
+                    ? cardNumber.substring(cardNumber.length() - 4)
+                    : "0000";
+
+            String email = Database.findUserById(userId).map(u -> u.email).orElse("");
+
+            String cardBrand = "";
+
+            char first = 0;
+
+            if (cardNumber != null) {
+                first = cardNumber.trim().charAt(0);
+            }
+            if (first == '4') {
+                cardBrand = "visa.png";
+            } else if (first == '3') {
+                cardBrand = "americanexpress.png";
+            } else if (first == '5') {
+                cardBrand = "mastercard2.png";
+            }
+
             model.addAttribute("order", order);
+            model.addAttribute("items", items);
             model.addAttribute("subtotal", subtotal);
             model.addAttribute("tax", tax);
             model.addAttribute("shippingCost", orderShippingCost);
             model.addAttribute("total", total);
+            model.addAttribute("shippingMethod", shipping);
+
+            model.addAttribute("streetAddress", streetAddress);
+            model.addAttribute("aptSuite", aptSuite);
+            model.addAttribute("city", city);
+            model.addAttribute("state", state);
+            model.addAttribute("zipCode", zipCode);
+
+            model.addAttribute("cardLast4", cardLast4);
+            model.addAttribute("cardBrand", cardBrand);
+            model.addAttribute("email", email);
+
+            session.removeAttribute("shipFirstName");
+            session.removeAttribute("shipLastName");
+            session.removeAttribute("shipStreetAddress");
+            session.removeAttribute("shipAptSuite");
+            session.removeAttribute("shipCity");
+            session.removeAttribute("shipState");
+            session.removeAttribute("shipZipCode");
 
             return "order-confirmation";
 
@@ -126,6 +176,27 @@ public class OrderController {
             model.addAttribute("error", e.getMessage());
             return "checkout";
         }
+    }
+
+    private String clean(String s) {
+        if (s == null) return null;
+        String t = s.trim();
+        
+        t = t.replaceAll("^[,\\s]+", "");
+        
+        t = t.replaceAll("[,\\s]+$", "");
+        
+        t = t.replaceAll("\\s{2,}", " ");
+        
+        return t;
+    }
+
+    private String cleanState(String s) {
+        String t = clean(s);
+        if (t != null){
+            t = t.toUpperCase();
+        }
+        return t;
     }
 
     @GetMapping("/checkout/payment")
@@ -146,7 +217,7 @@ public class OrderController {
 
         session.removeAttribute("paymentFlow");
 
-        List<Database.CartItem> cartItems = Database.getCartItems(sessionUserId(session));
+        List<Database.CartItem> cartItems = Database.getCartItems(sessionId(session));
         List<CartController.CartItemDTO> items  = cartItems.stream().map(CartController.CartItemDTO::new).collect(Collectors.toList());
 
         double subtotal = items.stream().mapToDouble(i -> i.getPrice() * i.getQuantity()).sum();
@@ -167,17 +238,32 @@ public class OrderController {
 
     @PostMapping("/checkout/payment/start")
     public String beginPayment(@RequestParam(name = "shipping", required = false) String shipping,
+                               @RequestParam String firstName,
+                               @RequestParam String lastName,
+                               @RequestParam String streetAddress,
+                               @RequestParam(required = false) String aptSuite,
+                               @RequestParam String city,
+                               @RequestParam String state,
+                               @RequestParam String zipCode,
                                HttpSession session) {
         if (session == null || session.getAttribute("userId") == null) {
             return "redirect:/login";
         }
 
-        List<Database.CartItem> cart = Database.getCartItems(sessionUserId(session));
+        List<Database.CartItem> cart = Database.getCartItems(sessionId(session));
         if (cart == null || cart.isEmpty()) {
             return "redirect:/cart";
         }
 
         session.setAttribute("paymentFlow", Boolean.TRUE);
+
+        session.setAttribute("shipFirstName", (firstName));
+        session.setAttribute("shipLastName", (lastName));
+        session.setAttribute("shipStreetAddress", (streetAddress));
+        session.setAttribute("shipAptSuite", (aptSuite));
+        session.setAttribute("shipCity", (city));
+        session.setAttribute("shipState", (state));
+        session.setAttribute("shipZipCode", (zipCode));
 
         String method = getShipping(shipping);
         String query = (method != null && !method.isBlank()) ? ("?shipping=" + method) : "";
@@ -203,73 +289,4 @@ public class OrderController {
             return 0.00;
         }
     }
-
-    // Static until checkout is finished
-    @GetMapping("/checkout/order-confirmation")
-    public String showOrderConfirmation(/* HttpSession session */) {
-//        if (session == null || session.getAttribute("userId") == null) {
-//            return "redirect:/login";
-//        }
-        return "order-confirmation";
-    }
-
-    @GetMapping("/admin/sales-report")
-    public String showSalesReport(Model model, HttpSession session) {
-        if (sessionUserId(session) == null || !isAdmin(session)) {
-            return "redirect:/login";
-        }
-
-        List<Database.SalesReportItem> rows = Database.getSalesReport();
-        model.addAttribute("rows", rows);
-
-        return "sales-report";
-    }
-
-    @GetMapping("/admin/sales-report/{orderId}")
-    public String viewReceipt(@PathVariable Long orderId, Model model, HttpSession session) {
-        if (sessionUserId(session) == null || !isAdmin(session)) {
-            return "redirect:/login";
-        }
-
-        Optional<Database.OrderReceipt> receiptOptional = Database.getReceipt(orderId);
-        if (receiptOptional.isPresent()) {
-            model.addAttribute("receipt", receiptOptional.get());
-            return "sales-receipt";
-        }
-
-        return "redirect:/admin/sales-report";
-    }
-
-    @GetMapping("/admin/sales-report/download")
-    public void downloadSalesReport(HttpSession session, HttpServletResponse response) throws IOException {
-        if (sessionUserId(session) == null || !isAdmin(session)) {
-            response.sendError(HttpServletResponse.SC_FORBIDDEN, "Not authorized to download sales-report");
-            return;
-        }
-
-        List<Database.SalesReportItem> rows = Database.getSalesReport();
-        response.setContentType("text/csv");
-        response.setHeader("Content-Disposition", "attachment; filename=sales-report.csv");
-
-        try(PrintWriter writter = response.getWriter()){
-            writter.println("orderID,orderDate,purchaserEmail,itemName,itemPrice,quantity,lineTotal");
-
-            for (Database.SalesReportItem item : rows) {
-                BigDecimal lineTotal = item.itemPrice.multiply(new BigDecimal(item.quantity));
-
-                writter.printf(
-                        "%s,%s,%s,\"%s\",%s,%s,%s%n",
-                        item.orderId,
-                        item.date,
-                        item.purchaserEmail,
-                        item.itemName.replace("\"", "'"),
-                        item.itemPrice.toPlainString(),
-                        item.quantity,
-                        lineTotal.toPlainString()
-                        );
-            }
-        }
-
-    }
-
 }

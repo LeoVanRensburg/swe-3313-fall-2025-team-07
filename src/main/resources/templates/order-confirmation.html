@@ -6,13 +6,16 @@
 <body>
 
 <main class="container py-4">
-    <h1 class="text-center mt-2 mb-4" style="color: #8190A5;font-weight: 600;">Checkout</h1>
+    <h1 class="text-center mt-2 mb-4" style="color: #8190A5;font-weight: 600;">Order Confirmation</h1>
     <hr class="mt-1">
 
     <div class="text-center mb-5" style="margin-top: -10px">
         <img src="/pictures/check.png" alt="Order placed" style="width: 125px;height:125px;">
         <h3  style="color:#0060FF; font-weight:600; margin-top:-15px">Order placed, thank you!</h3>
-        <p class="text-secondary mb-0">A confirmation email will be sent to customer@example.com</p>
+        <p class="text-secondary mb-0">
+            A confirmation email will be sent
+            <span class="text-dark">to <span th:text="${email}">customer@example.com</span></span>
+        </p>
     </div>
 
     <div class="row justify-content-center">
@@ -24,40 +27,24 @@
                 <div class="card-body p-0">
 
                     <div class="d-flex justify-content-center align-items-center px-4 py-3 border-bottom">
-                        <div class="text-secondary fw-semibold">Order Number: <span class="text-dark">67434490</span></div>
+                        <div class="text-secondary fw-semibold">Order Number: <span class="text-dark" th:text="${order != null ? order.id : '—'}">1</span></div>
                     </div>
 
                     <div class="row g-0">
                         <div class="col-md-7 border-end">
                             <div class="p-4">
-
-                                <div class="d-flex align-items-center mb-3">
-                                    <img src="/pictures/diamondsword.png" alt="Diamond Sword" class="me-3" style="width:60px;height:60px;object-fit:contain;">
-                                    <div class="flex-grow-1">
-                                        <div class="fw-semibold">Diamond Sword</div>
-                                        <div class="text-secondary small">Qty: 1</div>
+                                <div style="max-height: 350px; overflow-y: auto;">
+                                    <div th:each="it,iterStat : ${items}">
+                                        <div class="d-flex align-items-center" th:classappend="${!iterStat.last} ? ' mb-3'">
+                                            <img th:src="@{'/pictures/' + ${it.image}}" th:alt="${it.name}" class="me-3" style="width:60px;height:60px;object-fit:cover;">
+                                            <div class="flex-grow-1">
+                                                <div class="fw-semibold" th:text="${it.name}">Item Name</div>
+                                                <div class="text-secondary small">Qty: 1</div>
+                                            </div>
+                                            <div class="fw-semibold" th:text="${#numbers.formatCurrency(it.price)}">$0.00</div>
+                                        </div>
+                                        <hr th:if="${!iterStat.last}" />
                                     </div>
-                                    <div class="fw-semibold">$700.00</div>
-                                </div>
-                                <hr>
-
-                                <div class="d-flex align-items-center mb-3">
-                                    <img src="/pictures/star.png" alt="Starman" class="me-3" style="width:60px;height:60px;object-fit:contain;">
-                                    <div class="flex-grow-1">
-                                        <div class="fw-semibold">Super Star</div>
-                                        <div class="text-secondary small">Qty: 1</div>
-                                    </div>
-                                    <div class="fw-semibold">$3000.00</div>
-                                </div>
-                                <hr>
-
-                                <div class="d-flex align-items-center">
-                                    <img src="/pictures/oblivion.png" alt="Sora" class="me-3" style="width:60px;height:60px;object-fit:contain;">
-                                    <div class="flex-grow-1">
-                                        <div class="fw-semibold">Oblivion</div>
-                                        <div class="text-secondary small">Qty: 1</div>
-                                    </div>
-                                    <div class="fw-semibold">$2200.00</div>
                                 </div>
                             </div>
 
@@ -66,17 +53,28 @@
                                     <div class="col-md-4">
                                         <div class="fw-semibold text-dark mb-1">Payment Method</div>
                                         <div class="d-flex align-items-center">
-                                            <img src="/pictures/visa.png" alt="Visa" style="height:17px;" class="me-2">
-                                            <span class="text-dark">---- ---- ---- 9382</span>
+                                            <img
+                                                th:if="${cardBrand != null and cardBrand != ''}"
+                                                th:src="@{'/pictures/' + ${cardBrand}}"
+                                                th:style="${#strings.equalsIgnoreCase(cardBrand, 'visa.png')} ? 'height:17px;' : 'height:33px;'"
+                                                alt="Card"
+                                                class="me-2"
+                                            />
+                                            <span class="text-dark">•••• •••• •••• <span th:text="${cardLast4}">0000</span></span>
+                                        </div>
+                                        </div>
+                                    <div class="col-md-4">
+                                        <div class="fw-semibold text-dark mb-1">Shipping Address</div>
+                                        <div class="text-dark">
+                                            <span th:text="${streetAddress}">123 Main St</span><span th:if="${aptSuite}" th:text="' ' + ${aptSuite}"></span><br>
+                                            <span th:text="${city}">City</span>, <span th:text="${state}">ST</span> <span th:text="${zipCode}">00000</span>
                                         </div>
                                     </div>
                                     <div class="col-md-4">
-                                        <div class="fw-semibold text-dark mb-1">Shipping Address</div>
-                                        <div class="text-dark">585 Colonial Avenue<br>Vista, CA 92083</div>
-                                    </div>
-                                    <div class="col-md-4">
                                         <div class="fw-semibold text-dark mb-1">Delivery Method</div>
-                                        <div class="text-dark">3‑Day shipping</div>
+                                        <div class="text-dark">
+                                             <span th:text="${shippingMethod}">Ground</span> shipping
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -85,20 +83,20 @@
                             <div class="p-4" style="font-size: 17px;">
                                 <div class="d-flex justify-content-between mb-2">
                                     <span class="text-secondary">Subtotal</span>
-                                    <span class="fw-semibold">$5900.00</span>
+                                    <span class="fw-semibold" th:text="${#numbers.formatCurrency(subtotal)}">$0.00</span>
                                 </div>
                                 <div class="d-flex justify-content-between mb-2">
                                     <span class="text-secondary">Shipping</span>
-                                    <span class="fw-semibold">$19.00</span>
+                                    <span class="fw-semibold" th:text="${#numbers.formatCurrency(shippingCost)}">$0.00</span>
                                 </div>
                                 <div class="d-flex justify-content-between mb-2">
                                     <span class="text-secondary">Tax</span>
-                                    <span class="fw-semibold">$354.00</span>
+                                    <span class="fw-semibold" th:text="${#numbers.formatCurrency(tax)}">$0.00</span>
                                 </div>
                                 <hr>
                                 <div class="d-flex justify-content-between">
                                     <span class="fw-semibold">Total</span>
-                                    <span class="fw-bold">$6273.00</span>
+                                    <span class="fw-bold" th:text="${#numbers.formatCurrency(total)}">$0.00</span>
                                 </div>
                             </div>
                         </div>

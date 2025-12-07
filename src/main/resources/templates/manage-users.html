@@ -12,7 +12,7 @@
                 <h5 class="card-title mb-0">Manage Users</h5>
             </div>
             <div class="card-body">
-                <div class="table-responsive">
+                <div class="table-responsive" style="max-height: 420px; overflow-y: auto;">
                     <table class="table table-hover align-middle mb-0">
                         <thead class="table-light">
                         <tr>
@@ -23,45 +23,25 @@
                         </tr>
                         </thead>
                         <tbody>
-
-                        <tr>
-                            <td>1</td>
-                            <td>admin@example.com</td>
-                            <td><span class="badge text-bg-primary">ADMIN</span></td>
-                            <td class="text-end">
-                                <button type="button" class="btn btn-sm btn-outline-danger" disabled>
-                                    Demote to User
-                                </button>
-                            </td>
+                        <tr th:if="${users == null or #lists.isEmpty(users)}">
+                            <td colspan="4" class="text-center text-muted">No users found.</td>
                         </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>jane.doe@example.com</td>
-                            <td><span class="badge text-bg-secondary">USER</span></td>
-                            <td class="text-end">
-                                <button type="button" class="btn btn-sm btn-outline-success" disabled>
-                                    Promote to Admin
-                                </button>
+                        <tr th:each="u : ${users}">
+                            <td th:text="${u.id}">1</td>
+                            <td th:text="${u.email}">email@example.com</td>
+                            <td>
+                                <span th:if="${u.isAdmin}" class="badge text-bg-primary">ADMIN</span>
+                                <span th:if="${!u.isAdmin}" class="badge text-bg-secondary">USER</span>
                             </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>john.smith@example.com</td>
-                            <td><span class="badge text-bg-secondary">USER</span></td>
                             <td class="text-end">
-                                <button type="button" class="btn btn-sm btn-outline-success" disabled>
-                                    Promote to Admin
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>maria.lee@example.com</td>
-                            <td><span class="badge text-bg-primary">ADMIN</span></td>
-                            <td class="text-end">
-                                <button type="button" class="btn btn-sm btn-outline-danger" disabled>
-                                    Demote to User
-                                </button>
+                                <form th:if="${!u.isAdmin}"
+                                      th:action="@{'/admin/manage-users/' + ${u.id} + '/promote'}" method="post" class="d-inline">
+                                    <button type="submit" class="btn btn-sm btn-outline-success">Promote to Admin</button>
+                                </form>
+                                <form th:if="${u.isAdmin}"
+                                      th:action="@{'/admin/manage-users/' + ${u.id} + '/demote'}" method="post" class="d-inline">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">Demote to User</button>
+                                </form>
                             </td>
                         </tr>
                         </tbody>
