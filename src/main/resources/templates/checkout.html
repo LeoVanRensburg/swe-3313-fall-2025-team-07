@@ -86,61 +86,59 @@
 
                     <h3 class="mb-3 fw-light">Shipping Method</h3>
 
-                    <form th:action="@{/checkout}" method="get">
-                        <div class="row g-3">
-                            <div class="col-md-6 bg-white">
-                                <div class="border rounded p-3 d-flex align-items-center">
-                                    <input class="form-check-input me-3 mt-1" type="radio" name="shipping" value="Ground" id="ground"
-                                           th:checked="${shippingMethod == 'Ground'}" required onchange="this.form.submit()">
-                                    <div class="flex-grow-1 d-flex justify-content-between">
-                                        <div>
-                                            <label class="fw-light d-block mb-1" for="ground">Ground</label>
-                                            <small class="text-muted">7-14 days</small>
-                                        </div>
-                                        <div>
-                                            <span class="fw-light">Free</span>
-                                        </div>
+                    <div class="row g-3">
+                        <div class="col-md-6 bg-white">
+                            <div class="border rounded p-3 d-flex align-items-center">
+                                <input class="form-check-input me-3 mt-1 shipping-option" type="radio" name="shippingDisplay" value="Ground" id="ground"
+                                       th:checked="${shippingMethod == 'Ground'}" required data-cost="0">
+                                <div class="flex-grow-1 d-flex justify-content-between">
+                                    <div>
+                                        <label class="fw-light d-block mb-1" for="ground">Ground</label>
+                                        <small class="text-muted">7-14 days</small>
                                     </div>
-                                </div>
-                            </div>
-
-                            <!--Overnight-->
-                            <div class="col-md-6 bg-white">
-                                <div class="border rounded p-3 d-flex align-items-center">
-                                    <input class="form-check-input me-3 mt-1" type="radio" name="shipping" value="Overnight" id="overnight"
-                                           th:checked="${shippingMethod == 'Overnight'}" onchange="this.form.submit()">
-                                    <div class="flex-grow-1 d-flex justify-content-between">
-                                        <div>
-                                            <label class="fw-light d-block mb-1" for="overnight">Overnight</label>
-                                            <small class="text-muted">1 day</small>
-                                        </div>
-                                        <div>
-                                            <span class="fw-light">$29</span>
-                                        </div>
+                                    <div>
+                                        <span class="fw-light">Free</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!--3 Day Shipping-->
-                        <div class="row g-3 mt-3">
-                            <div class="col-md-6 bg-white">
-                                <div class="border rounded p-3 d-flex align-items-center">
-                                    <input class="form-check-input me-3 mt-1" type="radio" name="shipping" value="3-Day" id="3-day"
-                                           th:checked="${shippingMethod == '3-Day'}" onchange="this.form.submit()">
-                                    <div class="flex-grow-1 d-flex justify-content-between">
-                                        <div>
-                                            <label class="fw-light d-block mb-1" for="3-day">3-Day</label>
-                                            <small class="text-muted">3 days</small>
-                                        </div>
-                                        <div>
-                                            <span class="fw-light">$19</span>
-                                        </div>
+                        <!--Overnight-->
+                        <div class="col-md-6 bg-white">
+                            <div class="border rounded p-3 d-flex align-items-center">
+                                <input class="form-check-input me-3 mt-1 shipping-option" type="radio" name="shippingDisplay" value="Overnight" id="overnight"
+                                       th:checked="${shippingMethod == 'Overnight'}" data-cost="29">
+                                <div class="flex-grow-1 d-flex justify-content-between">
+                                    <div>
+                                        <label class="fw-light d-block mb-1" for="overnight">Overnight</label>
+                                        <small class="text-muted">1 day</small>
+                                    </div>
+                                    <div>
+                                        <span class="fw-light">$29</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </div>
+
+                    <!--3 Day Shipping-->
+                    <div class="row g-3 mt-3">
+                        <div class="col-md-6 bg-white">
+                            <div class="border rounded p-3 d-flex align-items-center">
+                                <input class="form-check-input me-3 mt-1 shipping-option" type="radio" name="shippingDisplay" value="3-Day" id="3-day"
+                                       th:checked="${shippingMethod == '3-Day'}" data-cost="19">
+                                <div class="flex-grow-1 d-flex justify-content-between">
+                                    <div>
+                                        <label class="fw-light d-block mb-1" for="3-day">3-Day</label>
+                                        <small class="text-muted">3 days</small>
+                                    </div>
+                                    <div>
+                                        <span class="fw-light">$19</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
         </div>
 
@@ -191,7 +189,7 @@
 
                     <div class="d-flex justify-content-between mb-2">
                         <span class="text-secondary">Shipping:</span>
-                        <span class="fw-semibold" th:text="${#numbers.formatCurrency(shippingCost)}">$0.00</span>
+                        <span class="fw-semibold" id="shippingCostDisplay" th:text="${#numbers.formatCurrency(shippingCost)}">$0.00</span>
                     </div>
 
                     <div class="d-flex justify-content-between mb-2">
@@ -202,12 +200,12 @@
                     <hr>
                     <div class="d-flex justify-content-between mb-4">
                         <span class="fw-semibold">Total</span>
-                        <span class="fw-semibold" th:text="${#numbers.formatCurrency(total)}">$0.00</span>
+                        <span class="fw-semibold" id="totalDisplay" th:text="${#numbers.formatCurrency(total)}">$0.00</span>
                     </div>
 
                     <div class="text-center pb-3">
                         <form th:action="@{/checkout/payment/start}" method="post" class="d-inline" id="startPaymentForm">
-                            <input type="hidden" name="shipping" th:value="${shippingMethod}" />
+                            <input type="hidden" name="shipping" id="shippingHidden" th:value="${shippingMethod}" />
                             <button type="submit" class="btn text-white rounded-pill fw-bold px-5" style="background-color: #0060FF;font-size: 19px">
                                 Continue to Payment
                             </button>
@@ -221,5 +219,34 @@
 </div>
     <div th:replace="fragments/layout :: footer"></div>
     <div th:replace="fragments/layout :: scripts"></div>
+    <script th:inline="javascript">
+        (function() {
+            const subtotal = /*[[${subtotal}]]*/ 0;
+            const tax = /*[[${tax}]]*/ 0;
+            const shippingOptions = document.querySelectorAll('.shipping-option');
+            const shippingCostDisplay = document.getElementById('shippingCostDisplay');
+            const totalDisplay = document.getElementById('totalDisplay');
+            const shippingHidden = document.getElementById('shippingHidden');
+
+            function formatCurrency(amount) {
+                return '$' + amount.toFixed(2);
+            }
+
+            function updateShipping() {
+                const selected = document.querySelector('.shipping-option:checked');
+                if (selected) {
+                    const shippingCost = parseFloat(selected.dataset.cost);
+                    const total = subtotal + shippingCost + tax;
+                    shippingCostDisplay.textContent = formatCurrency(shippingCost);
+                    totalDisplay.textContent = formatCurrency(total);
+                    shippingHidden.value = selected.value;
+                }
+            }
+
+            shippingOptions.forEach(function(option) {
+                option.addEventListener('change', updateShipping);
+            });
+        })();
+    </script>
 </body>
 </html>
