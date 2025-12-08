@@ -32,7 +32,7 @@
 </nav>
 <p class="fw-bold fs-4 text-center">Sales Report</p>
 
-<div class="container">
+<div class="container-fluid">
     <table class="table table-center">
         <thead>
         <tr class="text-center table-primary">
@@ -44,26 +44,43 @@
         </tr>
         </thead>
         <tbody>
-        <tr class="text-center">
-            <td class="text-dark"><img src="Pictures/pikachu.png" /> <br />Pikachu(Pokemon)</td>
-            <td class="text-dark">John Doe</td>
-            <td class="text-dark">johndoe123@gmail.com</td>
-            <td>$107</td>
+        <tr th:if="${#lists.isEmpty(items)}">
+            <td colspan="4" class="text-center pt-1 pb-2">
+                <div class="mb-2 text-center">
+                    <i class="bi bi-cart-x text-muted" style="font-size: 11rem;"></i>
+                </div>
+                <div class="fw-bold mb-5" style="font-size: 25px;color: #595C5F;">
+                    There are no items in your cart.
+                </div>
+            </td>
+        </tr>
+        <th:block th:each="cartItem : ${cartItems}">
+            <tr>
+                <td>
+                    <img th:src="@{'/pictures/' + ${cartItem.image}}" class="img-fluid" style="max-width: 100px;"
+                         th:alt="${cartItem.name}">
+                    <div th:text="${cartItem.name}">Item Name</div>
+                </td>
+                <td>
+                    <input type="number" class="form-control" th:value="${item.quantity}" min="1" style="width: 80px;margin-top: 35px" disabled>
+                </td>
+                <td class="pt-5" th:text="${'$' + #numbers.formatDecimal(item.price, 1, 'COMMA', 2, 'POINT')}">$0.00</td>
+                <td class="pt-5" th:text="${'$' + #numbers.formatDecimal(item.price * item.quantity, 1, 'COMMA', 2, 'POINT')}">$0.00</td>
+            </tr>
+            <tr>
+                <td colspan="4" class="py-0"><hr class="mt-1"></td>
+            </tr>
+        </th:block>
             <td>
                 <button type="button" class="btn btn-primary rounded-pill px-4 me-2 fw-bold">Checkout confirmation</button>
             </td>
-        </tr>
-        <tr class="text-center">
-            <td class="text-dark"><img src="Pictures/diamondPickaxe.png" /> <br />Diamond Pickaxe(Minecraft)</td>
-            <td class="text-dark">John Doe</td>
-            <td class="text-dark">johndoe123@gmail.com</td>
-            <td>$545</td>
-            <td>
-                <button type="button" class="btn btn-primary rounded-pill px-4 me-2 fw-bold">Checkout confirmation</button>
-            </td>
-        </tr>
         </tbody>
     </table>
+</div>
+
+<div class="container-fluid align-items-right">
+    <a th:href="@{/admin/sales-report/download}" type="button" class="btn btn-primary rounded-pill px-4 me-2 fw-bold">Export to CSV</a>
+
 </div>
 
 <main>
