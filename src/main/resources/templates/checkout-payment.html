@@ -28,7 +28,9 @@
                 <!--Breadcrumb-->
                 <nav aria-label="breadcrumb" class="mb-4" style="--bs-breadcrumb-divider: '>';">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item text-secondary">Shipping</li>
+                        <li class="breadcrumb-item"><a th:href="@{/}" class ="text-secondary text-decoration-none">Home</a></li>
+                        <li class="breadcrumb-item"><a th:href="@{/cart}" class ="text-secondary text-decoration-none">Shopping Cart</a></li>
+                        <li class="breadcrumb-item"><a th:href="@{/checkout}" class ="text-secondary text-decoration-none">Shipping</a></li>
                         <li class="breadcrumb-item active" aria-current="page" style="color: #0060FF;">Payment</li>
                     </ol>
                 </nav>
