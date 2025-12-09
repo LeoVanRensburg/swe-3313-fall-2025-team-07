@@ -6,7 +6,7 @@ This guide explains how to install and run the Big 5 Shop e-commerce shop.
 
 Before running the application, ensure you have the following installed:
 
-- **Java 21** or higher (required for Spring Boot 4.0)
+- **Java 21** or higher
 - **Apache Maven 3.9+** for building the project
 
 ### Verify Installation
