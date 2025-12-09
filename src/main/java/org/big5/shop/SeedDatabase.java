@@ -203,9 +203,7 @@ public class SeedDatabase {
         System.out.println("Cross-platform: Mac, Ubuntu, Windows");
         System.out.println("=" .repeat(60));
 
-        // ---------------------------------------------------------
-        // 1. Seed Users
-        // ---------------------------------------------------------
+        // Seed Users
         System.out.println("\n--- Seeding Users ---");
         String adminEmail = "admin@example.com";
 
@@ -235,9 +233,7 @@ public class SeedDatabase {
             System.err.println("  ✗ Error creating user: " + e.getMessage());
         }
 
-        // ---------------------------------------------------------
-        // 2. Seed Items
-        // ---------------------------------------------------------
+        // Seed Items
         System.out.println("\n--- Seeding Items ---");
         Path picturesDir = getPicturesDirectory();
         System.out.println("Pictures directory: " + picturesDir.toAbsolutePath());
@@ -249,15 +245,6 @@ public class SeedDatabase {
         if (imageFiles.isEmpty()) {
             System.err.println("No images found. Exiting.");
             return;
-        }
-
-        // Clear existing items (optional - comment out to keep existing data)
-        // System.out.println("Clearing existing items...");
-        try {
-            // Note: Would need a deleteItem method in Database class
-            // For now, we'll just proceed with creating new items
-        } catch (Exception e) {
-            System.err.println("Note: Could not clear existing items: " + e.getMessage());
         }
 
         // Insert seed data (only iterate over defined products)

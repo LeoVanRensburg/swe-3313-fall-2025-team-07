@@ -16,6 +16,11 @@ java --version
 mvn --version
 ```
 
+If you do not have either Java 21+ or Maven 3.9+ installed, please install them by following their respective install instructions
+on their respective websites:
+- [Maven](https://maven.apache.org/install.html)
+- [Java](https://www.oracle.com/java/technologies/downloads/)
+
 ### Installation
 
 1. **Clone the repository**
@@ -43,6 +48,7 @@ mvn exec:java -Dexec.mainClass="org.big5.shop.SeedDatabase"
 
 This script will:
 - Create an admin user (`admin@example.com` with password `admin`)
+- Create a regular user (`user@example.com` with password `user`) 
 - Populate the database with video game items from various collections (Pokemon, Zelda, Mario, Kirby, Kingdom Hearts, Minecraft)
 
 ## How to Start and Login
@@ -67,3 +73,6 @@ The application uses SQLite with a database file (`big5shop.db`) located in the 
 
 ## Admin Panel (Sales Report, Promote User to Admin, Add Items)
 The application comes with an admin panel that can be accessed through clicking the User icon in the top right corner. The admin panel allows you to add items to the shop, promote users to admins, and view the sales report.
+
+### AI Usage
+AI was used to help write and debug code that was used in this project. 
