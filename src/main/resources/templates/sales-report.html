@@ -7,54 +7,50 @@
 <p class="fw-bold fs-4 text-center">Sales Report</p>
 
 <div class="container-fluid">
-    <table class="table table-center">
+    <table class="table table-hover">
         <thead>
         <tr class="text-center table-primary">
-            <th>Item</th>
-            <th>Purchaser Name</th>
+            <th>Item Name</th>
+            <th>Date Sold</th>
             <th>Purchaser Email</th>
             <th>Price</th>
-            <th>Checkout Confirmation</th>
+            <th>Quantity</th>
+            <th>Line Total</th>
+            <th>View Receipt</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:if="${#lists.isEmpty(items)}">
-            <td colspan="4" class="text-center pt-1 pb-2">
+        <tr th:if="${#lists.isEmpty(rows)}">
+            <td colspan="7" class="text-center pt-4 pb-4">
                 <div class="mb-2 text-center">
-                    <i class="bi bi-cart-x text-muted" style="font-size: 11rem;"></i>
+                    <i class="bi bi-receipt text-muted" style="font-size: 8rem;"></i>
                 </div>
-                <div class="fw-bold mb-5" style="font-size: 25px;color: #595C5F;">
-                    There are no items in your cart.
+                <div class="fw-bold mb-3" style="font-size: 20px;color: #595C5F;">
+                    No sales have been recorded yet.
                 </div>
             </td>
         </tr>
-        <th:block th:each="cartItem : ${cartItems}">
-            <tr>
-                <td>
-                    <img th:src="@{'/pictures/' + ${cartItem.image}}" class="img-fluid" style="max-width: 100px;"
-                         th:alt="${cartItem.name}">
-                    <div th:text="${cartItem.name}">Item Name</div>
-                </td>
-                <td>
-                    <input type="number" class="form-control" th:value="${item.quantity}" min="1" style="width: 80px;margin-top: 35px" disabled>
-                </td>
-                <td class="pt-5" th:text="${'$' + #numbers.formatDecimal(item.price, 1, 'COMMA', 2, 'POINT')}">$0.00</td>
-                <td class="pt-5" th:text="${'$' + #numbers.formatDecimal(item.price * item.quantity, 1, 'COMMA', 2, 'POINT')}">$0.00</td>
-            </tr>
-            <tr>
-                <td colspan="4" class="py-0"><hr class="mt-1"></td>
-            </tr>
-        </th:block>
+        <tr th:each="row : ${rows}" class="text-center align-middle">
+            <td class="fw-bold" th:text="${row.itemName}">Item Name</td>
+            <td th:text="${row.date}">Date</td>
+            <td th:text="${row.purchaserEmail}">Email</td>
+            <td th:text="${'$' + #numbers.formatDecimal(row.itemPrice, 1, 'COMMA', 2, 'POINT')}">$0.00</td>
+            <td th:text="${row.quantity}">1</td>
+            <td th:text="${'$' + #numbers.formatDecimal(row.itemPrice * row.quantity, 1, 'COMMA', 2, 'POINT')}">$0.00</td>
             <td>
-                <button type="button" class="btn btn-primary rounded-pill px-4 me-2 fw-bold">Checkout confirmation</button>
+                <a th:href="@{'/admin/sales-report/' + ${row.orderId}}" class="btn btn-outline-primary btn-sm">
+                    <i class="bi bi-receipt"></i> View Receipt
+                </a>
             </td>
+        </tr>
         </tbody>
     </table>
 </div>
 
-<div class="container-fluid align-items-right">
-    <a th:href="@{/admin/sales-report/download}" type="button" class="btn btn-primary rounded-pill px-4 me-2 fw-bold">Export to CSV</a>
-
+<div class="container-fluid d-flex justify-content-end mb-4">
+    <a th:href="@{/admin/sales-report/download}" class="btn btn-primary rounded-pill px-4 fw-bold">
+        <i class="bi bi-download"></i> Export to CSV
+    </a>
 </div>
 
 <div th:replace="fragments/layout :: footer"></div>
