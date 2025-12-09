@@ -54,3 +54,11 @@ The detailed requirements for the site are elicited [here](requirements/README.m
 
 ### Loom Video
 - [Here](https://www.loom.com/share/bb4b044e1abb4146bc6ba3bc8c3de148) is a loom video discussing the technical design stage of the project.
+
+## Implementation
+[Here](implementation/README.md) is the documentation that explains how to install and use the completed application.
+
+## Final Presentation
+Below are the links to the loom videos for:
+- [The application's installation and runthrough](https://www.loom.com/share/6f9f817a020f43abaa83226a2e9e7e45)
+- [The comparison with the Marvel UI Design](https://www.loom.com/share/fe237b0c10cf42b3b6af998704854c51)
