@@ -75,4 +75,4 @@ The application uses SQLite with a database file (`big5shop.db`) located in the 
 The application comes with an admin panel that can be accessed through clicking the User icon in the top right corner. The admin panel allows you to add items to the shop, promote users to admins, and view the sales report.
 
 ### AI Usage
-AI was used to help write and debug code that was used in this project. 
+AI was used to help write and debug portions of code that was used in this project. 
