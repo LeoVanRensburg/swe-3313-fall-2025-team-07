@@ -221,6 +221,20 @@ public class SeedDatabase {
             System.err.println("  ✗ Error creating admin user: " + e.getMessage());
         }
 
+        String userEmail = "user@example.com";
+
+        try {
+            // Check if user exists first to avoid duplicate errors
+            if (Database.findUserByEmail(userEmail).isEmpty()) {
+                Database.createUser(userEmail, "user", false);
+                System.out.println("  ✓ Created User: " + userEmail + " (password: user)");
+            } else {
+                System.out.println("  ⚠ Skipped User: " + userEmail + " (already exists)");
+            }
+        } catch (Exception e) {
+            System.err.println("  ✗ Error creating user: " + e.getMessage());
+        }
+
         // ---------------------------------------------------------
         // 2. Seed Items
         // ---------------------------------------------------------

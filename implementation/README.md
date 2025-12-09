@@ -1,8 +1,8 @@
-# Installation and Running Guide
+# Implementation
 
 This guide explains how to install and run the Big 5 Shop e-commerce shop.
 
-## Prerequisites
+## Environment Setup
 
 Before running the application, ensure you have the following installed:
 
@@ -16,7 +16,7 @@ java --version
 mvn --version
 ```
 
-## Installation
+### Installation
 
 1. **Clone the repository**
 
@@ -33,7 +33,7 @@ mvn --version
 
    This will download all dependencies and compile the project.
 
-## First-Time Setup: Seed the Database
+## Data Storage Setup
 
 Before running the application for the first time, you need to populate the database with initial product data:
 
@@ -45,7 +45,7 @@ This script will:
 - Create an admin user (`admin@example.com` with password `admin`)
 - Populate the database with video game items from various collections (Pokemon, Zelda, Mario, Kirby, Kingdom Hearts, Minecraft)
 
-## Running the Application
+## How to Start and Login
 
 Start the Spring Boot application using Maven:
 
@@ -53,7 +53,7 @@ Start the Spring Boot application using Maven:
 mvn spring-boot:run
 ```
 
-## Accessing the Application
+### Accessing the Application
 
 Once the application is running, open your browser and navigate to:
 
