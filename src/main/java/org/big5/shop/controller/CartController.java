@@ -63,12 +63,14 @@ public class CartController {
         }
         Database.removeFromCart(cartItemId);
 
-        String referer = request.getHeader("Referer");
-        if (referer != null && !referer.isBlank() && !Database.getCartItems(sessionUserId(session)).isEmpty()) {
-            return "redirect:" + referer;
+        // If cart is now empty after removal, redirect to main screen
+        if (Database.getCartItems(sessionUserId(session)).isEmpty()) {
+            return "redirect:/";
         }
-        else if(Database.getCartItems(sessionUserId(session)).isEmpty()){
-            return "redirect:/cart";
+
+        String referer = request.getHeader("Referer");
+        if (referer != null && !referer.isBlank()) {
+            return "redirect:" + referer;
         }
         return "redirect:/items";
     }

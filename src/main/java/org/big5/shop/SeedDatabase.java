@@ -210,8 +210,8 @@ public class SeedDatabase {
         try {
             // Check if user exists first to avoid duplicate errors
             if (Database.findUserByEmail(adminEmail).isEmpty()) {
-                Database.createUser(adminEmail, "admin", true);
-                System.out.println("  ✓ Created Admin User: " + adminEmail + " (password: admin)");
+                Database.createUser(adminEmail, "admin123", true);
+                System.out.println("  ✓ Created Admin User: " + adminEmail + " (password: admin123)");
             } else {
                 System.out.println("  ⚠ Skipped Admin User: " + adminEmail + " (already exists)");
             }
@@ -224,8 +224,8 @@ public class SeedDatabase {
         try {
             // Check if user exists first to avoid duplicate errors
             if (Database.findUserByEmail(userEmail).isEmpty()) {
-                Database.createUser(userEmail, "user", false);
-                System.out.println("  ✓ Created User: " + userEmail + " (password: user)");
+                Database.createUser(userEmail, "user123", false);
+                System.out.println("  ✓ Created User: " + userEmail + " (password: user123)");
             } else {
                 System.out.println("  ⚠ Skipped User: " + userEmail + " (already exists)");
             }

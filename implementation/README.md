@@ -47,8 +47,8 @@ mvn exec:java -Dexec.mainClass="org.big5.shop.SeedDatabase"
 ```
 
 This script will:
-- Create an admin user (`admin@example.com` with password `admin`)
-- Create a regular user (`user@example.com` with password `user`) 
+- Create an admin user (`admin@example.com` with password `admin123`)
+- Create a regular user (`user@example.com` with password `user123`) 
 - Populate the database with video game items from various collections (Pokemon, Zelda, Mario, Kirby, Kingdom Hearts, Minecraft)
 
 ## How to Start and Login
